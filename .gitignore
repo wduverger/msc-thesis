@@ -1,0 +1,20 @@
+workspace.code-workspace
+
+# Cache folders
+.cache
+__pycache__
+.jupyter
+.local
+.vscode
+.config
+
+# Latex cache files
+**.aux
+**.bbl
+**.blg
+**.fdb_latexmk
+**.fls
+**.log
+**.out
+**.synctex.gz
+**.toc

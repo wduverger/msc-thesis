@@ -1,0 +1,38 @@
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_GB
+
+\documentclass[a4paper]{article}
+
+\author{Wouter Duverger}
+\title{Master thesis}
+\date{May 10, 2021}
+
+\usepackage[a4paper, margin=25mm]{geometry}
+\usepackage{booktabs, siunitx, xcolor, graphicx, hyperref, amsmath, amssymb, physics}
+
+\graphicspath{{../figures/}}
+
+\hypersetup{
+	colorlinks,
+	allcolors=cyan,
+}
+
+\definecolor{orange}{rgb}{0.8,0.4,0.1}
+\newcommand{\todo}[1]{\textcolor{orange}{(#1)}}
+
+\includeonly{text/results_outline, text/supplemental_figures}
+
+\begin{document}
+	
+%\tableofcontents
+
+\include{text/list_abbreviations}
+\include{text/results_outline}
+\include{text/laser_safety}
+\include{text/supplemental_figures}
+
+%\bibliographystyle{unsrt}
+%\bibliography{../../Sources/library.bib,../../Sources/other_sources.bib}
+%\todo{Set up bibliographies in local directory}.
+
+\end{document}
