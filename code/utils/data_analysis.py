@@ -5,6 +5,8 @@ import cv2
 
 
 def align(original_image):
+
+    print('Opencv align...')
     corrected_image = np.zeros_like(original_image)
     corrected_image[0] = original_image[0]
     size = original_image[0].shape
@@ -21,8 +23,17 @@ def align(original_image):
 
         
         warp_matrix = np.eye(2, 3, dtype=np.float32)
-        (_, warp_matrix) = cv2.findTransformECC(reference, new_frame, warp_matrix,
-                                                 cv2.MOTION_TRANSLATION, criteria)
+        try:
+            (_, warp_matrix) = cv2.findTransformECC(
+                reference, new_frame, warp_matrix,
+                cv2.MOTION_TRANSLATION, criteria,
+            )
+        except TypeError:
+            (_, warp_matrix) = cv2.findTransformECC(
+                reference, new_frame, warp_matrix,
+                cv2.MOTION_TRANSLATION, criteria, 
+                inputMask=None, gaussFiltSize=1
+            )
         
         corrected_image[z] = cv2.warpAffine(new_frame, warp_matrix, opencv_size, 
                                             flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP)

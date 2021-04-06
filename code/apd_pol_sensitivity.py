@@ -86,7 +86,8 @@ ax[1].set(
 ax[0].hlines(1, *ax[0].get_xlim(), ls=':', alpha=.3)
 ax[1].hlines(1, *ax[1].get_xlim(), ls=':', alpha=.3)
 
-fig.savefig('../figures/apd pol sensitivity.pdf', bbox_inches='tight')
+fig.savefig('../figures/apd_pol_sensitivity.pdf', bbox_inches='tight')
+fig.savefig('../figures/apd_pol_sensitivity.svg', bbox_inches='tight')
 
 # %%
 utils.shutdown_jvm()

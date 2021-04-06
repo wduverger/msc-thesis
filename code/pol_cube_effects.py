@@ -13,7 +13,7 @@ figheight = 4.8 / 6.4 * linewidth/2
 plt.rcParams['font.size'] = '6'
 
 # %%
-msr = utils.read_msr('./data/21-03-22 - 5c my calibration with pol cube.msr')
+msr = utils.read_msr('../data/21-03-22 - 5c my calibration with pol cube.msr')
 
 # %%
 fig, ax = plt.subplots(1,2, figsize=(figwidth, figheight), sharey=True, sharex=True)
@@ -34,7 +34,8 @@ ax[1].set(
 )
 ax[1].legend(title='P1 angle')
 
-fig.savefig('./figures/pol cube effects.pdf', bbox_inches='tight')
+fig.savefig('../figures/pol_cube_effects.pdf', bbox_inches='tight')
+fig.savefig('../figures/pol_cube_effects.svg', bbox_inches='tight')
 
 # %%
 utils.shutdown_jvm()

@@ -44,10 +44,15 @@ COPY --from=python:3.6 / /
 # Create a non-root user named jovyan (expected by Jupyter)
 RUN adduser --system --group jovyan
 
+# Set proper time zone
+RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime
+
 # As root, install the necessary python libraries. Bioformats needs to be
 # installed after numpy, otherwise the build will fail
+RUN apt-get update && apt-get install -y python3-opencv
+RUN pip install numpy==1.19.3 
 COPY requirements.txt requirements.txt
-RUN pip install numpy==1.19.3 && pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Ensure jovyan owns all files in their home folder. Matplotlib won't run if
 # that is not the case

@@ -26,7 +26,7 @@ Second, I tested the effect of the detection waveplates on the polarisation stat
 
 \begin{figure}
 	\centering
-	\includegraphics{detection waveplate calibrations.pdf}
+	\includegraphics{detection_waveplate_calibrations.pdf}
 	\caption{text}
 	\label{fig:detection waveplate calibrations}
 \end{figure}
@@ -35,7 +35,7 @@ Finally, I also measured the polarisation characteristics of the POL cube. I gen
 
 \begin{figure}
 	\centering
-	\includegraphics{pol cube effects.pdf}
+	\includegraphics{pol_cube_effects.pdf}
 	\caption{The POL cube distorts the polarisation state of incoming light. APD should measure the vertical component of the light (reflected by the POL cube), and APD2 should measure the horizontal component (transmitted). The detection waveplates were used to rotate incoming light, which was polarised along an angle shown in the legend.}
 	\label{fig:pol cube effects}
 \end{figure}
@@ -44,18 +44,21 @@ Finally, I also measured the polarisation characteristics of the POL cube. I gen
 
 \begin{figure}
 	\centering
-	\includegraphics{conventional pol.pdf}
+	\includegraphics{conventional_pol.pdf}
 	\caption{
 		Polarisation microscopy images of three different cells. Scale bars \SI{10}{\mu m}.
 	}
+	\label{fig:conventional pol}
 \end{figure}
+
+See \autoref{fig:conventional pol}.
 
 \textcolor{orange}{
 	To do:
 	\begin{itemize}
 		\item Colour wheels in the images
 		\item sSTED + polarisation
-		\item Can I get some quantitative results?
+		\item Can I get some quantitative results? (e.g. histograms of orientation/degree of polarisation, weighted by intensity)
 	\end{itemize}
 } 
 
@@ -64,10 +67,17 @@ Finally, I also measured the polarisation characteristics of the POL cube. I gen
 \begin{itemize}
 	\item Aligning the QWP
 	\item Finding the HWP zero point
-	\item Measuring the pSTED PSFs
+	\item pSTED PSF as a function of polarisation
 	\begin{itemize}
-		\item Power dependency on polarisation
-		\item PSF orientation rotates with polarisation
+		\item Power
+		\item Ellipse orientation
+		\item eccentricity
+		\item displacement
+	\end{itemize}
+	\item pSTED controls:
+	\begin{itemize}
+		\item beads: circular excitation, linear quenching (March 23)
+		\item beads: linear excitation, linear quenching
 	\end{itemize}
 \end{itemize}
 

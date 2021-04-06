@@ -11,7 +11,7 @@ Usage:
     utils.shutdown_jvm()  # Avoid memory leaks if not running in notebook
 """
 
-import bioformats as bf
+import bioformats
 import javabridge
 import numpy as np
 
@@ -26,14 +26,16 @@ def read_msr(path):
     # Bioformats requires a running Java VM
     MyJvm.start_if_not_running()
 
+    print(f'Bioformats: reading file at "{path}"')
+
     # These dicts will be filled and returned to the caller
     images_dict = {}
 
     # Get the metadata from the image file
-    metadata = bf.OMEXML(bf.get_omexml_metadata(path))
+    metadata = bioformats.OMEXML(bioformats.get_omexml_metadata(path))
 
     # Construct an image reader instance
-    reader = bf.get_image_reader(key=path, path=path)
+    reader = bioformats.get_image_reader(key=path, path=path)
 
     # Loop over all images inside the msr
     for i in range(metadata.image_count):
@@ -56,6 +58,7 @@ def read_msr(path):
 
     # Return the images
     return images_dict
+
 
 class BFImageArray(np.ndarray):
     """
@@ -83,14 +86,14 @@ class BFImageArray(np.ndarray):
 
     def __array_finalize__(self, obj):
         # See docs referred to above for details of this method
-        
+
         if obj is None:
             return
-        
-        self.meta          = getattr(obj, 'meta', None)
+
+        self.meta = getattr(obj, 'meta', None)
         self.pixel_size_xy = getattr(obj, 'pixel_size_xy', None)
-        self.origin_x      = getattr(obj, 'origin_x', None)
-        self.origin_y      = getattr(obj, 'origin_y', None)
+        self.origin_x = getattr(obj, 'origin_x', None)
+        self.origin_y = getattr(obj, 'origin_y', None)
 
 
 class MyJvm:
@@ -100,12 +103,25 @@ class MyJvm:
     @classmethod
     def start_if_not_running(cls):
         if not MyJvm._did_start_vm:
+            print('Bioformats: starting VM')
             javabridge.kill_vm()
 
-            javabridge.start_vm(class_path=bf.JARS)
+            javabridge.start_vm(class_path=bioformats.JARS)
             MyJvm._did_start_vm = True
+
+            # Suppress most logging from the bioformats package
+            myloglevel = "OFF"
+            rootLoggerName = javabridge.get_static_field(
+                "org/slf4j/Logger", "ROOT_LOGGER_NAME", "Ljava/lang/String;")
+            rootLogger = javabridge.static_call(
+                "org/slf4j/LoggerFactory", "getLogger", "(Ljava/lang/String;)Lorg/slf4j/Logger;", rootLoggerName)
+            logLevel = javabridge.get_static_field(
+                "ch/qos/logback/classic/Level", myloglevel, "Lch/qos/logback/classic/Level;")
+            javabridge.call(
+                rootLogger, "setLevel", "(Lch/qos/logback/classic/Level;)V", logLevel)
 
 
 def shutdown_jvm():
     javabridge.kill_vm()
     MyJvm._did_start_vm = False
+    print('Bioformats: shut down JVM')

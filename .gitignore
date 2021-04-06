@@ -1,4 +1,5 @@
-workspace.code-workspace
+# VS Code settings
+*.code-workspace
 
 # Cache folders
 .cache
@@ -18,3 +19,5 @@ __pycache__
 **.out
 **.synctex.gz
 **.toc
+
+.bash_history

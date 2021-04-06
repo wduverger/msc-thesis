@@ -10,7 +10,7 @@ figheight = 4.8 / 6.4 * figwidth /4
 plt.rcParams['font.size'] = '6'
 
 # %% 
-images = utils.read_msr('./data/21-03-22 - 2 sted psf without psted components.msr')
+images = utils.read_msr('../data/21-03-22 - 2 sted psf without psted components.msr')
 psf_561_donut = images['beads_561_align {4}'][0]
 psf_640_donut = images['beads_640_align {4}'][0]
 psf_775_donut = images['beads_STED_align {4}'][0]
@@ -55,7 +55,8 @@ for a in ax[1, :]:
     utils.add_scalebar(
         a, 200e-9/psf_775_gaussian.pixel_size_xy, size_vertical=1)
 
-fig.savefig('./figures/normal sted psfs.pdf')
+fig.savefig('../figures/laser_psfs.pdf')
+fig.savefig('../figures/laser_psfs.svg')
 
 # %%
 utils.shutdown_jvm()

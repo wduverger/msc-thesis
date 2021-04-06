@@ -14,14 +14,14 @@ plt.rcParams['font.size'] = '6'
 
 # %% data
 
-with open(r'G:\New_OutLab\JonasSted\D-disken\User data\Wouter\9 - before 22 sept\beampol_calib.json', 'r')as file:
+with open('../data/beampol_calib.json', 'r') as file:
     calib_json = json.load(file)
 
 
 msr_old = utils.read_msr(
-    './data/21-03-22 - 5b detector waveplates old abberior calibration.msr')
+    '../data/21-03-22 - 5b detector waveplates old abberior calibration.msr')
 msr_new = utils.read_msr(
-    './data/21-03-22 - 5a detector waveplates my calibration - rerun.msr')
+    '../data/21-03-22 - 5a detector waveplates my calibration - rerun.msr')
 
 # %%
 calib_old_axis = np.arange(0, 180, 5)
@@ -72,7 +72,10 @@ ax[1, 1].set(
     xlabel='Rotation angle'
 )
 
-fig.savefig('./figures/detection waveplate calibrations.pdf', bbox_inches='tight')
+fig.savefig('../figures/detection_waveplate_calibrations.pdf',
+            bbox_inches='tight')
+fig.savefig('../figures/detection_waveplate_calibrations.svg',
+            bbox_inches='tight')
 
 # %%
 utils.shutdown_jvm()

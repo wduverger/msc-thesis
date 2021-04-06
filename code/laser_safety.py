@@ -48,6 +48,6 @@ ax.set(
 )
 
 # %%
-fig.savefig('./figures/laser_safety.pdf', bbox_inches='tight')
-fig.savefig('./figures/laser_safety.svg', bbox_inches='tight')
+fig.savefig('../figures/laser_safety.pdf', bbox_inches='tight')
+fig.savefig('../figures/laser_safety.svg', bbox_inches='tight')
 # %%
