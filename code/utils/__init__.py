@@ -59,7 +59,7 @@ def read_power_data(path):
 def moving_average(array, n) :
     return pd.Series(array).rolling(n).mean().values
 
-def find_steps(y, average_window=100, **peaks_kwarg):
+def find_steps(y, average_window=200, **peaks_kwarg):
     """
     Fit a stepwise function to an array of function values, by locating peaks in the derivative
     """

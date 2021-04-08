@@ -16,7 +16,11 @@ plt.rcParams['font.size'] = '6'
 msr = utils.read_msr('../data/21-03-22 - 5c my calibration with pol cube.msr')
 
 # %%
-fig, ax = plt.subplots(1,2, figsize=(figwidth, figheight), sharey=True, sharex=True)
+fig, ax = plt.subplots(
+    1,2, 
+    figsize=(figwidth, figheight), sharey=True, 
+    sharex=True, gridspec_kw=dict(wspace=0.1)
+)
 x_axis=np.arange(0,171,10)
 for i in range(4):
     ax[0].plot(x_axis, msr[f'apd1 {{{i}}}'].sum(axis=(1,2)), '.-', color=f'C{i}')

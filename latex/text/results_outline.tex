@@ -3,7 +3,7 @@
 
 \subsection{Validating the laser modules}
 
-For every laser in the setup (561 nm, 640 nm, and 775 nm), I measured the polarisation state of the light at different points in the beam path and at the sample plane, by measuring the power transmitted by a linearly polarising filter at different angles relative to the beam. At the sample location, the 640 nm beam is quite well-polarised when set to a linear polarisation. When rotating a polariser, the transmitted power drops to about one fifth of the maximum. At the circular setting, though, the light is quite elliptical, with a minimum power transmitted through the polariser being about half as bright as the maximum, see \autoref{fig:640 laser pol at sample}. The quality of the 561 nm polarisation is higher. When set to a linear polarisation, the power transmitted through a polariser drop from about \SI{25}{\micro W} to a value almost equal to background levels around \SI{0.1}{\micro W}, while the amplitude variations of the circularly polarised light are withing 14\% of the mean, see \autoref{fig:561 laser pol at sample}. In conventional STED, the depletion beam is circularly polarised in order to achieve polarisation-independent quenching, so I also measured its polarisation state, see \autoref{fig:775 laser pol at sample}. The minimum power transmitted is about 63\% of the max. \todo{Calculate ellipticity angle, or introduce the $ E_{max}/E_{min} $ characteristic in the beginning.} \todo{Put this stuff into a table?}
+For every laser in the setup (561 nm, 640 nm, and 775 nm), I measured the polarisation state of the light at different points in the beam path and at the sample plane, by measuring the power transmitted by a linearly polarising filter at different angles relative to the beam. At the sample location, the 640 nm beam is quite well-polarised when set to a linear polarisation. When rotating a polariser, the transmitted power drops to about one fifth of the maximum. At the circular setting, though, the light is quite elliptical, with a minimum power transmitted through the polariser being about half as bright as the maximum, see \autoref{fig:640 laser pol at sample}. The quality of the 561 nm polarisation is higher. When set to a linear polarisation, the power transmitted through a polariser drop from about \SI{25}{\micro W} to a value almost equal to background levels around \SI{0.1}{\micro W}, while the amplitude variations of the circularly polarised light are withing 14\% of the mean, see \autoref{fig:561 laser pol at sample}. In conventional STED, the depletion beam is circularly polarised in order to achieve polarisation-independent quenching, so I also measured its polarisation state, see \autoref{fig:775 laser pol at sample}. The minimum power transmitted is about 63\% of the max. \todo{Calculate ellipticity angle, or introduce the $ E_{max}/E_{min} $ characteristic in the beginning.} \todo{Put this stuff into a table?} \todo{The fact that Emax/Emin is not amazing can be explained by depolarising effects of elements in the beam path}
 
 There are two other things we can take away from those figures: the power of the 640 nm laser is not very constant. This can be explained by a slow ramp up to the set power every time the laser is turned on. Secondly, the noise on the signal from the 640 laser is higher. I believe this is due to the same effect. Therefore, I also measured the power profiles of the different lasers, see \todo{figure}. The conclusion from those measurements is that the response of the lasers to the desired power set in software is not linear at low powers. If experiments need to be done at low power, a neutral density filter is required. This is luckily not the case for biological specimens with a low density of fluorophores.
 
@@ -27,7 +27,7 @@ Second, I tested the effect of the detection waveplates on the polarisation stat
 \begin{figure}
 	\centering
 	\includegraphics{detection_waveplate_calibrations.pdf}
-	\caption{text}
+	\caption{\todo{text}}
 	\label{fig:detection waveplate calibrations}
 \end{figure}
 
@@ -52,7 +52,6 @@ Finally, I also measured the polarisation characteristics of the POL cube. I gen
 \end{figure}
 
 See \autoref{fig:conventional pol}.
-
 \textcolor{orange}{
 	To do:
 	\begin{itemize}
@@ -64,23 +63,26 @@ See \autoref{fig:conventional pol}.
 
 \subsection{Polarisation-resolved STED microscopy}
 
-\begin{itemize}
-	\item Aligning the QWP
-	\item Finding the HWP zero point
-	\item pSTED PSF as a function of polarisation
-	\begin{itemize}
-		\item Power
-		\item Ellipse orientation
-		\item eccentricity
-		\item displacement
-	\end{itemize}
-	\item pSTED controls:
-	\begin{itemize}
-		\item beads: circular excitation, linear quenching (March 23)
-		\item beads: linear excitation, linear quenching
-	\end{itemize}
-\end{itemize}
+\todo{Refer back to the setup described in Methods.} The first step is to manipulate the polarisation of the depletion beam. Then I can do experiments on unpolarised and polarised controls (beads and Yersinia samples).
 
+To get control of the light polarisation, the first step was to mount the new waveplates in the beam path. They were mounted after the SLM. The HWP was mounted inside a rotational stage and the QWP went in a cage system attached to the rotational stage, such that it is always aligned with the HWP, but its rotational angle is fixed. The first step was to find the angle of the QWP that maximised the linearity of the light polarisation at the sample. This was simply done by placing a polariser and a power meter at the sample and rotating them to characterise the polarisation of the depletion beam. I did this a couple of times, from which we concluded that the optimal angle for the QWP was 15°. \todo{Does this warrant a figure? I'm not sure it's necessary.} Next, I had to find the angle of the HWP at which the depletion beam is vertically polarised. In that position, the depletion beam has a polarisation parallel to the excitation lasers (at 0°). This turned out to be 38.4°. See \autoref{fig:psted hwp offset}.
+
+Now that we have control over the beam polarisation, we can check how the added waveplates influence the PSF. In \todo{figure}, the PSF is shown for different polarisation directions. There are a number of conclusions we can draw from this data.  Firstly, the PSF is not circular any more, even though the SLM was set to Gaussian mode. In particular, the ellipse orientation is parallel to the light polarisation, so we see the PSF rotating in sync with the light polarisation. This can be explained by the fact that a lens interacts differently with light polarised along different directions. This is why we would usually use circularly polarised light instead.
+
+Other effects of the polarisation include the following: the intensity of the depletion beam varies as a function of the polarisation angle. This is probably due to linear dichroism present in the optical elements between the waveplates and the sample. That is to be expected, but should be accounted during either image acquisition or analysis. Furthermore, the eccentricity of the ellipse has a slight dependency on the polarisation angle, and the maximum of the PSF moves a little: up to \todo{?} nm from its mean position. Fortunately this is a quite a bit below the diffraction limit for 775 nm light, i.e.~around 400 nm.
+
+Fixed, non-polarised beads are a good control sample, since we can determine the polarisation of emitted light by selectively activating fluorophores of a particular orientation with the polarisation of the excitation light. That is called photoselection. \todo{Remove this phrase if I discuss photoselection in Background.} When these beads are excited with circularly polarised light, fluorophores of all orientations should be activated equally, and the polarisation of the depletion beam should not matter. In the case of linearly polarised excitation light, on the other hand, depletion should be more efficient when its polarisation is aligned with the excitation beam. This can be verified by increasing the depletion power: when the beams are aligned, then the remaining fluorescence signal should drop faster than when they are not, as predicted by \todo{ref equation from Background}. \autoref{fig:psted beads} shows that this is indeed the case. While there is some variation in the depletion rate under circular excitation, it can not be explained by the theory and seems random, unlike the case of linear excitation. There, depletion goes fastest when the beams are aligned, slower when there is a 45° angle between them, and slowest when they are orthogonal. If the depletion beam was even more linearly polarised (instead of Emin/Emax=.2), then this effect would be even more pronounced.
+
+\begin{figure}
+	\centering
+	\includegraphics{psted_beads.pdf}
+	\caption{
+		Dependency of surviving fluorescence on intensity and polarisation of depletion beam. \textbf{Left:} circular excitation. \textbf{Right:} linear excitation at 0° (vertical). \todo{Maybe I should do a couple of repeats here, to make the figures more clear.}
+	}
+	\label{fig:psted beads}
+\end{figure}
+
+\todo{pSTED results in cells.}
 
 
 

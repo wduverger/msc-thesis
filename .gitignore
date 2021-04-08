@@ -21,3 +21,4 @@ __pycache__
 **.toc
 
 .bash_history
+.python_history
