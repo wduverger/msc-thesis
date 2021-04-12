@@ -1,6 +1,6 @@
 % !TeX spellcheck = en_GB
 
-\section{A note on laser safety}
+\chapter{A note on laser safety}
 
 The \SI{775}{nm} line is a class 4 laser source. Under normal operation, the user is protected from it. However, when calibrating the STED beam or placing new components in the beam path, it is theoretically possible for the collimated laser beam to be reflected into the user's eyes. A high-powered laser beam can do permanent damage to the skin and retina, so we have to make sure we stay below the limits imposed by the Work Environment Agency's (Arbetsmiljöverkets) limits \cite{AFS2009:7}. These regulations set forth three main conditions to calculate the Maximum Permissible Exposure (MPE) of a pulsed laser, see table 2.6 of the regulations. Important values and formulas about our setup, as well as the limits provided by the Work Environment Agency are provided in \autoref{tab:laser-safety} and in the text below.
 
@@ -41,7 +41,7 @@ Rule 2 is therefore more strict than the rule 1. For safe operation, the laser m
 
 \paragraph{Rule 3: The cumulative dose for a group of pulses in an interval of time t must not exceed the MPE for a single pulse of that time.} Taking the necessary values from tables 2.2 and 2.3, the cumulative MPE is defined as
 \begin{equation}
-	H_\mathit{cum}^\mathit{MPE}(t) = \left\{\begin{array}{rl}
+	H_\mathit{tot}^\mathit{MPE}(t) = \left\{\begin{array}{rl}
 		\num{5e-3} \:C_a C_e &  t<\SI{18}{\mu s,} \\
 		18 t^{0.75} \:C_a C_e &  \SI{18}{\mu s} < t < \SI{10}{s}, \\
 		10 t\:C_a C_c  &t> \SI{10}{s}.
@@ -49,9 +49,9 @@ Rule 2 is therefore more strict than the rule 1. For safe operation, the laser m
 \end{equation}
 The actual dose, on the other hand, is
 \begin{equation}
-	H(t) = \lfloor ft \rfloor H_\mathit{pulse},
+	H_\mathit{tot}(t) = \lfloor ft \rfloor H_\mathit{pulse},
 \end{equation}
-where $ \lfloor x \rfloor$ is the flooring function, which rounds down numbers to the nearest integer less than $ x $. This function is plotted in \autoref{fig:laser-safety-mpe}, from which it can be seen that the laser is only safe to use at 0.0005\% capacity. Since the minimum laser power offered by the software is .05\%, OD2 goggles should be worn to guarantee safe operation of the 775~nm laser.
+where $ \lfloor \cdot \rfloor$ is the flooring function. This function is plotted in \autoref{fig:laser-safety-mpe}, from which it can be seen that the laser is only safe to use at 0.0005\% capacity. Since the minimum laser power offered by the software is .05\%, OD2 goggles should be worn to guarantee safe operation of the 775~nm laser.
 
 \begin{figure}
 	\centering

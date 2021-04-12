@@ -1,8 +1,10 @@
 # VS Code settings
 *.code-workspace
+.bashrc
 
 # Cache folders
 .cache
+.conda
 __pycache__
 .jupyter
 .local
@@ -19,6 +21,9 @@ __pycache__
 **.out
 **.synctex.gz
 **.toc
+**.bcf
+**.run.xml
+**-blx.bib
 
 .bash_history
 .python_history

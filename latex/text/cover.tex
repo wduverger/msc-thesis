@@ -1,0 +1,59 @@
+% !TeX spellcheck = en_GB
+{
+\pagestyle{empty}
+
+
+\begin{tikzpicture}[remember picture,overlay]
+	\node[inner sep=0pt] at (current page.center) {\includegraphics[page=1]{layout/coverpage.pdf}};
+\end{tikzpicture}
+
+\clearpage
+
+\begin{titlepage}
+	
+	\frutigerfont
+	
+	\begin{center}
+
+		
+		{\Huge \garamondfont \thetitle}
+		
+		\smallskip
+		by
+		\bigskip
+		
+		{\Large \garamondfont \theauthor}
+		
+		\bigskip
+		
+		In partial fulfilment of the requirements for the degree of 
+		
+		\bigskip
+		
+		{MSc in Physics} \\
+		Biological Physics and Computational Biology,
+		
+		\bigskip
+		
+		at the NanoLund Centre for Nanoscience, Lund University,\\
+		to be defended publicly on \todo{May 20, 2021}.
+		
+		
+		\vspace{5cm}
+		
+		\vfill
+		\begin{tabular}{ll}
+			Project duration & 4 months (full-time equivalent)\\
+			Supervision & prof. dr. Jonas Tegenfeldt\\
+			Daily supervision & dr. Jason Beech\\
+			Examiner & prof. dr. Edouard Berrocal
+		\end{tabular}
+	
+		\vspace{3cm}
+		
+		\includegraphics[width=0.5\linewidth]{layout/nanolund logotype.eps}
+	
+	
+	\end{center}
+\end{titlepage}
+}

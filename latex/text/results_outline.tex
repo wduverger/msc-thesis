@@ -1,7 +1,7 @@
 % !TeX spellcheck = en_GB
-\section{Results (outline)}
+\chapter{Results (outline)}
 
-\subsection{Validating the laser modules}
+\section{Validating the laser modules}
 
 For every laser in the setup (561 nm, 640 nm, and 775 nm), I measured the polarisation state of the light at different points in the beam path and at the sample plane, by measuring the power transmitted by a linearly polarising filter at different angles relative to the beam. At the sample location, the 640 nm beam is quite well-polarised when set to a linear polarisation. When rotating a polariser, the transmitted power drops to about one fifth of the maximum. At the circular setting, though, the light is quite elliptical, with a minimum power transmitted through the polariser being about half as bright as the maximum, see \autoref{fig:640 laser pol at sample}. The quality of the 561 nm polarisation is higher. When set to a linear polarisation, the power transmitted through a polariser drop from about \SI{25}{\micro W} to a value almost equal to background levels around \SI{0.1}{\micro W}, while the amplitude variations of the circularly polarised light are withing 14\% of the mean, see \autoref{fig:561 laser pol at sample}. In conventional STED, the depletion beam is circularly polarised in order to achieve polarisation-independent quenching, so I also measured its polarisation state, see \autoref{fig:775 laser pol at sample}. The minimum power transmitted is about 63\% of the max. \todo{Calculate ellipticity angle, or introduce the $ E_{max}/E_{min} $ characteristic in the beginning.} \todo{Put this stuff into a table?} \todo{The fact that Emax/Emin is not amazing can be explained by depolarising effects of elements in the beam path}
 
@@ -9,7 +9,7 @@ There are two other things we can take away from those figures: the power of the
 
 Finally, we also measured the PSFs of the different lasers as a sanity check. This is shown in \autoref{fig:normal psfs}. This data looks good. \todo{Why does it look good?} \todo{Mention how we got this data: PMT and gold beads.}
 
-\subsection{Validating the detection module}
+\section{Validating the detection module}
 
 First off, I checked the polarisation dependence of the APDs. To do so, I ensured the light coming into the APDs was unpolarised by illuminating a sample of TetraSpec beads with circularly polarised 561 nm light, since that was the closest to circular that we could get. Then I put a polarising filter after the detection waveplates and measured the signal from the APD as a function of the incoming polarisation, see \autoref{fig:apd pol sensitivity}. For both APDs, there is a difference of about 4\%.
 
@@ -40,7 +40,7 @@ Finally, I also measured the polarisation characteristics of the POL cube. I gen
 	\label{fig:pol cube effects}
 \end{figure}
 
-\subsection{Demonstration of conventional polarisation microscopy}
+\section{Demonstration of conventional polarisation microscopy}
 
 \begin{figure}
 	\centering
@@ -61,7 +61,7 @@ See \autoref{fig:conventional pol}.
 	\end{itemize}
 } 
 
-\subsection{Polarisation-resolved STED microscopy}
+\section{Polarisation-resolved STED microscopy}
 
 \todo{Refer back to the setup described in Methods.} The first step is to manipulate the polarisation of the depletion beam. Then I can do experiments on unpolarised and polarised controls (beads and Yersinia samples).
 

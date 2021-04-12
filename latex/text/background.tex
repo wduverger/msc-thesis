@@ -1,1 +1,131 @@
-\section{Background}
+% !TeX spellcheck = en_GB
+\chapter{Background}
+
+\todo{Why do we want to see small things?}
+
+Microscopy - imaging structures at microscopic scales - is an extremely wide and varied field. It is widely accepted to have began in the sixteen-hundreds, with Antoni van Leeuwenhoek's discovery of bacteria and other single-celled organisms \todo{ref}. After that, microscopes have been getting higher resolution, but as lenses got better and better, they were not the resolution bottleneck any more. Specifically, in 1873, Ernst Abbe determined that the best possible focus that a microscope can reach is limited by the wavelength of the light used \todo{ref}. This meant that the microscopes of the time were limited to a resolution of roughly 400 nm (assuming focused visible white light). It was long believed that the Abbe limit was a fundamental limit of nature, and that the only way around it was by using light of a different wavelength. This is one of the reasons for the development of electron microscopes \todo{ref}, as quantum mechanics postulates that accelerated electrons have much shorter wavelength than visible light. 
+
+\section{Diffraction-limited microscopy}
+
+\todo{Fluorescence microscopy is great, but was limited in resolution until recently.} I will discuss two ways to get around this problem. The first is indirect and requires playing with a new aspect of light (polarisation) that allows you to get information about structures that you cannot see. The second (STED microscopy) directly increases the image resolution. The excitation light is still limited to the Abbe limit, but we add another laser to effectively improve our focusing.
+
+\section{Polarisation microscopy}
+
+The wave nature of light might limit the resolution of a microscope, but it can also be exploited in our favour. Light polarisation can inform on the orientation of structures in a sample that are smaller than the diffraction limit. Among other things, this has been used to measure how the structure of DNA changes when it is subject to a strong stretching force, how integrin proteins respond to an applied force and measure the order of molecules embedded in the cell membrane, among others \cite{Backer2019, Nordenfelt2017, Swaminathan2017, Brasselet2013}. In this section, I will first introduce the concept of light polarisation, then discuss how it can be used in a microscope, and finally mention some optical components that affect the light polarisation, which are crucial to conducting a polarisation microscopy experiment.
+
+\paragraph{The polarisation ellipse.} Remember that light is a transverse electromagnetic wave. This means that there are oscillations of the electric and magnetic fields along the path of a light ray, and that these oscillations are orthogonal to the propagation direction. In other words, if the light propagates along $\vec{k}$, the electric and magnetic fields $\vec{E}$ and $\vec{B}$ must satisfy $ \vec{E} \cdot \vec{k} = \vec{B} \cdot \vec{k} = 0$. (The fields themselves are also orthogonal to each other, so we can neglect $ \vec{B} $ without compromising our analysis.)
+
+For the sake of simplicity, let's consider a ray propagating in the $ z $ direction. The electric field at any point in space and time can be written as
+\begin{align}
+	E_x(z, t) &= \Eox \cos(kz-\omega t + \phi_x),\\
+	E_y(z, t) &= \Eoy \cos(kz-\omega t + \phi_y).
+\end{align}
+where $ \vec{E}_0 $ is the amplitude of the oscillation, $ k $ is the wavenumber (the length of $ \vec{k} $), $ \omega $ is the radial frequency and $ \phi $ is an arbitrary phase. Note that the wavenumber and the frequency are related to each other through the speed of light $ c $, since $ \omega = kc$. Note that the $ x $ and $ y $ components can have a phase difference.
+
+Letting $ \delta = \phi_y-\phi_x $, it can be shown that 
+\begin{equation}
+	\left(\frac{E_x}{\Eox}\right)^2 - 2\cos\delta\frac{E_x}{\Eox}\frac{E_y}{\Eoy} + \left(\frac{E_y}{\Eoy}\right)^2 = \sin^2\delta.
+\end{equation}
+This is the equation for an ellipse. That means that, at any point in time, the point $ (E_x, E_y) $ lies on the ellipse defined by the equation above, which is called the polarisation ellipse. The ellipse is characterised by $ \Eox $, $ \Eoy $ and $ \delta $:
+\begin{itemize}
+	\item if $ \Eox = 0 $, the ray is said to be linearly polarised in the $ y $ direction, and vice versa,
+	\item if neither are equal to 0, but they are in phase (meaning $ \delta=0 $), the light is still polarised, at an angle $ \psi = \arctan(\Eoy/\Eox) $ to the $ x $ axis,
+	\item if the amplitudes in $ x $ and $ y $ are equal, and $ \delta = \pm \pi/4 $, then the light is circularly polarised. If $ delta $ is positive (negative), the polarisation is said to be right-handed (left-handed). \todo{replace this list by table}
+\end{itemize}
+
+\begin{table}
+	\centering
+	\begin{tabular}{lllll}
+		\toprule
+		Polarisation state      & $ \Eox $ & $ \Eoy $ & $ \delta $ & Jones vector \\ \midrule
+		Linear along $ x $      & 1            & 0            & any        & $ (1, 0) $   \\
+		Linear along $ y $      & 0            & 1            & any        & $ (0, 1) $   \\
+		Linear at \ang{45}      & 1            & 1            & 0          & $ (1, 1) $   \\
+		Circular (left-handed)  & 1            & 1            & $ \pi/4 $  & $ (1, i) $   \\
+		Circular (right-handed) & 1            & 1            & $ -\pi/4 $ & $ (1, -i) $  \\ \bottomrule
+	\end{tabular}
+	\caption{List of a number of polarisation states.}
+	\label{tab:polarisation states}
+\end{table}
+
+
+In general, the polarisation ellipse can be defined by means of two angles: the orientation $ \psi $ and ellipticity $ \chi $, as shown in \todo{figure of pol ellipse from field guide to polarisation}. They can be calculated from $ \alpha = \arctan(\Eoy/\Eox) $ and the phase difference $ \delta $ using
+\begin{align}
+	\tan 2\psi &= \tan 2\alpha \cos \delta,\\
+	\sin 2\chi &= \sin 2\alpha \sin \delta.
+\end{align}
+
+\paragraph{Microscopy.} Why is this relevant to microscopy? Well, since a fluorophore can be considered a small dipole moment, the absorption of excitation light that is linearly polarised along an angle $ \psi $ will depend on the dipole orientation $ \theta $. The intensity of light emitted by that fluorophore will then satisfy 
+\begin{equation}
+	\label{eq:malus}
+	I(\psi, \theta) \propto \cos^2(\psi-\theta).
+\end{equation}
+This is Malus's law. Analogously, light emitted from a fluorophore is always linearly polarised parallel to its dipole. One can place a linearly polarising filter in front of the detector to measure a fluorophore's orientation. If the polariser emits light polarised at an angle $ \psi $, then the intensity measured at the detector also follows Malus's law, meaning that these two setups are analogous (not taking into account depolarisation effects in an experimental setup). As an example, see \todo{figure of sir actin from spira2017}.
+
+\paragraph{Jones calculus.} To finish this section, I'd like to introduce Jones calculus. This is an incredibly useful way to model light polarisation, as well as how it interacts with certain optical components that are present in our system, but it does require us to express the the electric field with a complex function. Let us express it as follows:
+\begin{equation}
+	\vec{E}(z, t) = \vec{E}_0 e^{i(kz-\omega t)}.
+	\label{eq:propagator}
+\end{equation}
+In the following analysis, we will treat $ \vec{E} $ as a two-dimensional vector with only an $ x $ and $ y $ component, as $ E_z = 0 $. Note that complex numbers are just a mathematical trick. The Maxwell equations that govern light propagation are linear, and taking the real part of a complex-valued function is also a linear operation, so the complex extension of $ \vec{E} $ will behave exactly the same as the actual electric field would. The phase difference between the two components is now contained in $ \vec{E}_0 $, which looks like
+\begin{equation}
+	\vec{E}_0 = \mqty(\Eox \\ \Eoy e^{i\delta} ).
+\end{equation}
+The Jones vectors for some special polarisation states are listed in \autoref{tab:polarisation states}.
+
+The usefulness of Jones calculus lies in its ability to represent optical components as matrices acting on this vector. For example, a polariser that transmits $ x $-polarised light has the following matrix form:
+\begin{equation}
+	S_p = \mqty(1 & 0 \\ 0 & 0).
+\end{equation}
+It is easy to verify that $ S_p \vec{E}_0 = \Eox $. \todo{ref further along with rotated components to prove malus' law} We also need to take into account how mirrors affect polarisation. A mirror flips the field component that is orthogonal (the $ s $-component) to the mirror surface, while keeping the other component ($ p $) unchanged. So, a mirror whose surface is parallel to the $ x $-axis has a Jones matrix of the form
+\begin{equation}
+	S_{mx} = \mqty(1 & 0 \\ 0 & -1).
+\end{equation}
+
+Another important type of optical component in our setup is a waveplate. Waveplates or phase retarders are birefringent crystals, meaning the index of refraction a ray of light experiences is dependent on its polarisation. This happens when a crystal structure is not symmetric. \todo{what kind of symmetry?} In these crystals, \autoref{eq:propagator} is no longer valid and should be substituted by
+\begin{equation}
+	\vec{E}(z, t) = \mqty(\Eox e^{i(k_x z-\omega t)} \\ \Eoy e^{i(k_y z-\omega t + \delta)} ),
+\end{equation}
+assuming the optical axes of the waveplate are along $ x $ and $ y $. This can also be written as
+\begin{equation}
+	\vec{E}(z, t) = \mqty(\Eox  \\ \Eoy e^{i(\Gamma(z) + \delta)} ) e^{i(k_x z-\omega t)}
+	\qq{, where}
+	\Gamma(z) = (k_y-k_x) z.
+\end{equation}
+As one can see, a waveplate only imparts a delay on the $ y $-component of a beam, depending on its thickness $ z $ and its birefringence. We can neglect the common phase factor and represent the action of a waveplate by the following Jones matrix, 
+\begin{equation}
+	S_\Gamma = \mqty(1 & 0 \\ 0 & e^{i\Gamma}).
+\end{equation}
+
+Generally, waveplates are characterised by the relative delay they impart on the slowly propagating polarisation component. Quarter-wave plates delay it by a quarter of a wavelength compared to the fast propagating ray, corresponding to $ \Gamma = \pi/2 + 2n\pi $ (for any integer $ n $). Therefore, the Jones matrix of a quarter-wave plate satisfies 
+\begin{equation}
+	S_\qwp = \mqty(1 & 0 \\ 0 & i).
+\end{equation}
+Let's consider what happens to some specific cases. If vertically or horizontally polarised light passes through a quarter-wave plate, its polarisation will not change. But light polarised along $ +\ang{45} $ ($ -\ang{45} $) will be turned into left-handed (right-handed) light, and vice versa. Therefore, a quarter-wave plate allows us to convert between linearly and circularly polarised light. \todo{figure of waveplate actions}
+
+The second type of waveplate we should treat is a half-wave plate. It features a delay of $ \Gamma = \pi + 2n\pi $, and its Jones matrix looks like
+\begin{equation}
+	S_\hwp = \mqty(1 & 0 \\ 0 & -1),
+\end{equation}
+which corresponds to mirroring the polarisation state along the $ x $-axis. Another way to think about that is that a ray polarised along an angle $ \psi $ will be rotated by an angle $ -2\psi $. Circularly polarised light will get the opposite handedness.
+
+As said before, the power of Jones calculus lies in its ability to model the behaviour of a sequence of optical elements at arbitrary rotations. First, we need to define the Jones matrix for a rotated component. This is simply
+\begin{equation}
+	S(\theta) = R(\theta) \cdot S \cdot R(-\theta) 
+	\qq{, where} 
+	R(\theta) = \mqty(\cos\theta & -\sin\theta \\ \sin\theta & \cos\theta) \qq{\todo{check!}}
+\end{equation}
+and $ \theta $ is the angle of the component's $ x' $-axis with the lab coordinate system's $ x $-axis. \todo{introduce}. As an example, let's recover Malus's law by sending linearly polarised light through a half-waveplate at an angle $ \theta/2 $ (such that the light is polarised along $ \theta $ after it) and then through a polariser.
+\begin{equation}
+	I(\theta) \propto \abs{S_p(0) \cdot S_\hwp(\theta/2) \cdot \mqty(\admat{1 \\ 0})}^2 = \cos^2\theta.
+\end{equation}
+
+\textcolor{orange}{
+To do 
+\begin{itemize}
+	\item Moeller calc	
+	\item Hinting at psted
+\end{itemize}
+}
+
+\section{Super-resolution microscopy}

@@ -1,39 +1,51 @@
+% !TeX document-id = {beac374b-ae42-46eb-adaa-b5bf4e877b89}
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_GB
 
-\documentclass[a4paper]{article}
+\documentclass[oneside]{layout/tudelft-report}
 
-\author{Wouter Duverger}
-\title{Master thesis}
-\date{May 10, 2021}
+\def\thetitle{Polarisation-resolved super-resolution microscopy}
+\def\theauthor{Wouter Duverger}
+\def\thedate{May 10, 2021}
 
-\usepackage[a4paper, margin=25mm]{geometry}
-\usepackage{booktabs, siunitx, xcolor, graphicx, hyperref, amsmath, amssymb, physics}
+\author{\theauthor}
+\title{\thetitle}
+\date{\thedate}
+
+\usepackage{physics}
+
+\addbibresource{mendeley.bib}
+\addbibresource{other_sources.bib}
 
 \graphicspath{{../figures/}}
 
-\hypersetup{
-	colorlinks,
-	allcolors=cyan,
-}
-
 \definecolor{orange}{rgb}{0.8,0.4,0.1}
 \newcommand{\todo}[1]{\textcolor{orange}{(#1)}}
+\newcommand{\qwp}{{\lambda/4}}
+\newcommand{\hwp}{{\lambda/2}}
+\newcommand{\Eox}{E_{0x}}
+\newcommand{\Eoy}{E_{0y}}
 
-\includeonly{text/background}
+%\includeonly{text/background}
 
 \begin{document}
 	
-%\tableofcontents
+\frontmatter
 
-\include{text/list_abbreviations}
-\include{text/background}
-\include{text/results_outline}
-\include{text/laser_safety}
-\include{text/supplemental_figures}
+	\include{text/cover}
+	\include{text/abstract}
+	\tableofcontents
+	\include{text/list_abbreviations}
 
-%\bibliographystyle{unsrt}
-%\bibliography{../../Sources/library.bib,../../Sources/other_sources.bib}
-%\todo{Set up bibliographies in local directory}.
+\mainmatter
+
+	\include{text/background}
+	\include{text/results_outline}
+
+\appendix
+
+	\printbibliography[heading=bibnumbered, title=References]	\todo{Improve bibstyle}
+	\include{text/laser_safety}
+	\include{text/supplemental_figures}
 
 \end{document}
