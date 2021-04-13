@@ -1,5 +1,5 @@
 % !TeX spellcheck = en_GB
-\chapter{Results (outline)}
+\chapter{Results}
 
 \section{Validating the laser modules}
 
@@ -24,12 +24,6 @@ To do:
 
 Second, I tested the effect of the detection waveplates on the polarisation state of incoming light. Linearly polarised input light was achieved by putting a polariser (P1) in the sample location and illuminating it with the microscope's top lamp. Then the intensity was measured by the APDs, which was dependent on the angle of a polariser located after the last waveplate (P2). Using Jones calculus, we know that two QWPs and a HWP can form a proper polarisation rotator \todo{ref methods}, but the default calibration (a function that maps the total rotation angle to the angles the waveplates have to take on) is unable to do so. I determined that a better calibration sets the (non-fixed) QWP to an angle of 50° and the HWP to half the rotation angle. The angle of the QWP was chosen such that it is aligned with the fixed QWP at the microscope end. The behaviour of both calibrations is shown in \autoref{fig:detection waveplate calibrations}. The new calibration works as expected.
 
-\begin{figure}
-	\centering
-	\includegraphics{detection_waveplate_calibrations.pdf}
-	\caption{\todo{text}}
-	\label{fig:detection waveplate calibrations}
-\end{figure}
 
 Finally, I also measured the polarisation characteristics of the POL cube. I generated linearly polarised light as in the previous paragraph, but left out P2. Then I rotated the polarisation using the detection waveplates and measured the intensity of light reflected and transmitted by the POL cube into APD1 and APD2 respectively. Apparently, the degree to which the POL cube can split the signal is strongly dependent on the polarisation of the light at the sample (the angle of P1), \autoref{fig:pol cube effects}. The cause of this effect is not immediately obvious, but is most likely due to some birefringence present in the POL cube. \todo{Is that true?}
 

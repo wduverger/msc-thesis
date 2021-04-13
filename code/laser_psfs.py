@@ -55,8 +55,8 @@ for a in ax[1, :]:
     utils.add_scalebar(
         a, 200e-9/psf_775_gaussian.pixel_size_xy, size_vertical=1)
 
-fig.savefig('../figures/laser_psfs.pdf')
-fig.savefig('../figures/laser_psfs.svg')
+fig.savefig('../figures_generated/laser_psfs.pdf')
+fig.savefig('../figures_generated/laser_psfs.svg')
 
 # %%
 utils.shutdown_jvm()

@@ -24,8 +24,8 @@ for i in range(len(files)):
     ax[i].axis('off')
     utils.add_scalebar(ax[i], 10e-6/ims[i].pixel_size_xy)
 
-fig.savefig('../figures/conventional_pol.pdf')
-fig.savefig('../figures/conventional_pol.svg')
+fig.savefig('../figures_generated/conventional_pol.pdf')
+fig.savefig('../figures_generated/conventional_pol.svg')
 
 # %%
 utils.shutdown_jvm()

@@ -41,7 +41,7 @@
 \RequirePackage{xcolor}     % Using colours in documents
 \RequirePackage{tikz}       % Create graphic elements
 
-\RequirePackage{biblatex}   % Manages bibliography
+\RequirePackage[backend=bibtex]{biblatex}   % Manages bibliography
 \RequirePackage{datetime}   % Used in preface for monthname
 \RequirePackage{microtype}  % Refinements towards typographical perfection
 \RequirePackage[nottoc]{tocbibind} % Add the lists to the table of contents

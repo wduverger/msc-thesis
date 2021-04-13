@@ -10,26 +10,12 @@ from .bioformats import read_msr, shutdown_jvm
 from .data_analysis import pol_to_rgb, align
 
 
-def add_scalebar(
-    axis, 
-    len_in_pixels, 
-    label=None, 
-    position='upper right', 
-    color='white', 
-    frameon=False,
-    pad=.3,
-    size_vertical=2,
-    **kwargs
-):
+def add_scalebar(axis, len_in_pixels, label=None, position='upper right', 
+    color='white', frameon=False, pad=.3, size_vertical=2, **kwargs):
+    
     axis.add_artist(AnchoredSizeBar(
-        axis.transData,
-        len_in_pixels,
-        label, 
-        position, 
-        color='white',
-        frameon=False,
-        size_vertical=size_vertical,
-        pad=pad,
+        axis.transData, len_in_pixels, label, position, color=color,
+        frameon=frameon, size_vertical=size_vertical, pad=pad,
         **kwargs
     ))
 

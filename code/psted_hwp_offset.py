@@ -63,5 +63,5 @@ ax2.set(
     xlabel='HWP angle'
 )
 
-fig.savefig('../figures/psted_hwp_offset.pdf', bbox_inches='tight')
-fig.savefig('../figures/psted_hwp_offset.svg', bbox_inches='tight')
+fig.savefig('../figures_generated/psted_hwp_offset.pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/psted_hwp_offset.svg', bbox_inches='tight')

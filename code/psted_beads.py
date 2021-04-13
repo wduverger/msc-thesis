@@ -42,8 +42,8 @@ ax[1].set_xlabel('Depletion power (W) \n TODO: correct for power nonlinearity')
 ax[1].set_title('Linear excitation')
 ax[1].set_ylabel('Remaining intensity on APD2 (au)')
 
-fig.savefig('../figures/psted_beads.pdf', bbox_inches='tight')
-fig.savefig('../figures/psted_beads.svg', bbox_inches='tight')
+fig.savefig('../figures_generated/psted_beads.pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/psted_beads.svg', bbox_inches='tight')
 
 # %%
 utils.shutdown_jvm()

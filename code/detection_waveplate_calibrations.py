@@ -72,9 +72,9 @@ ax[1, 1].set(
     xlabel='Rotation angle'
 )
 
-fig.savefig('../figures/detection_waveplate_calibrations.pdf',
+fig.savefig('../figures_generated/detection_waveplate_calibrations.pdf',
             bbox_inches='tight')
-fig.savefig('../figures/detection_waveplate_calibrations.svg',
+fig.savefig('../figures_generated/detection_waveplate_calibrations.svg',
             bbox_inches='tight')
 
 # %%

@@ -38,8 +38,8 @@ ax[1].set(
 )
 ax[1].legend(title='P1 angle')
 
-fig.savefig('../figures/pol_cube_effects.pdf', bbox_inches='tight')
-fig.savefig('../figures/pol_cube_effects.svg', bbox_inches='tight')
+fig.savefig('../figures_generated/pol_cube_effects.pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/pol_cube_effects.svg', bbox_inches='tight')
 
 # %%
 utils.shutdown_jvm()

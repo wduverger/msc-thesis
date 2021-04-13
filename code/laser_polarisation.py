@@ -45,7 +45,7 @@ ax[1].set(
     title='Circularly polarised',
 )
 
-fig.savefig('../figures/561 laser pol characteristics in sample.pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/561 laser pol characteristics in sample.pdf', bbox_inches='tight')
 
 # %% 640 linear at sample
 
@@ -87,7 +87,7 @@ ax[1].set(
 )
 
 
-fig.savefig('../figures/640 laser pol characteristics in sample.pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/640 laser pol characteristics in sample.pdf', bbox_inches='tight')
 
 # %% 775 nm 
 
@@ -111,4 +111,4 @@ ax.set(
     ylabel='Laser power (μW)',
 )
 
-fig.savefig('../figures/775 laser pol characteristics in sample (donut beam, no psted optics).pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/775 laser pol characteristics in sample (donut beam, no psted optics).pdf', bbox_inches='tight')

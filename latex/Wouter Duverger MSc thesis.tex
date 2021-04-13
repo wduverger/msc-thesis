@@ -12,12 +12,12 @@
 \title{\thetitle}
 \date{\thedate}
 
-\usepackage{physics}
+\usepackage{physics, tabularx, mathtools}
 
 \addbibresource{mendeley.bib}
 \addbibresource{other_sources.bib}
 
-\graphicspath{{../figures/}}
+\graphicspath{{../figures_generated/}{../figures_other/}}
 
 \definecolor{orange}{rgb}{0.8,0.4,0.1}
 \newcommand{\todo}[1]{\textcolor{orange}{(#1)}}
@@ -25,6 +25,7 @@
 \newcommand{\hwp}{{\lambda/2}}
 \newcommand{\Eox}{E_{0x}}
 \newcommand{\Eoy}{E_{0y}}
+\def\na{\mathrm{NA}}
 
 %\includeonly{text/background}
 
@@ -33,18 +34,23 @@
 \frontmatter
 
 	\include{text/cover}
-	\include{text/abstract}
 	\tableofcontents
+	\include{text/abstract}
 	\include{text/list_abbreviations}
 
 \mainmatter
 
+	\include{text/introduction}
 	\include{text/background}
-	\include{text/results_outline}
+	\include{text/methods}
+	\include{text/results}
+	\include{text/outlook}
 
 \appendix
 
 	\printbibliography[heading=bibnumbered, title=References]	\todo{Improve bibstyle}
+	\include{text/acknowledgements}
+	\include{text/code_availability}
 	\include{text/laser_safety}
 	\include{text/supplemental_figures}
 
