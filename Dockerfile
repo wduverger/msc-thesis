@@ -38,8 +38,11 @@
 
 
 # Start from base images with Java and Python
-FROM openjdk:17-slim
-COPY --from=python:3.6 / /
+FROM continuumio/miniconda3:4.9.2
+COPY --from=openjdk:17-slim / /
+
+ENV PATH /opt/conda/bin:$PATH
+RUN conda init bash
 
 # Create a non-root user named jovyan (expected by Jupyter)
 RUN adduser --system --group jovyan
@@ -49,16 +52,15 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Brussels /etc/loca
 
 # As root, install the necessary python libraries. Bioformats needs to be
 # installed after numpy, otherwise the build will fail
-RUN apt-get update && apt-get install -y python3-opencv
-RUN pip install numpy==1.19.3 
-COPY requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+COPY conda_env.yml conda_env.yml
+RUN conda env create -f conda_env.yml --force -p /tmp/conda-env
+ENV PATH /tmp/conda-env/bin:$PATH
 
 # Ensure jovyan owns all files in their home folder. Matplotlib won't run if
 # that is not the case
 RUN chown -R jovyan /home/jovyan
 
 # On startup, run Jupyter Lab as the non-root user in their home directory
-WORKDIR /home/jovyan
 USER jovyan
-CMD jupyter lab --ip=0.0.0.0
+RUN conda init bash
+WORKDIR /app
