@@ -10,8 +10,7 @@ figwidth = linewidth/2
 figheight = 4.8 / 6.4 * figwidth
 plt.rcParams['font.size'] = '6'
 
-folder = r'G:\New_OutLab\JonasSted\D-disken\User data\Wouter\2021-03-22 fundamentals'
-msr_psted = utils.read_msr(folder+'/3 sted psf with psted optics. hwp 38.5-128.5-5.msr')
+msr_psted = utils.read_msr('../data/21-03-22 - 3 sted psf with psted optics. hwp 38.5-128.5-5.msr')
 
 # %%
 channels = np.hstack([[4], np.arange(7, 25, 1)])

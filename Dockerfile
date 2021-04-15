@@ -59,6 +59,5 @@ RUN pip install -r requirements.txt
 RUN chown -R jovyan /home/jovyan
 
 # On startup, run Jupyter Lab as the non-root user in their home directory
-# USER jovyan
-# USER jovyan
+USER jovyan
 WORKDIR /app

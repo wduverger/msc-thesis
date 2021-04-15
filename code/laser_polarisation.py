@@ -12,21 +12,20 @@ plt.rcParams['font.size'] = '6'
 
 # %% data
 
-newfolder = r'G:\New_OutLab\JonasSted\D-disken\User data\Wouter\2021-04-08'
 l561 = utils.read_power_data(
     r'../data/21-03-22 - 1h 561 50% linear 0-10-170 power after stationary polariser.csv'
 )
 c561 = utils.read_power_data(
-    newfolder + '/1b 561 lc 100%.csv'
+    r'../data/21-04-08 - 1b 561 lc 100%.csv'
 )
 l640 = utils.read_power_data(
     r'../data/21-03-22 - 1g 640 10% linear 0-10-170 power after stationary polariser.csv'
 )
 c640 = utils.read_power_data(
-    newfolder + '/1a 640 rc 30%.csv'
+    r'../data/21-04-08 - 1a 640 rc 30%.csv'
 )
 c775 = utils.read_power_data(
-    newfolder + '/1d 665 0.4%.csv'
+    r'../data/21-04-08 - 1d 665 0.4%.csv'
 )
 
 # %% plotting

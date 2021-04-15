@@ -5,7 +5,7 @@ SRC = $(wildcard code/*.py)
 PDF = $(subst code/,figures_generated/,$(SRC:.py=.pdf))
 
 # Exclude __init__.pdf from that list by saying it cannot every be built
-.PHONY: figures_generated/__init__.pdf 
+.PHONY: figures_generated/__init__.pdf figures_generated/waveplates.pdf 
 
 # To make all figures, add the list of pdf files as dependencies to the main task
 all: $(PDF)

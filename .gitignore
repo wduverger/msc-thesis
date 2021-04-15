@@ -10,6 +10,7 @@ __pycache__
 .local
 .vscode
 .config
+.empty
 
 # Latex cache files
 **.aux
