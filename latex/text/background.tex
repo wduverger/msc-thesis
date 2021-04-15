@@ -5,9 +5,11 @@
 
 Microscopy - imaging structures at microscopic scales - is an extremely wide and varied field. It is widely accepted to have began in the sixteen-hundreds, with Antoni van Leeuwenhoek's discovery of bacteria and other single-celled organisms \todo{ref}. After that, microscopes have been getting higher resolution, but as lenses got better and better, they were not the resolution bottleneck any more. Specifically, in 1873, Ernst Abbe determined that the best possible focus that a microscope can reach is limited by the wavelength of the light used \todo{ref}. This meant that the microscopes of the time were limited to a resolution of roughly 400 nm (assuming focused visible white light). It was long believed that the Abbe limit was a fundamental limit of nature, and that the only way around it was by using light of a different wavelength. This is one of the reasons for the development of electron microscopes \todo{ref}, as quantum mechanics postulates that accelerated electrons have much shorter wavelength than visible light. 
 
+\todo{mention which books to read}
+
 \section{Diffraction-limited fluorescence microscopy}
 
-Fluorescence microscopy is an invaluable tool in modern biology \cite{Danial2016}. Unlike other methods, it is able to tag specific protein species and other relevant molecules in the cell with a fluorescent label. There are thousands of small organic fluorescent labels, and more are being developed \cite{Zhang2002, Resch-Genger2008}. The introduction of GFP and other fluorescent proteins was a remarkable development in the field, as labels can now be genetically fused to proteins of interest \cite{Shaner2005, Matlashov2020}. There were over thirty thousand papers collected in the PubMed database that mentioned fluorescence in the year 2020 alone. I will first explain the physical phenomena behind fluorescence, and then discuss the limitations of this class of microscopy methods. \todo{resolution, bleaching, ...}
+Fluorescence microscopy is an invaluable tool in modern biology \cite{Danial2016}. Unlike other methods, it is able to tag specific protein species and other relevant molecules in the cell with a fluorescent label. There are thousands of small organic fluorescent labels, and more are being developed \cite{Zhang2002, Resch-Genger2008}. The introduction of GFP and other fluorescent proteins was a remarkable development in the field, as labels can now be genetically fused to proteins of interest \cite{Shaner2005, Matlashov2020}. There were over thirty thousand papers collected in the PubMed database that mentioned fluorescence in the year 2020 alone. I will first explain the physical phenomena behind fluorescence, and then discuss why fluorescence microscopy is (or rather, used to be) limited by light diffraction.
 
 \paragraph{Fluorescence.} In short, fluorescence is a phenomenon in which a molecule absorps a photon of one wavelength, spends a short amount of time in an excited energy state, and then emits a photon of another (longer) wavelength. The difference in wavelength is essential to perform microscopy, and the fact that molecules have discrete energy states is key to get there.
 
@@ -30,9 +32,10 @@ It used to be the case that microscopes were limited in resolution by the qualit
 
 In particular, a circular aperture will convert point sources in the sample plane to Airy patterns in the image plane. Mathematically, this can be described by a convolution product between the point spread function (PSF) $ h $ and the object $ O $,
 \begin{equation}
-	I(\vb{x}) = (h * O)(\vb{x}) \coloneqq \int\dd[3]{\vb{x}'} h(\vb{x}-\vb{x}')O(\vb{x}'),
+	I(\vb{x}) = (h * O)(\vb{x}) \coloneqq \int\dd{\vb{x}'} h(\vb{x}-\vb{x}')O(\vb{x}'),
+	\label{eq:convolution}
 \end{equation}
-resulting in an image $ I $. When two fluorophores are close enough together that their PSFs overlap, they appear as a single object instead of two separate ones. This happens when the distance between them is around $ \lambda/2\na $, and that is what determines the resolution of a microscope. The exact resolution depends on your definition of this minimum resolvable distance. There are several definitions, but they are all proportional to $ \lambda/\na $. Some of them are listed in \autoref{tab:resolution limits}.
+where the triple integration over the three components of $ \vb{x}' $ is implied, resulting in an image $ I $. When two fluorophores are close enough together that their PSFs overlap, they appear as a single object instead of two separate ones. This happens when the distance between them is around $ \lambda/2\na $, and that is what determines the resolution of a microscope. The exact resolution depends on your definition of this minimum resolvable distance. There are several definitions, but they are all proportional to $ \lambda/\na $. Some of them are listed in \autoref{tab:resolution limits} and visualised in \autoref{fig:diffraction limit}.
 
 \begin{table}
 	\centering
@@ -44,9 +47,16 @@ resulting in an image $ I $. When two fluorophores are close enough together tha
 		Raileygh                          & The first minimum of one point's Airy function coincides with the maximum of another    & $ d_{xy} = .61\lambda/\na $  \\
 		FWHM & The width of the Airy function at half of the peak height                               & $ d_{xy} = .51\lambda/\na $  \\
 		Abbe                              & \todo{what did he base it on?}                                                          & $ d_{xy} = \phantom{1}.5\lambda/\na $   \\
-		Sparrow                           & The distance between fluorophores at which the brightness between two peaks is constant & $ d_{xy} = .47 \lambda/\na $ \\ \bottomrule
+		Sparrow                           & The distance between fluorophores at which the central maximum splits & $ d_{xy} = .47 \lambda/\na $ \\ \bottomrule
 	\end{tabularx}
 \end{table}
+
+\begin{figure}
+	\centering
+	\includegraphics{diffraction_limit.pdf}
+	\caption{Illustration of the diffraction limit.}
+	\label{fig:diffraction limit}
+\end{figure}
 
 For a long time, physicists thought this limit was practically unavoidable \cite{McCutchen1967}, but in the next sections, I will discuss two ways in which one can get information from a system below the resolution limit. The first is indirect and requires playing with a new aspect of light (polarisation) that allows you to get information about structures that you cannot see. The second (STED microscopy) directly increases the image resolution. The excitation light is still subject to the Abbe limit, but we add another laser to effectively improve our focusing.
 
@@ -67,13 +77,7 @@ Letting $ \delta = \phi_y-\phi_x $, it can be shown that
 \begin{equation}
 	\left(\frac{E_x}{\Eox}\right)^2 - 2\cos\delta\frac{E_x}{\Eox}\frac{E_y}{\Eoy} + \left(\frac{E_y}{\Eoy}\right)^2 = \sin^2\delta.
 \end{equation}
-This is the equation for an ellipse. That means that, at any point in time, the point $ (E_x, E_y) $ lies on the ellipse defined by the equation above, which is called the polarisation ellipse. The ellipse is characterised by $ \Eox $, $ \Eoy $ and $ \delta $:
-\begin{itemize}
-	\item if $ \Eox = 0 $, the ray is said to be linearly polarised in the $ y $ direction, and vice versa,
-	\item if neither are equal to 0, but they are in phase (meaning $ \delta=0 $), the light is still polarised, at an angle $ \psi = \arctan(\Eoy/\Eox) $ to the $ x $ axis,
-	\item if the amplitudes in $ x $ and $ y $ are equal, and $ \delta = \pm \pi/4 $, then the light is circularly polarised. If $ delta $ is positive (negative), the polarisation is said to be right-handed (left-handed). \todo{replace this list by table}
-\end{itemize}
-
+This is the equation for an ellipse. That means that, at any point in time, the point $ (E_x, E_y) $ lies on the ellipse defined by the equation above, which is called the polarisation ellipse. The ellipse is characterised by $ \Eox $, $ \Eoy $ and $ \delta $. Together, these values determine whether the polarisation is linear, circular, or something in between. Refer to \autoref{tab:polarisation states} for an overview.
 \begin{table}
 	\centering
 	\caption{List of a number of polarisation states.}
@@ -90,11 +94,18 @@ This is the equation for an ellipse. That means that, at any point in time, the 
 \end{table}
 
 
-In general, the polarisation ellipse can be defined by means of two angles: the orientation $ \psi $ and ellipticity $ \chi $, as shown in \todo{figure of pol ellipse from field guide to polarisation}. They can be calculated from $ \alpha = \arctan(\Eoy/\Eox) $ and the phase difference $ \delta $ using
+In general, the polarisation ellipse can be defined by means of two angles: the orientation $ \psi $ and ellipticity $ \chi $, as shown in \autoref{fig:pol ellipse}. They can be calculated from $ \alpha = \arctan(\Eoy/\Eox) $ and the phase difference $ \delta $ using
 \begin{align}
 	\tan 2\psi &= \tan 2\alpha \cos \delta,\\
 	\sin 2\chi &= \sin 2\alpha \sin \delta.
 \end{align}
+
+\begin{figure}
+	\centering
+	\includegraphics[width=.3\linewidth]{polarisation_ellipse.pdf}
+	\caption{The meaning of $ \psi $ and $ \chi $ in the context of the polarisation ellipse. [by Wikipedia user Inductiveload]}
+	\label{fig:pol ellipse}
+\end{figure}
 
 \paragraph{Microscopy.} Why is this relevant to microscopy? Well, since a fluorophore can be considered a small dipole moment, the absorption of excitation light that is linearly polarised along an angle $ \psi $ will depend on the dipole orientation $ \theta $. The intensity of light emitted by that fluorophore will then satisfy 
 \begin{equation}
@@ -161,12 +172,9 @@ and $ \theta $ is the angle of the component's $ x' $-axis with the lab coordina
 	I(\theta) \propto \abs{S_p(0) \cdot S_\hwp(\theta/2) \cdot \mqty(\admat{1 \\ 0})}^2 = \cos^2\theta.
 \end{equation}
 
-\textcolor{orange}{
-To do 
-\begin{itemize}
+\todolist{
 	\item Moeller calc	
 	\item Hinting at psted
-\end{itemize}
 }
 
 \section{Super-resolution microscopy}
@@ -179,8 +187,6 @@ In essence, a STED microscope is a confocal microscope with an added laser that 
 \end{equation}
 
 Even though both of these PSFs are diffraction-limited, a STED microscope can reach an arbitrarily small resolution \cite{Wildanger2012}. It does so by illuminating the sample with a donut-shaped laser at a wavelength longer than the emission wavelength. Referring back to \autoref{fig:jablonski}, the blue laser excites the fluorophores that emit in green, but a red transition is also allowed. Under illumination with a red laser, this transition is made more favourable by the process of stimulated emission, first postulated by Einstein in 1926 \cite{Einstein1926}. This way, fluorophores at the edge of the excitation PSF can be prevented from emitting green light, while fluorophores at the centre do not experience stimulated emission, which reduces the width of the effective point spread function. An illustration of this effect is given in \todo{figure}.
-
-\todo{how to generate the donut? or in methods?}
 
 Of course, the extent of the resolution improvement depends on the intensity of the depletion laser $ I_\mathit{dep}$. The STED resolution is
 \begin{equation}

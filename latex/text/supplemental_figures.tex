@@ -1,34 +1,52 @@
 % !TeX spellcheck = en_GB
 \chapter{Supplemental figures}
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics{640 laser pol characteristics in sample}
-	\caption{
-		Polarisation characteristics at the sample plane of the 640 laser. \textbf{Left:} power transmitted through a stationary polariser aligned to maximise transmission of the 640 laser set to an polarisation of 0° (vertical in the sample plane), while the laser beam rotates. \textbf{Right:} power transmitted through a manually rotating polariser, while the beam is set to circular polarisation.
-	}
-	\label{fig:640 laser pol at sample}
-\end{figure}
 
 \begin{figure}[ht]
 	\centering
-	\includegraphics{561 laser pol characteristics in sample}
+	\includegraphics{laser_power}
 	\caption{
-		Polarisation characteristics at the sample plane of the 561 laser. Left and right panes are the same as \autoref{fig:640 laser pol at sample}. (As the data on the left was acquired at 50\% laser power to increase the signal at minimum transmission, but the data on the right was acquired at 10\% laser power for safety reasons, the data on the right has been multiplied by a factor of 5 to allow comparison between the two figures. This also increased the noise.)
+		The power of each of the three lasers as measured through a 10x objective. Notice the non-linearity at low power settings. The 775 nm data was scaled down by three orders of magnitude. \todo{reference to figure}
 	}
-	\label{fig:561 laser pol at sample}
+	\label{fig:laser power}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}
 	\centering
-	\includegraphics{775 laser pol characteristics in sample (donut beam, no psted optics)}
+	\includegraphics{laser_polarisation}
 	\caption{
-		Polarisation characteristics at the sample plane of the depletion beam, without pSTED optics. As its polarisation state cannot be manipulated through the software, only circular polarisation is characterised by manually rotating a polariser at the sample plane and measuring the transmitted power.
+		Polarisation characterisation of the different lasers. To characterise circular polarisation, a polariser was placed in the sample and scanned from \ang{0} to \ang{180} in steps of \ang{20} (notice that I forgot to sample \ang{260} in the 775 nm data). Linear polarisation was characterised by fixing the polariser in place at \ang{0} and scanning the laser itself from \ang{0} to \ang{180} in steps of \ang{10}. Dark blue: average over 200 samples, light blue: raw data. 
 	}
-	\label{fig:775 laser pol at sample}
+	\label{fig:laser polarisation}
 \end{figure}
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics{640 laser pol characteristics in sample}
+%	\caption{
+%		Polarisation characteristics at the sample plane of the 640 laser. \textbf{Left:} power transmitted through a stationary polariser aligned to maximise transmission of the 640 laser set to an polarisation of 0° (vertical in the sample plane), while the laser beam rotates. \textbf{Right:} power transmitted through a manually rotating polariser, while the beam is set to circular polarisation.
+%	}
+%	\label{fig:640 laser pol at sample}
+%\end{figure}
+%
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics{561 laser pol characteristics in sample}
+%	\caption{
+%		Polarisation characteristics at the sample plane of the 561 laser. Left and right panes are the same as \autoref{fig:640 laser pol at sample}. (As the data on the left was acquired at 50\% laser power to increase the signal at minimum transmission, but the data on the right was acquired at 10\% laser power for safety reasons, the data on the right has been multiplied by a factor of 5 to allow comparison between the two figures. This also increased the noise.)
+%	}
+%	\label{fig:561 laser pol at sample}
+%\end{figure}
+%
+%\begin{figure}[ht]
+%	\centering
+%	\includegraphics{775 laser pol characteristics in sample (donut beam, no psted optics)}
+%	\caption{
+%		Polarisation characteristics at the sample plane of the depletion beam, without pSTED optics. As its polarisation state cannot be manipulated through the software, only circular polarisation is characterised by manually rotating a polariser at the sample plane and measuring the transmitted power.
+%	}
+%	\label{fig:775 laser pol at sample}
+%\end{figure}
 
-\begin{figure}[ht]
+\begin{figure}
 	\centering
 	\includegraphics{laser_psfs.pdf}
 	\caption{
@@ -37,7 +55,7 @@
 	\label{fig:normal psfs}
 \end{figure}
 
-\begin{figure}[ht]
+\begin{figure}
 	\centering
 	\includegraphics{apd_pol_sensitivity.pdf}
 	\caption{Dependence of the signal from APD1 on the angle of polarisation of incoming light.}
@@ -45,11 +63,20 @@
 \end{figure}
 
 
-\begin{figure}[ht]
+\begin{figure}
 	\centering
 	\includegraphics{psted_hwp_offset.pdf}
 	\caption{
 		The rotating HWP I put in the beamline controls the depletion beam polarisation. With an offset of 38.4°, the depletion beam is parallel to the 640 laser (set to vertical linear polarisation).
 	}
 	\label{fig:psted hwp offset}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics{psted_psfs.pdf}
+	\caption{
+		Depletion PSF as a function of beam polarisation. \question{Why the change in background levels?}
+	}
+	\label{fig:psted psfs}
 \end{figure}

@@ -10,11 +10,14 @@ The \SI{775}{nm} line is a class 4 laser source. Under normal operation, the use
 	\begin{tabular}{lll}
 		\toprule
 		Quantity                   & Symbol               & Value                 \\ \midrule
+		\multicolumn{3}{l}{\textbf{Laser operating characteristics}}              \\
 		Beam radius                & $ r $                & 0.5 mm                \\
 		Pulse width (FWHM)         & $ \tau $             & 1.3 ns                \\
 		Pulse repetition frequency & $ f $                & 40 MHz                \\
 		Pulse energy               & $ E_\mathit{pulse} $ & 31 nJ                 \\
-		Average power              & $P_\mathit{avg} $    & 1.25 W                \\ \\
+		Average power              & $P_\mathit{avg} $    & 1.25 W                \\
+		                           &  \\
+		\multicolumn{3}{l}{\textbf{Safety parameters}}                            \\
 		Thermal correction time    & $ T_\mathit{min} $   & 18 \si{\micro\second} \\
 		Ca                         & $ C_a $              & 1.41                  \\
 		Cc                         & $ C_c $              & 1                     \\
@@ -51,7 +54,7 @@ The actual dose, on the other hand, is
 \begin{equation}
 	H_\mathit{tot}(t) = \lfloor ft \rfloor H_\mathit{pulse},
 \end{equation}
-where $ \lfloor \cdot \rfloor$ is the flooring function. This function is plotted in \autoref{fig:laser-safety-mpe}, from which it can be seen that the laser is only safe to use at 0.0005\% capacity. Since the minimum laser power offered by the software is .05\%, OD2 goggles should be worn to guarantee safe operation of the 775~nm laser.
+where $ \lfloor \cdot \rfloor$ is the flooring function. This function is plotted in \autoref{fig:laser-safety-mpe}, from which it can be seen that the laser is only safe to use at 0.0005\% capacity. Since the minimum laser power offered by the software is .05\% \todo{check if this makes sense with Jason's laser power data}, OD2 goggles should be worn to guarantee safe operation of the 775~nm laser.
 
 \begin{figure}
 	\centering

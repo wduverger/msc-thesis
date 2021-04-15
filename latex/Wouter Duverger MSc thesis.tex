@@ -2,40 +2,45 @@
 % !TeX encoding = UTF-8
 % !TeX spellcheck = en_GB
 
-\documentclass[oneside]{layout/tudelft-report}
 
-\def\thetitle{Polarisation-resolved super-resolution microscopy}
-\def\theauthor{Wouter Duverger}
-\def\thedate{May 10, 2021}
+\documentclass[oneside]{mystyle}
 
-\author{\theauthor}
-\title{\thetitle}
-\date{\thedate}
+% Set up metadata
+\author{Wouter Duverger}
+\title{Polarisation-resolved super-resolution microscopy}
+\date{May 10, 2021}
 
-\usepackage{physics, tabularx, mathtools}
-
-\addbibresource{mendeley.bib}
-\addbibresource{other_sources.bib}
-
+% Register bibliography files and figure folders
+%\addbibresource{mendeley.bib}
+%\addbibresource{other_sources.bib}
 \graphicspath{{../figures_generated/}{../figures_other/}}
 
-\definecolor{orange}{rgb}{0.8,0.4,0.1}
-\newcommand{\todo}[1]{\textcolor{orange}{(#1)}}
+% Math shortcuts
 \newcommand{\qwp}{{\lambda/4}}
 \newcommand{\hwp}{{\lambda/2}}
 \newcommand{\Eox}{E_{0x}}
 \newcommand{\Eoy}{E_{0y}}
-\def\na{\mathrm{NA}}
+\newcommand{\na}{\mathrm{NA}}
+\newcommand{\exc}{\mathit{ex}}
+\newcommand{\dep}{\mathit{dep}}
+\newcommand{\emm}{\mathit{em}}
+\newcommand{\unit}[1]{\hat{\vb{#1}}}
+\newcommand{\se}{\mathit{se}}
 
-%\includeonly{text/background}
+%\includeonly{text/background, text/methods, text/results}
 
 \begin{document}
 	
-\frontmatter
 
 	\include{text/cover}
-	\tableofcontents
+	
+\frontmatter
 	\include{text/abstract}
+	
+	\renewcommand{\contentsname}{Table of Contents}
+	\tableofcontents
+	\addcontentsline{toc}{chapter}{Table of Contents}	
+	
 	\include{text/list_abbreviations}
 
 \mainmatter
@@ -47,8 +52,11 @@
 	\include{text/outlook}
 
 \appendix
-
-	\printbibliography[heading=bibnumbered, title=References]	\todo{Improve bibstyle}
+%	\addcontentsline{toc}{chapter}{Appendices}	
+%	\printbibliography[heading=bibnumbered, title=References]	\todo{Improve bibstyle}
+	\bibliographystyle{mystyle}
+	\bibliography{mendeley, other_sources}
+	
 	\include{text/acknowledgements}
 	\include{text/code_availability}
 	\include{text/laser_safety}

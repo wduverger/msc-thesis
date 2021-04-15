@@ -15,17 +15,53 @@ files = [
 ]
 
 msrs = [utils.read_msr(f) for f in files]
-ims = [utils.align(m['640_conf_apd2 {1}']) for m in msrs]
+ims = [utils.align_stack(m['640_conf_apd2 {1}']) for m in msrs]
+
 # %%
 fig, ax = plt.subplots(1,len(files), figsize=(linewidth, figheight), dpi=300)
 
 for i in range(len(files)):
-    ax[i].imshow(utils.pol_to_rgb(ims[i], blur=0, brightness=1, saturation=1))
+    ax[i].imshow(utils.stack_to_rgb(ims[i]))
     ax[i].axis('off')
     utils.add_scalebar(ax[i], 10e-6/ims[i].pixel_size_xy)
+    utils.add_colourwheel(ax[i])
+    
+fig.savefig('../figures_generated/conventional_pol.pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/conventional_pol.svg', bbox_inches='tight')
 
-fig.savefig('../figures_generated/conventional_pol.pdf')
-fig.savefig('../figures_generated/conventional_pol.svg')
+# %%
+sat_exp = [.5, 1, 1.5]
+val_exp=.5
+
+fig, ax = plt.subplots(
+    2,len(sat_exp), figsize=(linewidth, 2*figheight), 
+    dpi=300, gridspec_kw=dict(hspace=0)
+)
+
+for i in range(len(sat_exp)):
+    ax[1, i].imshow(utils.stack_to_rgb(ims[0], 
+        saturation=sat_exp[i], brightness=val_exp))
+    ax[1, i].axis('off')
+    utils.add_scalebar(ax[1, i], 10e-6/ims[i].pixel_size_xy)
+    # utils.add_colourwheel(ax[1, i])
+    ax[1, i].set(
+        title=f'$\\alpha_s$ = {sat_exp[i]}, $\\alpha_v$ = {val_exp}'
+    )
+
+val_exp = [.5, 1, 1.5]
+
+for i in range(len(val_exp)):
+    ax[0, i].imshow(utils.stack_to_rgb(ims[0], brightness=val_exp[i]))
+    ax[0, i].axis('off')
+    utils.add_scalebar(ax[0, i], 10e-6/ims[i].pixel_size_xy)
+    # utils.add_colourwheel(ax[0, i])
+    ax[0, i].set(
+        title=f'$\\alpha_s$ = 1, $\\alpha_v$ = {val_exp[i]}'
+    )
+    
+fig.savefig('../figures_generated/conventional_pol_exps.pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/conventional_pol_exps.svg', bbox_inches='tight')
+
 
 # %%
 utils.shutdown_jvm()

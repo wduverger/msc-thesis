@@ -46,6 +46,12 @@ popt, pcov = scipy.optimize.curve_fit(cos, xf, yf, bounds=((0, 0, 0), (1,1,180))
 ax.plot(xf, yf, '.', color='C2')
 ax.plot(xfine, cos(xfine, *popt), color='C2', label='775 nm (+38.5°)')
 
+mmax = m[np.isfinite(m)][1:20].max()
+mmin = m[np.isfinite(m)][1:20].min()
+print((mmax, mmin))
+print(f'Imax/Imin = {mmax/mmin}')
+print(f'chi = {np.arctan2(mmin, mmax) * 180 / np.pi} deg')
+
 ax.set(
     xlim=[-10,190],
     xticks=np.arange(0,181,30),

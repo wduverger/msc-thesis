@@ -1,6 +1,7 @@
 # %%
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 
 import utils
 
@@ -9,106 +10,117 @@ figwidth  = linewidth
 figheight = 4.8 / 6.4 * figwidth /2
 plt.rcParams['font.size'] = '6'
 
-# %% 561 polarisation
+# %% data
 
-df_linear = utils.read_power_data(
+newfolder = r'G:\New_OutLab\JonasSted\D-disken\User data\Wouter\2021-04-08'
+l561 = utils.read_power_data(
     r'../data/21-03-22 - 1h 561 50% linear 0-10-170 power after stationary polariser.csv'
 )
-
-df_circular = utils.read_power_data(
-    r'../data/21-03-22 - 1d 561 circular power after rotating polariser.csv'
+c561 = utils.read_power_data(
+    newfolder + '/1b 561 lc 100%.csv'
 )
-
-# %%
-
-p_avg = df_circular.p.rolling(100).mean()/1e-6
-# print('For 561 circular')
-# print(f'{p_avg.max()*5=}')
-# print(f'{p_avg.min()*5=}')
-# print(f'{p_avg.min()/p_avg.mean()=}')
-
-fig, ax = plt.subplots(1, 2, figsize=(figwidth, figheight), sharey=True)
-
-ax[0].plot(df_linear.t, df_linear.p/1e-6,  alpha=.3)
-ax[0].plot(df_linear.t, df_linear.p.rolling(100).mean()/1e-6, color='C0')
-ax[0].set(
-    xlabel='Measurement time (s)',
-    ylabel='Transmitted power (μW)',
-    title='561 nm: linearly polarised'
-)
-
-ax[1].plot(df_circular.t, df_circular.p*5/1e-6,  alpha=.3)
-ax[1].plot(df_circular.t, df_circular.p.rolling(300).mean()*5/1e-6, color='C0')
-ax[1].set(
-    xlabel='Measurement time (s)\n TODO: mention multiplying these values by 5',
-    ylim=[-.01, .29],
-    title='Circularly polarised',
-)
-
-fig.savefig('../figures_generated/561 laser pol characteristics in sample.pdf', bbox_inches='tight')
-
-# %% 640 linear at sample
-
-df_linear = utils.read_power_data(
+l640 = utils.read_power_data(
     r'../data/21-03-22 - 1g 640 10% linear 0-10-170 power after stationary polariser.csv'
 )
-
-df_circular = utils.read_power_data(
-    r'../data/21-03-22 - 1e 640 circular power after rotating polariser.csv'
+c640 = utils.read_power_data(
+    newfolder + '/1a 640 rc 30%.csv'
+)
+c775 = utils.read_power_data(
+    newfolder + '/1d 665 0.4%.csv'
 )
 
-# %%
+# %% plotting
 
-p_avg = df_circular.p.rolling(100).mean()/1e-6
-mask = (df_circular.t > 10) & (df_circular.t < 50)
-# print('For 640 circular')
-# print(f'{p_avg[mask].max()=}')
-# print(f'{p_avg[mask].min()=}')
-# print(f'{p_avg[mask].min()/p_avg[mask].max()=}')
+avg_p = lambda x: x.p.rolling(100).mean()
+micro = 1e-6
 
-fig, ax = plt.subplots(1, 2, figsize=(figwidth, figheight), sharey=True)
+fig, ax = plt.subplots(
+    3, 2, figsize=(figwidth, 3*figheight),
+    gridspec_kw=dict(hspace=.4)
+)
 
-ax[0].plot(df_linear.t, df_linear.p/1e-6, alpha=.3)
-ax[0].plot(df_linear.t, df_linear.p.rolling(100).mean()/1e-6, color='C0')
-ax[0].set(
-    title='640 nm: linearly polarised',
-    xlim=[0,80],
+ax[0, 0].plot(c561.t, c561.p/micro, alpha=.3)
+ax[0, 0].plot(c561.t, avg_p(c561)/micro, color='C0')
+ax[0, 0].set(
+    ylabel='Transmitted power (μW)',
+    title='561 nm (circular, 100%)',
+    xlabel='Measurement time (s)'
+)
+
+ax[0, 1].plot(l561.t, l561.p/micro, alpha=.3)
+ax[0, 1].plot(l561.t, avg_p(l561)/micro, color='C0')
+ax[0, 1].set(
+    title='561 nm (linear, 50%)',
+    xlabel='Measurement time (s)'
+)
+
+# t, m, s, cl, cr = find_steps(c640.p.values, distance=2500, calc_margin=.3)
+# ax[1, 0].step(c640.t[t+200], m/micro, where='post', color='C1')
+ax[1, 0].plot(c640.t, c640.p/micro, alpha=.3, color='C0')
+ax[1, 0].plot(c640.t, avg_p(c640)/micro, color='C0')
+ax[1, 0].set(
+    ylabel='Transmitted power (μW)',
+    title='640 nm (circular, 30%)',
+    xlabel='Measurement time (s)'
+)
+
+ax[1, 1].plot(l640.t, l640.p/micro, alpha=.3)
+ax[1, 1].plot(l640.t, avg_p(l640)/micro, color='C0')
+ax[1, 1].set(
+    title='640 nm (linear, 10%)',
     xlabel='Measurement time (s)',
-    ylabel='Laser power (μW)',
+    xlim=[0,80]
 )
 
-ax[1].plot(df_circular.t, df_circular.p/1e-6,  alpha=.3)
-ax[1].plot(df_circular.t.rolling(500).mean(), df_circular.p.rolling(500).mean()/1e-6, color='C0')
-ax[1].set(
-    xlabel='Measurement time (s)\nTODO: shouldn\'t these y values be lower?',
-    # ylim=[-.01, .29],
-    title='Circularly polarised',
-    xlim=[10,60]
+# t, m, s, cl, cr = find_steps(c775.p.values, distance=2300, calc_margin=.45)
+# ax[2, 0].step(c775.t[t], m/micro, where='post', color='C1')
+ax[2, 0].plot(c775.t, c775.p/micro, alpha=.3, color='C0')
+ax[2, 0].plot(c775.t, avg_p(c775)/micro, color='C0')
+ax[2, 0].set(
+    ylabel='Transmitted power (μW)',
+    title='775 nm (circular, 0.4%)',
+    xlabel='Measurement time (s)'
 )
 
+ax[2, 1].axis('off')
 
-fig.savefig('../figures_generated/640 laser pol characteristics in sample.pdf', bbox_inches='tight')
+#%% analysis
 
-# %% 775 nm 
+data = pd.DataFrame([
+    dict(
+        source='561c',
+        min=avg_p(c561).min(),
+        max=avg_p(c561).max(),
+    ),
+    dict(
+        source='640c',
+        min=avg_p(c640).min(),
+        max=avg_p(c640).max(),
+    ),
+    dict(
+        source='775c',
+        min=avg_p(c775).min(),
+        max=avg_p(c775).max(),
+    ),
+    dict(
+        source='561l',
+        min=avg_p(l561).min(),
+        max=avg_p(l561).max(),
+    ),
+    dict(
+        source='640l',
+        min=avg_p(l640[l640.p>.03e-6]).min(),
+        max=avg_p(l640[l640.p<.3e-6]).max(),
+    ),
+])
 
-df = utils.read_power_data('../data/21-03-22 - 1f 775 circular power after rotating polariser.csv')
+data['max/min'] = data['max']/data['min']
+data['chi'] = np.arctan2(data['min'], data['max']) * 180 / np.pi
 
-p_avg = df.p.rolling(100).mean()/1e-6
-mask = (df.t < 12)
-# print('For 775 circular')
-# print(f'{p_avg[mask].max()=}')
-# print(f'{p_avg[mask].min()=}')
-# print(f'{p_avg[mask].min()/p_avg[mask].max()=}')
+print('Laser polarisation estimates:')
+print(data)
 
-fig, ax = plt.subplots(1, figsize=(figwidth/2, figheight))
+# %% saving figures
 
-ax.plot(df.t, df.p/1e-6, alpha=.3)
-ax.plot(df.t.rolling(100).mean(), df.p.rolling(100).mean()/1e-6, color='C0')
-ax.set(
-    title='775 nm: circularly polarised',
-    xlim=[0,12],
-    xlabel='Measurement time (s)',
-    ylabel='Laser power (μW)',
-)
-
-fig.savefig('../figures_generated/775 laser pol characteristics in sample (donut beam, no psted optics).pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/laser_polarisation.pdf', bbox_inches='tight')
+fig.savefig('../figures_generated/laser_polarisation.svg', bbox_inches='tight')

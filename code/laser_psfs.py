@@ -28,15 +28,15 @@ def rgb_combine(r=None, g=None, b=None):
     return rgb
 
 fig, ax = plt.subplots(2, 4, figsize=(linewidth, figheight*2.6))#, gridspec_kw=dict(hspace=))
-ax[0, 0].imshow(rgb_combine(r=psf_561_donut))
+ax[0, 0].imshow(rgb_combine(b=psf_561_donut))
 ax[0, 1].imshow(rgb_combine(g=psf_640_donut))
-ax[0, 2].imshow(rgb_combine(b=psf_775_donut))
-ax[0, 3].imshow(rgb_combine(r=psf_561_donut, g=psf_640_donut, b=psf_775_donut))
+ax[0, 2].imshow(rgb_combine(r=psf_775_donut))
+ax[0, 3].imshow(rgb_combine(b=psf_561_donut, g=psf_640_donut, r=psf_775_donut))
 
-ax[1, 0].imshow(rgb_combine(r=psf_561_gaussian))
+ax[1, 0].imshow(rgb_combine(b=psf_561_gaussian))
 ax[1, 1].imshow(rgb_combine(g=psf_640_gaussian))
-ax[1, 2].imshow(rgb_combine(b=psf_775_gaussian))
-ax[1, 3].imshow(rgb_combine(r=psf_561_gaussian, g=psf_640_gaussian, b=psf_775_gaussian))
+ax[1, 2].imshow(rgb_combine(r=psf_775_gaussian))
+ax[1, 3].imshow(rgb_combine(b=psf_561_gaussian, g=psf_640_gaussian, r=psf_775_gaussian))
 
 
 ax[0, 0].set_title('561 nm')

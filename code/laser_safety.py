@@ -14,6 +14,7 @@ ce = 1
 
 f_pulse  = 40e6
 H_pulse = 39e-3
+P_avg = 1.2
 
 t = np.logspace(-7, 3, num=100, dtype=np.float)
 
@@ -34,11 +35,11 @@ h_mpe = np.where(
 power = .5e-5
 
 plt.rcParams['font.size'] = '6'
-fig, ax = plt.subplots(1,1, figsize=(figwidth, figheight), dpi=300)
+fig, ax = plt.subplots(1,1, figsize=(figwidth, figheight))
 
 ax.plot(t, h_mpe, label='MPE')
-ax.plot(t, h_actual, label='100% power')
-ax.plot(t, h_actual*power, label=f'{power*100:.4f}% power')
+ax.plot(t, h_actual, label=f'Exposure at {P_avg} W')
+ax.plot(t, h_actual*power, label=f'Exposure at {P_avg*power/1e-6:.0f} μW')
 ax.legend()
 ax.set(
     xscale='log',
