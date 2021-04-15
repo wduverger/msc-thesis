@@ -2,14 +2,14 @@
 SRC = $(wildcard code/*.py)
 
 # From that list, build a list of all target files (PDF figures)
-PDF = $(subst code/,figures/,$(SRC:.py=.pdf))
+PDF = $(subst code/,figures_generated/,$(SRC:.py=.pdf))
 
 # Exclude __init__.pdf from that list by saying it cannot every be built
-.PHONY: figures/__init__.pdf 
+.PHONY: figures_generated/__init__.pdf 
 
 # To make all figures, add the list of pdf files as dependencies to the main task
 all: $(PDF)
 
 # To generate a figure, run the corresponding python script
-figures/%.pdf: code/%.py
+figures_generated/%.pdf: code/%.py
 	cd code && python $(subst code/,,$<)

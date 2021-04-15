@@ -50,8 +50,8 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Brussels /etc/loca
 # As root, install the necessary python libraries. Bioformats needs to be
 # installed after numpy, otherwise the build will fail
 RUN apt-get update && apt-get install -y python3-opencv
-RUN pip install numpy==1.19.3 
 COPY requirements.txt requirements.txt
+RUN pip install numpy==1.19.3
 RUN pip install -r requirements.txt
 
 # Ensure jovyan owns all files in their home folder. Matplotlib won't run if
@@ -59,6 +59,6 @@ RUN pip install -r requirements.txt
 RUN chown -R jovyan /home/jovyan
 
 # On startup, run Jupyter Lab as the non-root user in their home directory
-WORKDIR /home/jovyan
-USER jovyan
-CMD jupyter lab --ip=0.0.0.0
+# USER jovyan
+# USER jovyan
+WORKDIR /app
