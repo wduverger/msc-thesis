@@ -168,30 +168,20 @@ The general idea is that one can define a vectorial PSF (although a better term 
 	d_\theta = \ang{90}.
 \end{equation}
 
-\todo{This can also be seen from the fact that a cosine of any phase can be written as the sum of a cosine and a sine
-\begin{equation}
-	\cos(2\theta+\delta) = \cos\delta\cos 2\theta - \sin\delta\sin 2\theta.
-\end{equation}
-In other words: the sum of two cosines of a different phase }
-
 By illuminating the sample with a depletion beam that is orthogonally polarised to the excitation laser, we can suppress fluorescence of fluorophores on the edge of this PSF, just like in conventional STED. This is illustrated in \autoref{fig:psted principle}.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\linewidth]{psted.ai}
+	\includegraphics{psted_simulation.pdf}
 	\caption{
-		Illustration of the working principle of pSTED. The arrows outside indicate the polarisation of the laser light. The circles represent fluorophores with their transition dipole moment indicated by a line. The orthogonal polarisation of the depletion beam suppresses fluorescence of the fluorophore oriented at \ang{45}.
+		\textbf{Top:} Illustration of the working principle of pSTED. The arrows outside indicate the polarisation of the laser light. The circles represent fluorophores with their transition dipole moment indicated by a line. The orthogonal polarisation of the depletion beam suppresses fluorescence of the fluorophore oriented at \ang{45}.
+		\textbf{Bottom:} A simulation of pSTED compared to other excitation schemes on a sample consisting of a non-polarised disk and a radially polarised ring.
 	}
 	\label{fig:psted principle}
 \end{figure}
 
 \paragraph{Derivation of the pSTED PSF.} What follows is strongly inspired by Dyba et al.~\cite{Dyba2005}. Let $ \vb{x} = (x, y, z)$ be the spatial coordinates, $ \theta $ be an angle with the $ x $-axis in the $ xy $ plane (ranging from $ 0 $ to $ 2\pi$) and $ \phi $ be an angle with the $ z $-axis in the $ xz $ plane (ranging from $ -\pi $ to $+\pi$). We can also introduce a generalised coordinate $ \vb{y} = (\vb{x}, \theta, \phi) $, which will be useful later.
-
-\todolist{
-	\item Introduce proportionality constant $ A $. 
-	\item Proper treatment of $ \phi $, but then say that we don't need to consider it to know what we want to know.
-	\item Draw the parallel with normal diffraction limit better (kernels and convolutions)
-}
 
 Let the fluorophore population be described by the density $ \rho(\vb{y}) $. This function is normalised such that its integral is equal to the number of fluorophores. For example, a single fluorophore at the origin, pointing in the $ x $ direction with no out-of-plane tilt would be described by the Kronecker delta distribution $ \rho_0 = \delta(\vb{y}) $, which is defined as follows:
 \begin{gather}
@@ -247,7 +237,7 @@ This model can easily be extended to account for depolarising effects such as ro
 \begin{equation}
 	d_\theta(I_\dep) = 2\arccos\sqrt\frac{\mathcal{W}\left(\frac{\sigma_\dep I_\dep e^{\sigma_\dep I_\dep}}{2}\right)}{\sigma_\dep I_\dep},
 \end{equation}
-where $ \mathcal{W} $ is the Lambert W-function. It is the inverse of the function $ f(x) = xe^x $. As expected, $ d_\theta(0)=\ang{90} $. $ d_\theta(0) $ is plotted in \autoref{fig:pol psf width}.
+where $ \mathcal{W} $ is the Lambert W-function. It is the inverse of the function $ f(x) = xe^x $. As expected, $ d_\theta(0)=\ang{90} $. For other values of $ I_d $, the resolution is plotted in \autoref{fig:pol psf width}.
 
 \begin{figure}
 	\centering
