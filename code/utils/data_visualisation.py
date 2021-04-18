@@ -43,7 +43,7 @@ def generate_wheel(alpha=1, sat=1, val=.9, resolution=100):
 
     disc = rr < 1  # Image that is 0 if pixel outside unit circle, 1 otherwise
 
-    im_hsv[..., 0] = disc*tt / (2*np.pi) + 0.5  # Hue
+    im_hsv[..., 0] = (disc*tt / np.pi + 1)%1    # Hue
     im_hsv[..., 1] = disc*rr * sat              # Saturation
     im_hsv[..., 2] = disc * val                 # Brightness
 
