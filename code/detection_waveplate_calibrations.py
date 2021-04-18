@@ -24,7 +24,7 @@ msr_new = utils.read_msr(
     '../data/21-03-22 - 5a detector waveplates my calibration - rerun.msr')
 
 # %%
-calib_old_axis = np.arange(0, 180, 5)
+calib_old_axis = np.arange(0, 176, 5)
 fine_axis = np.linspace(0, 180)
 φ2 = np.array(calib_json['calibrations']
               ['Polarizer_Detection']['linear']['l2'])
@@ -63,13 +63,13 @@ for i in range(4):
         axis=(1, 2)), '.-', label=f'{i*45:d}°')
 
 ax[1, 0].set(
-    xlabel='Rotation angle',
+    xlabel='Control angle',
     xticks=np.arange(0, 181, 45),
     ylabel='Intensity after P2 (au)'
 )
 ax[1, 1].legend(title='P2 angle', loc='upper right')
 ax[1, 1].set(
-    xlabel='Rotation angle'
+    xlabel='Control angle'
 )
 
 fig.savefig('../figures_generated/detection_waveplate_calibrations.pdf',

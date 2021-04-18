@@ -32,14 +32,12 @@ h_mpe = np.where(
     )
 )
 
-power = .5e-5
-
 plt.rcParams['font.size'] = '6'
 fig, ax = plt.subplots(1,1, figsize=(figwidth, figheight))
 
 ax.plot(t, h_mpe, label='MPE')
-ax.plot(t, h_actual, label=f'Exposure at {P_avg} W')
-ax.plot(t, h_actual*power, label=f'Exposure at {P_avg*power/1e-6:.0f} μW')
+ax.plot(t, h_actual, label='Exposure at 100%')
+ax.plot(t, h_actual*.0005/100, label='Exposure at .0005%')
 ax.legend()
 ax.set(
     xscale='log',

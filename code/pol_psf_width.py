@@ -3,6 +3,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import scipy.optimize
+from scipy.special import lambertw
 
 linewidth = (210-50)*.03937
 figwidth  = .5 * linewidth
@@ -10,26 +11,19 @@ figheight = 4.8 / 6.4 * figwidth
 plt.rcParams['font.size'] = '6'
 
 # %%
-f = lambda x, i: np.cos(x)**2 * np.exp( -i * np.sin(x)**2)
-w = lambda x, i: np.abs(f(x, i) - .5)
+psf = lambda x, i: np.cos(x)**2 * np.exp( -i * np.sin(x)**2)
+fwhm = lambda i: 2*np.arccos(np.sqrt(np.real(lambertw(i * np.exp(i) / 2) / i))) * 180 / np.pi
 
-def find_fwhm(i):
-    return scipy.optimize.minimize(
-        w, .1*np.pi, args=(i,), bounds=[(0,np.pi/4)]
-    ).x * 2 * 180 / np.pi
+xx = np.linspace(-90, 90, 100)
+ii = np.linspace(1e-6,10)  # 0 doesn't work in the lambertw function
 
-xlist = np.linspace(-90, 90, 100)
-ilist = np.linspace(0,10)
+fig, ax = plt.subplots(1, 2, figsize=(linewidth, figheight), dpi=200)
 
-fig, ax = plt.subplots(1, 2, figsize=(linewidth, figheight))
-
-ax[0].plot(xlist, f(xlist * np.pi/180, 0), label='no pSTED')
-ax[0].plot(xlist, f(xlist * np.pi/180, 2), label='pSTED')
-ax[0].hlines(.5, xlist[0], xlist[-1], alpha=.3, ls=':')
+ax[0].plot(xx, psf(xx * np.pi/180, i=0), label='no pSTED')
+ax[0].plot(xx, psf(xx * np.pi/180, i=2), label='pSTED')
+ax[0].hlines(.5, xx[0], xx[-1], alpha=.3, ls=':')
 ax[0].plot([-45, 45], [.5, .5], '.', color='C0')
-
-hwhm = find_fwhm(i=2) / 2
-ax[0].plot([-hwhm, hwhm], [.5, .5], '.', color='C1')
+ax[0].plot([-fwhm(2)/2, fwhm(2)/2], [.5, .5], '.', color='C1')
 
 ax[0].legend()
 ax[0].set(
@@ -38,9 +32,10 @@ ax[0].set(
     xticks=np.arange(-90, 91, 15)
 )
 
-ax[1].plot(ilist, [find_fwhm(i) for i in ilist])
-ax[1].plot(0, find_fwhm(i=0), '.', color='C0')
-ax[1].plot(2, find_fwhm(i=2), '.', color='C1')
+ax[1].plot(ii, fwhm(ii))
+ax[1].plot(0, fwhm(1e-6), '.', color='C0')
+ax[1].plot(2, fwhm(2), '.', color='C1')
+
 ax[1].set(
     xlabel='Depletion intensity (au)',
     ylabel='FWHM (degres)'

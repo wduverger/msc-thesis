@@ -114,7 +114,14 @@ data = pd.DataFrame([
 ])
 
 data['max/min'] = data['max']/data['min']
-data['chi'] = np.arctan2(data['min'], data['max']) * 180 / np.pi
+data['chi_I'] = np.arctan2(
+    data['min'], 
+    data['max']
+) * 180 / np.pi
+data['chi_E'] = np.arctan2(
+    np.sqrt(data['min']), 
+    np.sqrt(data['max'])
+) * 180 / np.pi
 
 print('Laser polarisation estimates:')
 print(data)

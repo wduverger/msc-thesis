@@ -1,24 +1,24 @@
 #
-#   Image with a jupyter environment and the bioformats package
+#   Image with a jupyter environment, bioformats, and opencv
 #
 #   Building the image: 
 #
-#       `docker build -t bioformats-env .`
+#       `docker build -t wduverger/msc-thesis .`
 #
 #       Run the command in the same directory as this Dockerfile
 #
 #       Explanation:
-#       -  `-t bioformats-env` names the image we built
+#       -  `-t wduverger/msc-thesis` names the image we built
 #       -  The period `.` represents the current directory
 #
 #   Running the container: 
 #       
 #       To run jupyter:
-#           `docker run --rm -v ${PWD}:/home/jovyan -it -p 8888:8888 bioformats-env` (Powershell / bash?)
-#           `docker run --rm -v "%cd%":/home/jovyan -it -p 8888:8888 bioformats-env` (Windows cmd.exe)
+#           `docker run --rm -itv ${PWD}:/workspace -p 8888:8888 wduverger/msc-thesis` (Powershell / bash?)
+#           `docker run --rm -itv "%cd%":/workspace -p 8888:8888 wduverger/msc-thesis` (Windows cmd.exe)
 #
 #       To open a terminal inside the container
-#           `docker run --rm -v ${PWD}:/home/jovyan -it bioformats-env bash`
+#           `docker run --rm -itv ${PWD}:/workspace  wduverger/msc-thesis bash`
 #
 #       Run the command in a directory that contains both your source and data
 #           files, or add another volume mount with a second `-v ...` Try to
@@ -30,7 +30,7 @@
 #           the Docker GUI
 #       -  `-p 8888:8888` binds network ports 8888 on the host and container. This
 #           is necessary to open Jupyter in your browser
-#       -  `-v "${PWD}":/home/jovyan` binds the host directory in which the command
+#       -  `-v "{PWD}:/workspace` binds the host directory in which the command
 #           is ran to the container directory in which Jupyter is running.
 #
 #   Compiled by Wouter Duverger (2021)
@@ -50,14 +50,15 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Brussels /etc/loca
 # As root, install the necessary python libraries. Bioformats needs to be
 # installed after numpy, otherwise the build will fail
 RUN apt-get update && apt-get install -y python3-opencv
-COPY requirements.txt requirements.txt
 RUN pip install numpy==1.19.3
+COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 # Ensure jovyan owns all files in their home folder. Matplotlib won't run if
 # that is not the case
 RUN chown -R jovyan /home/jovyan
 
-# On startup, run Jupyter Lab as the non-root user in their home directory
+# On startup, run Jupyter Lab as the non-root user
 USER jovyan
-WORKDIR /app
+WORKDIR /workspace
+CMD jupyter lab --ip=0.0.0.0
