@@ -181,8 +181,7 @@ By illuminating the sample with a depletion beam that is orthogonally polarised 
 	\label{fig:psted principle}
 \end{figure}
 
-\paragraph{Derivation of the pSTED PSF.} What follows is strongly inspired by Dyba et al.~\cite{Dyba2005}. Let $ \vb{x} = (x, y, z)$ be the spatial coordinates, $ \theta $ be an angle with the $ x $-axis in the $ xy $ plane (ranging from $ 0 $ to $ 2\pi$) and $ \phi $ be an angle with the $ z $-axis in the $ xz $ plane (ranging from $ -\pi $ to $+\pi$). We can also introduce a generalised coordinate $ \vb{y} = (\vb{x}, \theta, \phi) $, which will be useful later.
-
+\paragraph{Derivation of the pSTED PSF.} What follows is strongly inspired by Dyba et al.~\cite{Dyba2005}. Let $ \vb{x} = (x, y, z)$ be the spatial coordinates, $ \theta $ be an angle with the $ x $-axis in the $ xy $ plane (ranging from $ 0 $ to $ 2\pi$) and $ \phi $ be an angle with the $ z $-axis in the $ xz $ plane (ranging from $ -\pi $ to $+\pi$). We can also introduce a generalised coordinate $ \vb{y} = (\vb{x}, \theta, \phi) $ for a more convenient notation.
 Let the fluorophore population be described by the density $ \rho(\vb{y}) $. This function is normalised such that its integral is equal to the number of fluorophores. For example, a single fluorophore at the origin, pointing in the $ x $ direction with no out-of-plane tilt would be described by the Kronecker delta distribution $ \rho_0 = \delta(\vb{y}) $, which is defined as follows:
 \begin{gather}
 	\delta(\vb{y}) = 0 \qq{if} y\neq0, \\
@@ -195,11 +194,11 @@ The excitation beam is described by the electric field amplitude $ \vb{E}_\exc $
 		I_\emm 
 			&= A \int 
 				\sigma_\exc \abs{\unit{n}_{\theta'\phi'} \cdot \vb{E}_\exc(\vb{x}-\vb{x}')}^2 
-				\rho(\vb{x}', \theta', \phi') 
+				\rho(\vb{y}') 
 				\dd{\vb{y}'} \\
 			&= \int 
 				\sigma_\exc I_\exc(\vb{x}'-\vb{x}) \abs{\unit{n}_{\theta'\phi'}\unit{n}_{\theta\phi}}^2
-				\rho(\vb{x}', \theta', \phi') 
+				\rho(\vb{y}') 
 				\dd{\vb{y}'}
 	\end{aligned}
 \end{equation}
@@ -223,7 +222,7 @@ Now, we need to include the effect of the polarised depletion field, which amoun
 	I_\emm = A \int
 		\sigma_\exc \abs{\unit{n}_{\theta'\phi'} \cdot \vb{E}_\exc(\vb{x}-\vb{x}')}^2  
 		\exp(-\sigma_\dep \abs{\unit{n}_{\theta'\phi'} \cdot \vb{E}_\dep(\vb{x}-\vb{x}')}^2)
-		\rho(\vb{x}', \theta', \phi') 
+		\rho(\vb{y}') 
 		\dd{\vb{y}'}.
 	\label{eq:psted integral}
 \end{equation}
@@ -235,9 +234,9 @@ which assumes both electric fields are orthogonally polarised and confined to th
 
 This model can easily be extended to account for depolarising effects such as rotational diffusion, energy transfer, et cetera. However, that is not necessary at this point. Instead, we would like to know the resolution improvement this gives us. With a little algebra, it can be shown that the the FWHM resolution satisfies
 \begin{equation}
-	d_\theta(I_\dep) = 2\arccos\sqrt\frac{\mathcal{W}\left(\frac{\sigma_\dep I_\dep e^{\sigma_\dep I_\dep}}{2}\right)}{\sigma_\dep I_\dep},
+	d_\theta = 2\arccos\sqrt\frac{\mathcal{W}(\alpha e^{\alpha}/2)}{\alpha},
 \end{equation}
-where $ \mathcal{W} $ is the Lambert W-function. It is the inverse of the function $ f(x) = xe^x $. As expected, $ d_\theta(0)=\ang{90} $. For other values of $ I_d $, the resolution is plotted in \autoref{fig:pol psf width}.
+where $ \alpha = \sigma_dI_d $ and $ \mathcal{W} $ is the Lambert W-function, the inverse of the function $ f(x) = xe^x $. As expected, $ d_\theta=\ang{90} $ for $ I_d=0 $. For other values of $ I_d $, the resolution is plotted in \autoref{fig:pol psf width}.
 
 \begin{figure}
 	\centering
