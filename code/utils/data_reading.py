@@ -35,17 +35,19 @@ def read_power_data(path):
         header=4,
         skipfooter=8
     )
-    
-    parsetime = lambda x: datetime.strptime(x, '%H:%M:%S.%f') 
-    data['t'] = (data.time.map(parsetime) - parsetime(data.time[0])).map(timedelta.total_seconds)
+
+    def parsetime(x): return datetime.strptime(x, '%H:%M:%S.%f')
+    data['t'] = (data.time.map(parsetime) - parsetime(data.time[0])
+                 ).map(timedelta.total_seconds)
     data['dp'] = np.hstack((np.nan, np.diff(data.p)))
     return data
+
 
 def read_msr(path):
     """
     Read all images inside a single .msr file.
-    Returns a dict that maps channel names to 3D image stacks, 
-    including microscope metadata
+    Returns a dict that maps channel names to N-dimensional (ordering TZYX)
+    image stacks, including microscope metadata
     """
 
     # Bioformats requires a running Java VM
@@ -69,17 +71,24 @@ def read_msr(path):
         img_meta = metadata.image(i)
         image_name = img_meta.Name
         plane_count = img_meta.Pixels.SizeZ
+        t_count = img_meta.Pixels.SizeT
 
-        # Read all z planes in the image (as 2D numpy arrays)
-        # and put them in a list
-        plane_list = []
-        for z in range(plane_count):
-            plane_list.append(reader.read(series=i, z=z))
-        img_array = np.array(plane_list)
+        # Iterate over time points
+        t_list = []
+        for t in range(t_count):
 
-        # Convert the list of numpy arrays to a 3D numpy array
+            # Iterate over z points
+            z_list = []
+            for z in range(plane_count):
+                z_list.append(reader.read(series=i, z=z, t=t))
+
+            t_list.append(z_list)
+
+        # Convert the list of numpy arrays to a numpy array
         # and store it in the dict, with the channel name as key
-        images_dict[image_name] = BFImageArray(img_array, img_meta)
+        images_dict[image_name] = BFImageArray(
+            np.squeeze(t_list), img_meta
+        )
 
     # Return the images
     return images_dict

@@ -29,7 +29,7 @@ ax[0].legend()
 ax[0].set(
     xlabel='Excitation angle (deg)',
     ylabel='Emission intensity',
-    xticks=np.arange(-90, 91, 15)
+    xticks=np.arange(-90, 91, 30)
 )
 
 ax[1].plot(ii, fwhm(ii))

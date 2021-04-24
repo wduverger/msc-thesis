@@ -6,7 +6,7 @@
 	\centering
 	\includegraphics{laser_power}
 	\caption{
-		The power of each of the three lasers as measured through a 10x objective. Notice the non-linearity at low power settings. The 775 nm data was scaled down by three orders of magnitude. \todo{reference to figure}
+		The power of each of the three lasers as measured through a 10x objective. Notice the non-linearity at low power settings. The 775 nm data was scaled down by three orders of magnitude.
 	}
 	\label{fig:laser power}
 \end{figure}
@@ -59,7 +59,7 @@
 	\centering
 	\includegraphics{laser_psfs.pdf}
 	\caption{
-		Point spread functions of the different lasers at different SLM configurations, by measuring the reflection from 100 nm wide gold beads. Scale bars 200 nm. \todo{show better data from 26 march}
+		Point spread functions of the different lasers (in donut and Gaussian modes) at different SLM configurations, by measuring the reflection from 100 nm wide gold beads. Scale bars 200 nm.
 	}
 	\label{fig:normal psfs}
 \end{figure}
@@ -71,12 +71,28 @@
 	\label{fig:apd pol sensitivity}
 \end{figure}
 
+\begin{figure}
+\centering
+\includegraphics{pol_cube.pdf}
+\caption{Performance of the polarising beam splitter}
+\label{fig:pol cube}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics{ssted_1.ai}
+	\caption{
+		Confocal (left) and STED (right) acquisitions of various fields of view.
+	}
+	\label{fig:ssted supplementary}
+\end{figure}
+
 
 \begin{figure}
 	\centering
 	\includegraphics{psted_hwp_offset.pdf}
 	\caption{
-		The rotating HWP I put in the beamline controls the depletion beam polarisation. With an offset of 38.4°, the depletion beam is parallel to the 640 laser (set to vertical linear polarisation).
+		The rotating HWP I put in the beamline controls the depletion beam polarisation. With an offset of 38.5°, the depletion beam is parallel to the 640 laser (set to vertical linear polarisation).
 	}
 	\label{fig:psted hwp offset}
 \end{figure}
@@ -85,7 +101,24 @@
 	\centering
 	\includegraphics{psted_psfs.pdf}
 	\caption{
-		Depletion PSF as a function of beam polarisation. \question{Why the change in background levels?}
+		Depletion PSF as a function of beam polarisation. The figure titles indicate the angle of the HWP. The shown images are recentered on the pixel with the highest intensity to correct for displacement. Scale bars 100~nm.
 	}
 	\label{fig:psted psfs}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics{psted_psfs_orientation_and_power.pdf}
+	\caption{
+		\textbf{Left:} The pSTED PSF is elliptical, and its orientation matches the light polarisation. \textbf{Right:} pSTED intensity depends on polarisation. Error bars show standard deviation, n=10.
+	}
+	\label{fig:psted psf orientation and power}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics{psted_psfs_displacement.pdf}
+	\caption{
+		The displacement of the laser PSFs as a function of depletion polarisation. \textbf{Left:} The displacement of the 561~nm and 640~nm PSFs (representing drift in the image). \textbf{Right:} Displacement of the pSTED PSF relative to the excitation PSFs.
+	}
 \end{figure}
