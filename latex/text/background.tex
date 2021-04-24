@@ -199,7 +199,7 @@ As one can see, a waveplate only imparts a delay on the $ y $-component of a bea
 	S_\Gamma = \mqty(1 & 0 \\ 0 & e^{i\Gamma}).
 \end{equation}
 
-Generally, waveplates are characterised by the relative delay they impart on the slowly propagating polarisation component. Quarter-wave plates delay it by a quarter of a wavelength compared to the fast propagating ray, corresponding to $ \Gamma = \pi/2 + 2n\pi $ (for any integer $ n $). Therefore, the Jones matrix of a quarter-wave plate satisfies 
+Generally, waveplates are characterised by the relative delay they impart on the slowly propagating polarisation component. Quarter-wave plates delay it by a quarter of a wavelength compared to the fast propagating ray, corresponding to $ \Gamma = (2n + 1/2)\pi $ (for any integer $ n $). Therefore, the Jones matrix of a quarter-wave plate satisfies 
 \begin{equation}
 	S_\qwp = \mqty(1 & 0 \\ 0 & i).
 \end{equation}
@@ -214,7 +214,7 @@ Let's consider what happens to some specific cases. If vertically or horizontall
 	\label{fig:waveplates}
 \end{figure}
 
-The second type of waveplate we should treat is a half-wave plate. It features a delay of $ \Gamma = \pi + 2n\pi $, and its Jones matrix looks like
+The second type of waveplate we should treat is a half-wave plate. It features a delay of $ \Gamma = (2n+1)\pi $, and its Jones matrix looks like
 \begin{equation}
 	S_\hwp = \mqty(1 & 0 \\ 0 & -1),
 \end{equation}
@@ -222,8 +222,8 @@ which corresponds to mirroring the polarisation state along the $ x $-axis. Anot
 
 As said before, the power of Jones calculus lies in its ability to model the behaviour of a sequence of optical elements at arbitrary rotations. First, we need to define the Jones matrix for a rotated component. This is simply
 \begin{equation}
-	S(\theta) = R(\theta) \cdot S \cdot R(-\theta) 
-	\qq{, where} 
+	S(\theta) = R(\theta) \cdot S \cdot R(-\theta),
+	\qq{where} 
 	R(\theta) = \mqty(\cos\theta & -\sin\theta \\ \sin\theta & \cos\theta)
 \end{equation}
 and $ \theta $ is the angle of the component's $ x $-axis with the lab coordinate system's $ x $-axis. 

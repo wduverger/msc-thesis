@@ -76,7 +76,7 @@ It is unclear what goal that would serve. To develop my own calibration, I first
 \end{figure}
 
 
-Second, I assessed both Abberior's and my calibration. As presented in \autoref{fig:detection waveplate calibrations}, my calibration works really well. However, changing P1 seems to mess up that idea. The detection waveplates seem to rotate the polarisation for P1 at \ang{0} or \ang{90}, but seem to circularise incoming light at \ang{45} and \ang{135} to a certain extent, such that the polarisation rotation is less effective. This needs to be fixed before we can confidently use polarisation-affecting elements in the detection path. \todo{From Mathematica, I can see how misalignment would result in almost the same behaviour, but not quite. Therefore, the model is lacking some element.}
+Second, I assessed both Abberior's and my calibration. As presented in \autoref{fig:detection waveplate calibrations}, my calibration works really well. However, changing P1 seems to mess up that idea. The detection waveplates seem to rotate the polarisation for P1 at \ang{0} or \ang{90}, but seem to circularise incoming light at \ang{45} and \ang{135} to a certain extent, such that the polarisation rotation is less effective. This needs to be fixed before we can confidently use polarisation-affecting elements in the detection path. \todo{I think this is due to a simple misalignment of the quarter-waveplates. What I don't understand is why calibrating them is so difficult.}
 
 \begin{figure}[h]
 	\centering
@@ -87,7 +87,7 @@ Second, I assessed both Abberior's and my calibration. As presented in \autoref{
 	\label{fig:p1 effects}
 \end{figure}
 
-Third, I checked the POL cube, which seems to work as expected (see \autoref{fig:pol cube}).
+Third, I checked the POL cube, which contains a polarising beam splitter (PBS) and some wavelength filters. It seems to work as expected (see \autoref{fig:pol cube}). The transmitted ray has an extinction ratio of about 0.2, meaning that 20\% of the power of rays that are orthogonally polarised to the transmission axis (and hence should be reflected by the PBS) is actually transmitted. On the other hand, it has an extinction ratio of .01 for the reflected wave.
 
 \section{Conventional polarisation microscopy: acquisition and analysis}
 \label{sec:pol analysis}
@@ -180,7 +180,7 @@ By illuminating the sample with a depletion beam that is orthogonally polarised 
 \end{figure}
 
 \paragraph{Derivation of the pSTED PSF.} What follows is strongly inspired by Dyba et al.~\cite{Dyba2005}. Let $ \vb{x} = (x, y, z)$ be the spatial coordinates, $ \theta $ be an angle with the $ x $-axis in the $ xy $ plane (ranging from $ 0 $ to $ 2\pi$) and $ \phi $ be an angle with the $ z $-axis in the $ xz $ plane (ranging from $ -\pi $ to $+\pi$). We can also introduce a generalised coordinate $ \vb{y} = (\vb{x}, \theta, \phi) $ for a more convenient notation.
-Let the fluorophore population be described by the density $ \rho(\vb{y}) $. This function is normalised such that its integral is equal to the number of fluorophores. For example, a single fluorophore at the origin, pointing in the $ x $ direction with no out-of-plane tilt would be described by the Dirac delta distribution $ \rho_0 = \delta(\vb{y}) $, which is defined as follows:
+Let the fluorophore population be described by the density $ \rho(\vb{y}) $. This function is normalised such that its integral is equal to the number of fluorophores. For example, a single fluorophore at the origin, pointing in the $ x $ direction with no out-of-plane tilt would be described by the Dirac delta distribution $ \rho_0 = \delta(\vb{y}) $, defined as follows:
 \begin{gather}
 	\delta(\vb{y}) = 0 \qq{if} y\neq0, \\
 	\int f(\vb{y})\delta(\vb{y}-\vb{y}_0) \dd{\vb{y}} = f(\vb{y}_0).
@@ -202,12 +202,12 @@ The excitation beam is described by the electric field amplitude $ \vb{E}_\exc $
 \end{equation}
 where $ \unit{n}_{\theta\phi} $ is a unit vector pointing in the direction of $ (\theta, \phi) $ and $ A = \epsilon_0c/2 $. The dot product can be expressed as
 \begin{equation}
-	\abs{\unit{n}_{\theta'\phi'}\unit{n}_{\theta\phi}}^2 = \cos^2\theta \cos^2\phi,
+	\abs{\unit{n}_{\theta'\phi'}\unit{n}_{\theta\phi}}^2 = \cos^2(\theta-\theta') \cos^2(\phi-\phi'),
 \end{equation}
 so we can write that equation as a convolution product like
 \begin{gather}
 	I_\emm = (\rho*h_\exc)(\vb{y}),\qq{where} \\
-	h_\exc(\vb{y}) = \sigma_\exc I_\exc(\vb{x}) \cos^2(\theta)\cos^2\phi.
+	h_\exc(\vb{y}) = \sigma_\exc I_\exc(\vb{x}) \cos^2\theta\cos^2\phi.
 \end{gather}
 If we have a constant laser intensity $ I_\exc $ that is polarised along $ \theta $ (without any out-of plan polarisation), this would reduce to
 \begin{equation}
@@ -232,9 +232,9 @@ which assumes both electric fields are orthogonally polarised and confined to th
 
 This model can easily be extended to account for depolarising effects such as rotational diffusion, energy transfer, et cetera. However, that is not necessary at this point. Instead, we would like to know the resolution improvement this gives us. With a little algebra, it can be shown that the the FWHM resolution satisfies
 \begin{equation}
-	d_\theta = 2\arccos\sqrt\frac{\mathcal{W}(\alpha e^{\alpha}/2)}{\alpha},
+	d_\theta = 2\arccos\sqrt\frac{\mathcal{W}(k e^{k}/2)}{k},
 \end{equation}
-where $ \alpha = \sigma_dI_d $ and $ \mathcal{W} $ is the Lambert W-function, the inverse of the function $ f(x) = xe^x $. As expected, $ d_\theta=\ang{90} $ for $ I_d=0 $. For other values of $ I_d $, the resolution is plotted in \autoref{fig:pol psf width}.
+where $ k = \sigma_dI_d $ and $ \mathcal{W}(\cdot) $ denotes the Lambert W-function, the inverse of the function $ f(x) = xe^x $. As expected, $ d_\theta=\ang{90} $ for $ I_d=0 $. For other values of $ I_d $, the resolution is plotted in \autoref{fig:pol psf width}.
 
 \begin{figure}
 	\centering

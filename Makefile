@@ -1,4 +1,4 @@
-# Get a list of all files in the source dir
+# Get a list of all python files in the source dir
 SRC = $(wildcard code/*.py)
 
 # From that list, build a list of all target files (PDF figures)

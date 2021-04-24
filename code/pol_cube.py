@@ -26,5 +26,8 @@ ax.set(
 )
 ax.legend()
 
+print(f'min(pR) = {data["pR/max"].min()}')
+print(f'min(pT) = {data["pT/max"].min()}')
+
 fig.savefig('../figures_generated/pol_cube.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/pol_cube.svg', bbox_inches='tight')
