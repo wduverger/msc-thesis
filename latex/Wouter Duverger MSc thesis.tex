@@ -14,7 +14,7 @@
 % Register bibliography files and figure folders
 %\addbibresource{mendeley.bib}
 %\addbibresource{other_sources.bib}
-\graphicspath{{../figures_generated/}{../figures_other/}}
+\graphicspath{{../figures_generated}{../figures_other}{../figures_generated/}{../figures_other/}}
 
 % Math shortcuts
 \newcommand{\qwp}{{\lambda/4}}
@@ -28,12 +28,12 @@
 \newcommand{\unit}[1]{\hat{\vb{#1}}}
 \newcommand{\se}{\mathit{se}}
 
-%\includeonly{text/introduction, text/background}
+%\includeonly{text/introduction}
 
 \begin{document}
 	
 
-	\include{text/cover}
+	%\include{text/cover}
 	
 \frontmatter
 	\include{text/abstract}
@@ -56,7 +56,7 @@
 %	\addcontentsline{toc}{chapter}{Appendices}	
 %	\printbibliography[heading=bibnumbered, title=References]	\todo{Improve bibstyle}
 	\bibliographystyle{mystyle}
-	\bibliography{mendeley, other_sources}
+	\bibliography{other_sources, mendeley}
 	
 	\include{text/acknowledgements}
 	\include{text/code_availability}

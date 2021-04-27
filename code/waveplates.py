@@ -12,6 +12,8 @@ def plot_empty(ax):
     ax.set_aspect(1)
     ax.set(xlim=[-1,1], ylim=[-1,1], xticks=[], yticks=[])
     ax.axis('off')      
+    ax.axhline(0, color='k', linewidth=.3)
+    # ax.axvline(0, color='k', linewidth=.3)
     # removing the default axis on all sides:
     # for side in ['bottom','right','top','left']:
     #     ax.spines[side].set_visible(False)  

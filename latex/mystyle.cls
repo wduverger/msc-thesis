@@ -46,7 +46,7 @@
 
 \RequirePackage{datetime}   % Used in preface for monthname
 \RequirePackage{microtype}  % Refinements towards typographical perfection
-\RequirePackage[nottoc]{tocbibind} % Add the lists to the table of contents
+\RequirePackage[numbib, nottoc]{tocbibind} % Add the lists to the table of contents
 \RequirePackage{xspace}     % Ensures correct spacing after macros like \deg
 \RequirePackage{etoolbox}   % General toolbox (e.g. \ifdefvoid)
 
@@ -95,15 +95,15 @@
 \RequirePackage{fontspec} % Custom fonts
 
 %% Adding the various fonts
-\setmainfont{Latin Modern Roman}
-\setmathsf{Latin Modern Roman}
-\setmathtt{Arial}
+%\setmainfont{Latin Modern Roman} % Xetex sets these fonts by default!
+%\setmathsf{Latin Modern Roman}
+\setmathtt[Path=layout/]{TUDelft-UltraLight.ttf}
 
 \newfontfamily\tudtitlefamily[Path=layout/]{TUDelft-UltraLight.ttf}
 \newfontfamily\garamondfont[Path=layout/]{Adobe Garamond Pro Semibold.otf}
 \newfontfamily\frutigerfont[Path=layout/]{FrutigerLTStd-Roman.otf}
 \newfontfamily\frutigerbold[Path=layout/]{FrutigerLTStd-Bold.otf}
-\newfontfamily\quotefont{Georgia}
+%\newfontfamily\quotefont{Georgia}
 
 %% Defining commands to be used in layout
 \def\largetitlestyle{\tudtitlefamily}

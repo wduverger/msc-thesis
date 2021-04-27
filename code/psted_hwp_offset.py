@@ -50,7 +50,8 @@ mmax = m[np.isfinite(m)][1:20].max()
 mmin = m[np.isfinite(m)][1:20].min()
 print((mmax, mmin))
 print(f'Imax/Imin = {mmax/mmin}')
-print(f'chi = {np.arctan2(mmin, mmax) * 180 / np.pi} deg')
+print(f'chi_I = {np.arctan2(mmin, mmax) * 180 / np.pi} deg')
+print(f'chi_E = {np.arctan2(np.sqrt(mmin), np.sqrt(mmax)) * 180 / np.pi} deg')
 
 ax.set(
     xlim=[-10,190],

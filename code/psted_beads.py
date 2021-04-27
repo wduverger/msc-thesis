@@ -2,6 +2,7 @@
 import utils
 import matplotlib.pyplot as plt
 import numpy as np
+import pandas as pd
 
 linewidth = (210-50)*.03937
 figwidth = linewidth/2
@@ -51,6 +52,7 @@ msrLE = [
     for i in range(5)
 ]
 
+power_axis = 0.1 * np.linspace(.055, 1.25, 10)
 qwp_angles = np.arange(128.5, 220, 10)
 pol_angles = ((38.5-qwp_angles)*2%360).astype(int)
 folder = r'G:\New_OutLab\JonasSted\D-disken\User data\Wouter\2021-04-21 psted beads and yersinia'
@@ -67,7 +69,8 @@ dataCE = pd.concat([pd.DataFrame(dict(
 # %% 
 matLE = np.array([m['640_psted_apd2 {1}'].sum(axis=(2,3)) for m in msrLE])
 
-fig, ax = plt.subplots(1, 2, figsize=(linewidth, figheight), dpi=200, gridspec_kw=dict(wspace=0))
+fig, ax = plt.subplots(1, 2, figsize=(linewidth, figheight), dpi=200, gridspec_kw=dict(wspace=-.4), sharey=True)
+ax = ax[::-1]
 
 im1 = ax[1].imshow((matLE).mean(axis=0)/matLE.mean(axis=0).max(), cmap='bwr', vmax=1)
 
@@ -86,10 +89,8 @@ matCE = dataCE.psted.values.reshape([10,10])[9:0:-1, :]
 
 im0 = ax[0].imshow(matCE.T/matCE.max(), cmap='bwr', vmax=1)
 
-
 ax[0].set(
     title='Circular excitation',
-    ylabel='Depletion power (W)',
     xlabel='Depletion polarisation (deg)',
     xticks=np.arange(9),
     xticklabels=pol_angles[-1::-1],
@@ -98,7 +99,7 @@ ax[0].set(
 )
 
 # plt.colorbar(im0, ax=ax[0])
-plt.colorbar(im1, ax=ax[1], label='Fluorescence intensity (au)')
+plt.colorbar(im1, ax=ax[0], label='Fluorescence intensity (au)')
 
 fig.savefig('../figures_generated/psted_beads.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/psted_beads.svg', bbox_inches='tight')
