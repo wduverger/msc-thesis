@@ -2,22 +2,14 @@
 
 \chapter{Outlook}
 
-\begin{itemize}
-	\item Conventional polarisation microscopy
-	\begin{itemize}
-		\item Figure out detection waveplates, otherwise you can't use polarisation in the detection pathway
-		
-		\item I've made some measurements of polarisation sensitivities etc. We need to set up an analysis pipeline that makes use of them to correct systematic data errors before we can make quantitative statements about sample polarisation. Then we should really compare it to data from another lab and see if it matches. 
-		\item better pol sensitivity measurement with an artificial molecule
-		
-		\item As part of that, tune the 640 and 775 waveplates to increase linearity to match the 561 laser.
-		
-		\item Improve the excitation waveplate calibration.		
-	\end{itemize}
+Finally, I will review my findings and thoughts on follow-up research.
 
-	\item Keep developing pSTED
-	
-	\item Other fancy polarisation stuff: FLIM + pol, FRET measurements, ...
-	
-	\item To do actual biological research, conventional pol microscopy is definitely the way to go. sSTED is easier than pSTED (for now).
-\end{itemize}
+Firstly, we have achieved polarisation microscopy on the Tegenfeldt STED microscope, and with that reached the main goal of this thesis project. We are technically able to perform polarisation microscopy at confocal resolution and overlay the structure found by non-polarised STED micrographs taken on the same setup. This is already a great result. We have also established that SiR-actin is a probe that is suitable for our setup: it is excited at 640~nm, it is efficiently depleted by the 775~nm laser and its bond to actin is sufficiently rigid for polarisation microscopy.
+
+There is some work left to do before results on biological specimens are ready to be published, however. Firstly, the calibrations of the microscope can be improved. The 640~nm laser is not as well polarised as the 561~nm one is, despite going through a similar set of optics. The circularity of the STED polarisation can also be improved. Secondly, the waveplates of both excitation lasers rotate more than necessary when the laser polarisation is rotated during a polarisation scan. Improving this point should increase the acquisition speed and polarisation quality. Thirdly, we need a quantitative understanding of the depolarising effects of different components instead of a qualitative one. This knowledge may then be used for correcting and interpreting the raw data. We should image a sample in our setup and that of another research group and compare the results quantitatively. When successful, the setup is ready to produce publication-quality polarisation microscopy results.
+
+Secondly, there is some other ground to be gained on the conventional polarisation microscopy front: in the detection waveplates. Once these are properly aligned, it becomes possible to use a polarising beam splitter in the detection pathway, which gives twice the amount of orientational information in a single acquisition. This is great for experiments that are limited by the photon budget: very sensitive samples can then be imaged with polarisation at confocal resolution, or less sensitive ones could be imaged at STED resolution.
+
+Thirdly, we should continue developing pSTED. The results so far are promising, but have not yet demonstrated the full potential of this method. This is due in part to finding the right balance between angular resolution and photodamage due to the increased depletion power. This problem is exacerbated by the fact that having a higher angular resolution requires acquiring more frames on top of a high depletion power. Now that we know pSTED is likely to be possible with these SiR-actin samples, we should get a fresh sample and measure the polarisation signature of actin micropatterns. On the more practical side of things, there are two obvious improvements that can be made: running the cabling to the HWP rotator stage through the back of the optical box and integrating the HWP into the microscope control software to automate pSTED acquisitions.
+
+Finally, this setup offers some other possibilities that have not yet been discussed in this thesis, and there's a lot of methods where we can use fluorescence polarisation. Using the fluorescence lifetime imaging (FLIM) module, it is possible to quantify the rotational diffusion of a fluorophore by assessing how its polarisation signal changes on a timescale of nanoseconds. It is also possible to quantify fluorescence resonant energy transfer (FRET) between fluorophores by measuring the depolarisation effect the sample has on incoming light. Another possibility is to apply these results to other research programmes in the Tegenfeldt group: polarisation microscopy should be able to quantify the degree of polarisation of DNA flowing through a microfluidic device, such as a DLD (deterministic lateral displacement) chip.
