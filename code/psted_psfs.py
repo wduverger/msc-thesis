@@ -6,11 +6,6 @@ import pandas as pd
 
 import utils
 
-linewidth = (210-50)*.03937
-figwidth = linewidth/2
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
-
 msr = utils.read_msr('../data/21-04-20 - 2b sted psfs.msr')
 
 # %% plot PSFs
@@ -27,7 +22,8 @@ def rgb_combine(r=None, g=None, b=None):
     if b is not None: rgb[..., 2] = b/b.max()
     return rgb
 
-fig, ax = plt.subplots(2,5, figsize=(linewidth, figheight), dpi=150, gridspec_kw=dict(hspace=.3))
+fig, ax = plt.subplots(2,5, figsize=(utils.linewidth, 1.2*utils.figheight), dpi=150, 
+    gridspec_kw=dict(hspace=.2))
 ax = ax.flatten()
 
 for i in range(10):
@@ -64,8 +60,8 @@ angle_mean = f775pol.mean().Angle
 angle_std = f775pol.std().Angle
 angle_mean[angle_mean.index > 90] += 180
 
-fig, ax = plt.subplots(1,2, figsize=(linewidth, figheight), dpi=200, sharex=True,
-    gridspec_kw=dict(wspace=.3))
+fig, ax = plt.subplots(1,2, dpi=200, sharex=True,
+    gridspec_kw=dict(wspace=.4))
 ax[0].errorbar(x=angle_mean.index, y=angle_mean, yerr=angle_std,
             capsize=3)
 ax[0].set(
@@ -75,6 +71,9 @@ ax[0].set(
     xticks=np.arange(0,181,30),
     yticks=np.arange(0,181,30)
 )
+
+print('PSTED POWER')
+print(f775pol.IntDen.mean())
 
 ax[1].errorbar(x=angle_mean.index, y=f775pol.IntDen.mean(), yerr=f775pol.IntDen.std(),
             capsize=3)
@@ -147,8 +146,8 @@ disp = (t775 - mids)
 # disp -= disp[:, 0, :]
 dispx = disp[..., 0]
 dispy = disp[..., 1]
-
-fig, ax = plt.subplots(1, 2, figsize=(linewidth, figheight), dpi=200, sharex=True, sharey=True)
+    
+fig, ax = plt.subplots(1, 2, dpi=200, sharex=True, sharey=True)
 ax[0].errorbar(np.linspace(0,180,10), midx.mean(axis=0), midx.std(axis=0), 
     capsize=3, label='x')
 ax[0].errorbar(np.linspace(0,180,10), midy.mean(axis=0), midy.std(axis=0),

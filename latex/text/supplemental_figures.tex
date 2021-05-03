@@ -15,7 +15,7 @@
 	\centering
 	\includegraphics{laser_polarisation}
 	\caption{
-		Polarisation characterisation of the different lasers. To characterise circular polarisation, a polariser was placed in the sample and scanned from \ang{0} to \ang{180} in steps of \ang{20} (notice that I forgot to sample \ang{260} in the 775 nm data). Linear polarisation was characterised by fixing the polariser in place at \ang{0} and scanning the laser itself from \ang{0} to \ang{180} in steps of \ang{10}. Dark blue: average over 200 samples, light blue: raw data. 
+		Polarisation characterisation of the different lasers. To characterise circular polarisation, a polariser was placed in the sample and scanned from \ang{0} to \ang{180} in steps of \ang{20} (notice that I forgot to sample \ang{260} in the 775 nm data). Linear polarisation was characterised by fixing the polariser in place at \ang{0} and scanning the laser itself from \ang{0} to \ang{180} in steps of \ang{10}. Dark blue: average over 200 samples, light blue: raw data. \todo{Check all figures!}
 	}
 	\label{fig:laser polarisation}
 \end{figure}
@@ -74,8 +74,19 @@
 \begin{figure}
 	\centering
 	\includegraphics{pol_cube.pdf}
-	\caption{Performance of the polarising beam splitter}
+	\caption{Performance of the polarising beam splitter \todo{check figure locations}}
 	\label{fig:pol cube}
+\end{figure}
+
+\begin{figure}
+	\centering
+	\includegraphics[scale=.95]{p1_effects_qwp_aligned.pdf}
+	\includegraphics[scale=.95]{p1_effects_qwp_30.pdf}
+	\includegraphics[scale=.95]{p1_effects_qwp_90.pdf}
+	\caption{
+		Simulation of the effect of QWP alignment on the action of the detection pathway. Shown are three simulations in which the first QWP is rotated by 0, 30, and 90 degrees, respectively. The second QWP is always rotated by 0, and the HWP is rotated to half the rotation angle (x-axis). When the QWPs have an offset of 90 degrees (bottom), the upper and lower panels (with either P1 or P2 constant) are identical, but when they are aligned (top), there is a phase difference. When they are not aligned at all (middle), intensity variations are prominent. This simulation is based on \autoref{eq:detection waveplates}.
+	}
+	\label{fig:detection waveplate simulations}
 \end{figure}
 
 \begin{figure}

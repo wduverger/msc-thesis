@@ -1,48 +1,107 @@
 # %%
 import utils
+import utils.jones as j
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-linewidth = (210-50)*.03937
-figwidth = linewidth
-figheight = 4.8 / 6.4 * linewidth/2
-plt.rcParams['font.size'] = '6'
-
 # %%
-msr = utils.read_msr('../data/21-04-08 - 2 detector waveplate calibration.msr')
+msr = utils.read_msr('../data/21-04-28 - qwp 110.msr')
 
-# %%
+# %% plot data
+
+im = lambda p1, p2: msr[f'p1{p1}p2{p2}'].sum(axis=(1,2))
+x_axis = np.arange(0, 171, 10)
+
 fig, ax = plt.subplots(
-    1, 4, 
-    figsize=(figwidth, .6*figheight), sharey=True, 
-    sharex=True, gridspec_kw=dict(wspace=0.2)
+    2, 4, 
+    figsize=(utils.linewidth, 1.5*utils.figheight),
+    sharey=True, sharex=True, gridspec_kw=dict(wspace=0.2, hspace=.4)
 )
 
-im = lambda p1, p2: msr[f'p1_{p1}_p2_{p2}'].sum(axis=(1,2))
-x_axis=np.arange(0,161,20)
+pp = [0,45,90,135]
+for p in pp:
+    ax[0, 0].plot(x_axis, im(p, p2=0))
+    ax[0, 1].plot(x_axis, im(p, p2=45))
+    ax[0, 2].plot(x_axis, im(p, p2=90))
+    ax[0, 3].plot(x_axis, im(p, p2=135), label=p)
 
-for p2 in [0,45,90,135]:
-    ax[0].plot(x_axis, im(p1=0, p2=p2))
-    ax[1].plot(x_axis, im(p1=45, p2=p2))
-    ax[2].plot(x_axis, im(p1=90, p2=p2))
-    ax[3].plot(x_axis, im(p1=135, p2=p2), label=p2)
+    ax[1, 0].plot(x_axis, im(p1=0, p2=p))
+    ax[1, 1].plot(x_axis, im(p1=45, p2=p))
+    ax[1, 2].plot(x_axis, im(p1=90, p2=p))
+    ax[1, 3].plot(x_axis, im(p1=135, p2=p), label=p)
+
+ax[0, 0].set(ylabel='Intensity after P2')
+ax[1, 0].set(
+    ylabel='Intensity after P2', 
+    xticks=np.arange(0, 181, 45), 
+    xlim=[-10,190]
+)
+ax[0, 3].legend(title='P2', loc='upper right')
+ax[1, 3].legend(title='P1', loc='upper right')
+
+for i, p in enumerate(pp):
+    ax[0, i].set(title=f'P2 = {p}')
+    ax[1, i].set(title=f'P1 = {p}', xlabel='Rotation angle (deg)')
+
+fig.savefig('../figures_generated/p1_effects.pdf')
+
+# %% plot simulations
+sys = lambda q1, p1, p2, theta: j.intensity(
+    j.S_pol(p2) @ j.S_2(theta/2) @ j.S_4(0) @ j.S_4(q1) @ j.p_linear(p1)
+)
+
+def build_figure(q1, q2):
+    pp = np.linspace(0, .75 * np.pi, 4)
+    theta = np.linspace(0,np.pi)
+    thetad = theta *180/np.pi
+    ppd = (pp *180/np.pi).astype(int)
     
+    I = [[[sys(q1, p1, p2, t) for t in theta] for p2 in pp] for p1 in pp]
+    I = np.array(I)
+    
+    fig, ax = plt.subplots(2, 4,
+        figsize=(utils.linewidth, 1.25*utils.figheight),
+        sharey=True, sharex=True, gridspec_kw=dict(wspace=0.2, hspace=.5)
+    )
+    
+    for i, (p, pd) in enumerate(zip(pp, ppd)):
+        ax[0, 0].plot(thetad, I[i, 0, :], label=pd)
+        ax[0, 1].plot(thetad, I[i, 1, :], label=pd)
+        ax[0, 2].plot(thetad, I[i, 2, :], label=pd)
+        ax[0, 3].plot(thetad, I[i, 3, :], label=pd)
+        ax[1, 0].plot(thetad, I[0, i, :], label=pd)
+        ax[1, 1].plot(thetad, I[1, i, :], label=pd)
+        ax[1, 2].plot(thetad, I[2, i, :], label=pd)
+        ax[1, 3].plot(thetad, I[3, i, :], label=pd)
+        
+    ax[0, 0].set(ylabel='Intensity after P2', ylim=[-.1,1.1])
+    ax[1, 0].set(ylabel='Intensity after P2')
+    ax[0, 3].legend(title='P1', loc='upper right', fontsize=5)
+    ax[1, 3].legend(title='P2', loc='upper right', fontsize=5)
+    
+    for i in range(4): 
+        
+        ax[0, i].set_title(f'P2={int(ppd[i])}', loc='right')           
+        
+        ax[1, i].set_title(f'P1={int(ppd[i])}', loc='right')           
+        ax[1, i].set(
+            xlabel='Rotation angle (deg)',
+            xticks=np.arange(0, 181, 45)
+        )
+        
+    return fig, ax
 
-ax[0].set(
-    xticks=np.arange(0,181,45),
-    xlabel='Control angle (deg)',
-    ylabel='Intensity after P2 (au)'
-)    
-for i in range(4):
-    ax[i].set(
-        title=f'P1 = {i*45}',
-        xlabel=ax[0].get_xlabel(), 
-        xticks=ax[0].get_xticks())
-ax[3].legend(title='P2 angle', loc='upper right')
 
-fig.savefig('../figures_generated/p1_effects.pdf', bbox_inches='tight')
-fig.savefig('../figures_generated/p1_effects.svg', bbox_inches='tight')
+fig, ax = build_figure(0, 0)
+ax[0, 0].set_title('Q1=0', loc='left', fontdict=dict(fontweight='bold'))
+fig.savefig('../figures_generated/p1_effects_qwp_aligned.pdf')
+fig, ax = build_figure(30*np.pi/180, 0)
+ax[0, 0].set_title('Q1=30', loc='left', fontdict=dict(fontweight='bold'))
+fig.savefig('../figures_generated/p1_effects_qwp_30.pdf')
+fig, ax = build_figure(np.pi/2, 0)
+ax[0, 0].set_title('Q1=90', loc='left', fontdict=dict(fontweight='bold'))
+fig.savefig('../figures_generated/p1_effects_qwp_90.pdf')
 
 # %%
 utils.shutdown_jvm()

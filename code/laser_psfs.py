@@ -4,11 +4,6 @@ import matplotlib.pyplot as plt
 
 import utils
 
-linewidth = (210-50)*.03937
-figwidth  = linewidth
-figheight = 4.8 / 6.4 * figwidth /4
-plt.rcParams['font.size'] = '6'
-
 # %% 
 msrs_gaussian = [
     utils.read_msr('../data/21-04-20 - 1b r1.msr'),
@@ -54,8 +49,7 @@ def plot_row(msrs, row):
         utils.add_scalebar(
             a, 200e-9/c561(msrs[0]).pixel_size_xy, size_vertical=1)
 
-fig, ax = plt.subplots(2, 4, figsize=(linewidth, figheight*2.6)
-    ,gridspec_kw=dict(hspace=0.1, wspace=0))
+fig, ax = plt.subplots(2, 4,figsize=(utils.linewidth, 1.3*utils.figheight))
 plot_row(msrs_donut, 0)
 plot_row(msrs_gaussian, 1)
             

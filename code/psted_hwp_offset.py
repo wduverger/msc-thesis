@@ -5,11 +5,6 @@ import scipy.optimize
 
 import utils
 
-linewidth = (210-50)*.03937
-figwidth = linewidth/2
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
-
 # %%
 df640     = utils.read_power_data('../data/21-03-22 - 3a 640 10% linear 0-10-170 scan through polariser at 90 deg.csv')
 df775_45  = utils.read_power_data('../data/21-03-22 - 3b 775 0.1% hwp 0-5-90 offset 45.csv')
@@ -18,7 +13,7 @@ df775_385 = utils.read_power_data('../data/21-03-22 - 3b 775 0.1% hwp 0-5-90 off
 # %%
 cos = lambda x, a, b, c: a + b * np.cos(2*(x-c)*np.pi/180)
 
-fig, ax = plt.subplots(1, figsize=(figwidth, figheight))
+fig, ax = plt.subplots(1, figsize=(utils.figwidth, utils.figheight))
 
 xfine = np.linspace(0,180)
 

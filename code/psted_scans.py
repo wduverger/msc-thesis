@@ -6,37 +6,30 @@ from matplotlib.patches import Rectangle
 
 import utils
 
-folder = r'G:\New_OutLab\JonasSted\D-disken\User data\Wouter\2021-04-23 psted hires scans'
-
-msr2 = utils.read_msr(folder + '/1 fov2.msr')
+msr2 = utils.read_msr('../data/21-04-23 - 1 fov2.msr')
 conf2 = msr2['640_conf_apd2 {2}']
 sted2 = msr2['640_psted_apd2 {2}']
 
-msr3 = utils.read_msr(folder + '/1 fov3.msr')
+msr3 = utils.read_msr('../data/21-04-23 - 1 fov3.msr')
 conf3 = msr3['640_conf_apd2 {2}']
 sted3 = msr3['640_psted_apd2 {2}']
 
-msr4 = utils.read_msr(folder + '/1 fov4.msr')
+msr4 = utils.read_msr('../data/21-04-23 - 1 fov4.msr')
 conf4 = msr4['640_conf_apd2 {2}']
 sted4 = msr4['640_psted_apd2 {2}']
 
-msr5 = utils.read_msr(folder + '/1 fov5.msr')
+msr5 = utils.read_msr('../data/21-04-23 - 1 fov5.msr')
 conf5 = msr5['640_conf_apd2 {2}']
 sted5 = msr5['640_psted_apd2 {2}']
 
 # %%
-
-linewidth = (210-50)*.03937
-figwidth = linewidth/2
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
 
 profile_multiplier = 1e4
 profile = lambda im, x0, y0, d: im[:, y0:y0+d, x0:x0+d].mean(axis=(1,2)) * profile_multiplier
 pol = lambda hwp: ((218.5-hwp)*2)
 norm = lambda p: (p-p.min())/(p.max()-p.min())
 
-fig, ax = plt.subplots(2, 3, figsize=(linewidth, figheight), dpi=150)
+fig, ax = plt.subplots(2, 3, dpi=150)
 ax = ax.T
 
 x1,y1,d1 = 212, 122, 30
@@ -95,6 +88,8 @@ for i, m in enumerate([conf2, conf3, conf5]):
         xlabel='Depletion polarisation (deg)',
         ylabel='Intensity (norm)' if i==0 else ''
     )
+    if i != 0:
+        ax[i, 1].set_yticklabels([])
 
 fig.savefig('../figures_generated/psted_scans.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/psted_scans.svg', bbox_inches='tight')

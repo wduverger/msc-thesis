@@ -1,0 +1,67 @@
+% !TeX root = ./thesis.tex
+% !TeX encoding = UTF-8
+% !TeX spellcheck = en_GB
+
+
+\documentclass[oneside]{mystyle}
+
+% Set up metadata
+\author{Wouter Duverger}
+\title{Polarisation-resolved super-resolution microscopy}
+\date{May 10, 2021}
+
+% Register figure folders (twice, for Windows and Linux)
+\graphicspath{
+	{../figures_generated}
+	{../figures_generated/}
+	{../figures_other}
+	{../figures_other/}
+}
+
+% Shorthands
+\newcommand{\qwp}{{\lambda/4}}
+\newcommand{\hwp}{{\lambda/2}}
+\newcommand{\Eox}{E_{0x}}
+\newcommand{\Eoy}{E_{0y}}
+\newcommand{\na}{\mathrm{NA}}
+\newcommand{\exc}{\mathit{ex}}
+\newcommand{\dep}{\mathit{d}}
+\newcommand{\emm}{\mathit{em}}
+\newcommand{\unit}[1]{\hat{\vb{#1}}}
+\newcommand{\se}{\mathit{se}}
+
+%\includeonly{text/methods}
+
+\begin{document}
+
+\include{text/cover}
+	
+\frontmatter
+
+	\include{text/abstract}
+	
+	\renewcommand{\contentsname}{Table of Contents}
+	\tableofcontents
+	\addcontentsline{toc}{chapter}{Table of Contents}	
+	
+	\include{text/list_abbreviations}
+
+\mainmatter
+
+	\include{text/introduction}
+	\include{text/background}
+	\include{text/methods}
+	\include{text/results}
+	\include{text/outlook}
+
+\appendix
+
+	\bibliographystyle{mystyle}
+	\bibliography{other_sources,mendeley}
+	
+	\include{text/acknowledgements}
+	\include{text/code_availability}
+	\include{text/laser_safety}
+	\include{text/supplemental_figures}
+
+\end{document}

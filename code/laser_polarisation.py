@@ -5,11 +5,6 @@ import pandas as pd
 
 import utils
 
-linewidth = (210-50)*.03937
-figwidth  = linewidth
-figheight = 4.8 / 6.4 * figwidth /2
-plt.rcParams['font.size'] = '6'
-
 # %% data
 
 l561 = utils.read_power_data(
@@ -34,8 +29,8 @@ avg_p = lambda x: x.p.rolling(100).mean()
 micro = 1e-6
 
 fig, ax = plt.subplots(
-    3, 2, figsize=(figwidth, 3*figheight),
-    gridspec_kw=dict(hspace=.4)
+    3, 2, figsize=(utils.linewidth, 3*utils.figheight),
+    gridspec_kw=dict(hspace=.7)
 )
 
 ax[0, 0].plot(c561.t, c561.p/micro, alpha=.3)
@@ -130,3 +125,4 @@ print(data)
 
 fig.savefig('../figures_generated/laser_polarisation.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/laser_polarisation.svg', bbox_inches='tight')
+# %%

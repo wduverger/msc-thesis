@@ -3,10 +3,8 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-linewidth = (210-50)*.03937
-figwidth = linewidth
-figheight = 4.8 / 6.4 * linewidth/2
-plt.rcParams['font.size'] = '6'
+
+import utils
 
 # %%
 data = pd.read_csv(
@@ -14,7 +12,7 @@ data = pd.read_csv(
     sep=';', decimal=','
 )
 
-fig, ax = plt.subplots(1, 2, figsize=(linewidth, figheight))
+fig, ax = plt.subplots(1, 2)
 
 sources = ['561', '640', '775 @1,2W']
 norms = [1, 1, 1e-3]
@@ -31,7 +29,7 @@ for s, n, l in zip(sources, norms, labels):
 ax[0].legend(title='Laser source')
 ax[0].set(
     xlabel='Power setting (%)',
-    ylabel='Measured power through 10x objective (μW)',
+    ylabel='Power (μW)',
     title='Low powers'
 )
 
@@ -51,3 +49,4 @@ ax[1].set(
 
 fig.savefig('../figures_generated/laser_power.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/laser_power.svg', bbox_inches='tight')
+# %%

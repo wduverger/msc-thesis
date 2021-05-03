@@ -5,12 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import scipy.optimize
 
-# import utils
-
-linewidth = (210-50)*.03937
-figwidth = linewidth/2
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
+import utils
 
 # %% data
 
@@ -19,11 +14,9 @@ with open('../data/beampol_calib.json', 'r') as file:
 
 # %% plots
 
-
-
 calib_old_axis = np.arange(0, 176, 5)
 
-fig, (ax0, ax1) = plt.subplots(1,2, sharey=True, figsize=(linewidth, figheight))
+fig, (ax0, ax1) = plt.subplots(1,2, sharey=True)
 
 φ2 = np.array(calib_json['calibrations']
               ['Polarizer_561']['linear']['l2'])

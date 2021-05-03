@@ -4,11 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import scipy.optimize
 from scipy.special import lambertw
-
-linewidth = (210-50)*.03937
-figwidth  = .5 * linewidth
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
+import utils
 
 # %%
 psf = lambda x, i: np.cos(x)**2 * np.exp( -i * np.sin(x)**2)
@@ -17,7 +13,8 @@ fwhm = lambda i: 2*np.arccos(np.sqrt(np.real(lambertw(i * np.exp(i) / 2) / i))) 
 xx = np.linspace(-90, 90, 100)
 ii = np.linspace(1e-6,10)  # 0 doesn't work in the lambertw function
 
-fig, ax = plt.subplots(1, 2, figsize=(linewidth, figheight), dpi=200)
+fig, ax = plt.subplots(1, 2, figsize=(utils.linewidth, utils.figheight),
+gridspec_kw=dict(wspace=.4))
 
 ax[0].plot(xx, psf(xx * np.pi/180, i=0), label='no pSTED')
 ax[0].plot(xx, psf(xx * np.pi/180, i=2), label='pSTED')
