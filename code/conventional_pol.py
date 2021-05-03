@@ -2,11 +2,6 @@
 import utils
 import matplotlib.pyplot as plt
 
-linewidth = (210-50)*.03937
-figwidth = linewidth/2
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
-
 # %%
 files = [
     r'../data/21-04-01 - 2b fov1 640 scan at 20%5x.msr',
@@ -18,7 +13,7 @@ msrs = [utils.read_msr(f) for f in files]
 ims = [utils.align_stack(m['640_conf_apd2 {1}']) for m in msrs]
 
 # %%
-fig, ax = plt.subplots(1,len(files), figsize=(linewidth, figheight), dpi=300)
+fig, ax = plt.subplots(1,len(files), dpi=300, figsize=(utils.linewidth, utils.figheight*1.2))
 
 for i in range(len(files)):
     ax[i].imshow(utils.stack_to_rgb(ims[i]))
@@ -32,7 +27,7 @@ fig.savefig('../figures_generated/conventional_pol.svg', bbox_inches='tight')
 # %%
 
 fig, ax = plt.subplots(
-    2,3, figsize=(linewidth, 2*figheight), 
+    2,3, figsize=(utils.linewidth, 2*utils.figheight), 
     dpi=300, gridspec_kw=dict(hspace=0)
 )
 

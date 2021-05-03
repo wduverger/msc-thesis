@@ -7,16 +7,10 @@ import scipy.optimize
 
 import utils
 
-linewidth = (210-50)*.03937
-figwidth = linewidth/2
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
-
 # %% data
 
 with open('../data/beampol_calib.json', 'r') as file:
     calib_json = json.load(file)
-
 
 msr_old = utils.read_msr(
     '../data/21-03-22 - 5b detector waveplates old abberior calibration.msr')
@@ -34,7 +28,7 @@ fine_axis = np.linspace(0, 180)
 
 fig, ax = plt.subplots(
     2, 2, sharex=True, sharey='row',
-    figsize=(linewidth, 1.5*figheight),
+    figsize=(utils.linewidth, 1.5*utils.figheight),
     gridspec_kw=dict(wspace=0.1)
 )
 

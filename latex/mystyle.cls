@@ -1,3 +1,5 @@
+% !TeX root = ./Wouter Duverger MSc thesis.tex
+
 % This class provides an unofficial alternative to the original TU Delft
 % template for reports. It features a redesigned cover page and a
 % rewritten class file for easier customization.
@@ -15,7 +17,7 @@
 
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
-\LoadClass[10pt,oneside]{book}
+\LoadClass[10pt, oneside]{book}
 
 %% Main packages in the document
 \RequirePackage{amsmath}    % Mathematics
@@ -39,7 +41,7 @@
 
 \RequirePackage{graphicx}   % Adding images
 \RequirePackage{float}      % Additional float parameters
-\RequirePackage[labelfont=bf,justification=centering,footnotesize]{caption} % Captions
+\RequirePackage[labelfont=bf,footnotesize]{caption} % Captions
 \RequirePackage{subcaption} % Subfigures and subcaptions
 \RequirePackage{xcolor}     % Using colours in documents
 \RequirePackage{tikz}       % Create graphic elements
@@ -73,7 +75,15 @@
 \newcommand\subject[1]{\def\@subject{#1}}
 
 %% Scaling the margins to be slightly smaller than default (25mm)
-\geometry{a4paper,margin=25mm}
+%\geometry{a4paper, margin=25mm}
+\geometry{
+	paperwidth=169mm, paperheight=239mm,
+	inner=25mm, outer=25mm, top=20mm, bottom=20mm
+}
+%\geometry{
+%	paperwidth=169mm, paperheight=239mm, 
+%	inner=30mm, outer=20mm, top=20mm, bottom=20mm
+%}
 
 %% Reducing white space in lists slightly (both enumerate and itemize)
 \setlist{itemsep=-2pt}

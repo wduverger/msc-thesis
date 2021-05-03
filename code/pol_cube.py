@@ -3,19 +3,14 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-
-
-linewidth = (210-50)*.03937
-figwidth = linewidth / 2
-figheight = 4.8 / 6.4 * figwidth 
-plt.rcParams['font.size'] = '6'
+import utils
 
 data = pd.read_csv(
-    r'..\data\21-03-09 - pol cube on test bench.csv', sep=';', 
+    '../data/21-03-09 - pol cube on test bench.csv', sep=';', 
     header=1, decimal=',', skipfooter=4, engine='python'
 )
 
-fig, ax = plt.subplots(figsize=(figwidth, figheight))
+fig, ax = plt.subplots(figsize=(utils.figwidth, utils.figheight))
 
 ax.plot(data['pol angle'], data['pT/max'], '.-', label='Transmitted')
 ax.plot(data['pol angle'], data['pR/max'], '.-', label='Reflected')

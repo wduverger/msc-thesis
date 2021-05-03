@@ -2,11 +2,7 @@
 
 import numpy as np
 import matplotlib.pyplot as plt
-
-linewidth = (210-50)*.03937
-figwidth = linewidth/2
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
+import utils
 
 def plot_empty(ax):
     ax.set_aspect(1)
@@ -50,7 +46,7 @@ s2 = np.array([[1, 0], [0, -1]])
 s4 = np.array([[1, 0], [0, 1j]])
 
 # Visualise action of waveplates
-fig, ax = plt.subplots(3, len(jvec), figsize=(linewidth, figheight))
+fig, ax = plt.subplots(3, len(jvec), figsize=(utils.linewidth, utils.figheight))
 
 for i, j in enumerate(jvec):
     plot_empty(ax[0, i])
@@ -65,5 +61,5 @@ ax[0, 0].set(title='Initial')
 ax[1, 0].set(title='After QWP')
 ax[2, 0].set(title='After HWP')
 
-fig.savefig('../figures_generated/waveplates.pdf', bbox_inches='tight')
-fig.savefig('../figures_generated/waveplates.svg', bbox_inches='tight')
+fig.savefig('../figures_generated/waveplates.pdf')#, bbox_inches='tight')
+fig.savefig('../figures_generated/waveplates.svg')#, bbox_inches='tight')

@@ -6,7 +6,7 @@ The \SI{775}{nm} line is a class 4 laser source. Under normal operation, the use
 
 \begin{table}[h]
 	\centering
-	\caption{Operating characteristics of the 775 laser line and relevant safety parameters. }
+
 	\begin{tabular}{lll}
 		\toprule
 		Quantity                   & Symbol               & Value                 \\ \midrule
@@ -22,7 +22,8 @@ The \SI{775}{nm} line is a class 4 laser source. Under normal operation, the use
 		Ca                         & $ C_a $              & 1.41                  \\
 		Cc                         & $ C_c $              & 1                     \\
 		Ce                         & $ C_e $              & 1                     \\ \bottomrule
-	\end{tabular}
+	\end{tabular}	
+	\caption{Operating characteristics of the 775 laser line and relevant safety parameters. }
 	\label{tab:laser-safety}
 \end{table}
 
@@ -42,7 +43,7 @@ This formula is found in table 2.2 of the regulations.
 \end{equation}
 Rule 2 is therefore more strict than the rule 1. For safe operation, the laser must be ran at a power below 3.3\% $ (=H^\mathit{MPE}_\mathit{thermal} / H_\mathit{pulse}) $.
 
-\paragraph{Rule 3: The cumulative dose for a group of pulses in an interval of time t must not exceed the MPE for a single pulse of that time.} Taking the necessary values from tables 2.2 and 2.3, the cumulative MPE is defined as
+\paragraph{Rule 3: The cumulative dose for a group of pulses in an interval of time t must not exceed the MPE for a single pulse of that time.} Taking the necessary values from tables 2.2 and 2.3 of the regulations, the cumulative MPE is defined as
 \begin{equation}
 	H_\mathit{tot}^\mathit{MPE}(t) = \left\{\begin{array}{rl}
 		\num{5e-3} \:C_a C_e &  t<\SI{18}{\mu s,} \\
@@ -54,7 +55,7 @@ The actual dose, on the other hand, is
 \begin{equation}
 	H_\mathit{tot}(t) = \lfloor ft \rfloor H_\mathit{pulse},
 \end{equation}
-where $ \lfloor \cdot \rfloor$ is the flooring function. This function is plotted in \autoref{fig:laser-safety-mpe}, from which it can be seen that the laser is only safe to use at 0.0005\% capacity. Since the minimum laser power offered by the software is .05\% \todo{check if this makes sense with Jason's laser power data}, OD2 goggles should be worn to guarantee safe operation of the 775~nm laser.
+where $ \lfloor \cdot \rfloor$ is the flooring function. This function is plotted in \autoref{fig:laser-safety-mpe}, from which it can be seen that the laser is only safe to use at 0.0005\% capacity. Since the minimum laser power offered by the software is .05\%, OD2 goggles should be worn to guarantee safe operation of the 775~nm laser.
 
 \begin{figure}
 	\centering
@@ -62,5 +63,3 @@ where $ \lfloor \cdot \rfloor$ is the flooring function. This function is plotte
 	\caption{Maximum permissible  and actual exposure to the collimated STED beam as a function of exposure time.}
 	\label{fig:laser-safety-mpe}
 \end{figure}
-
-\question{I did some calculations on laser tolerance when we were ordering the pSTED optics. Would it be worth it to put those in?}

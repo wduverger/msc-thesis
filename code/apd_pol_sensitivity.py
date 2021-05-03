@@ -5,11 +5,6 @@ import scipy.optimize
 
 import utils
 
-linewidth = (210-50)*.03937
-figwidth = linewidth/2
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
-
 # %%
 files_apd1 = [
     '21-03-29 - 1c apd1 sensitivity - r3.msr',
@@ -58,7 +53,7 @@ def cos(x, a, b, c): return a + b*np.cos((x-c)*np.pi/90)
 popt1, _ = scipy.optimize.curve_fit(cos, pol_angle, y1, sigma=y1err)
 popt2, _ = scipy.optimize.curve_fit(cos, pol_angle, y2, sigma=y2err)
 
-fig, ax = plt.subplots(1, 2, figsize=(linewidth, figheight), sharey=True)
+fig, ax = plt.subplots(1, 2, sharey=True)
 
 ax[0].errorbar(pol_angle, y1, yerr=y1err, ls='', capsize=3)
 ax[1].errorbar(pol_angle, y2, yerr=y2err, ls='', capsize=3)

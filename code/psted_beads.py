@@ -4,102 +4,103 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-linewidth = (210-50)*.03937
-figwidth = linewidth/2
-figheight = 4.8 / 6.4 * figwidth
-plt.rcParams['font.size'] = '6'
-
-# # %%
-# msrc = utils.read_msr('../data/21-03-23 - 1c circular excitation, scan sted power at different psted angles.msr')
-# msrl = utils.read_msr('../data/21-03-23 - 2b at 1% sted power.msr')
-
-# # %%
-# fig, ax = plt.subplots(1,2, figsize=(linewidth, figheight), gridspec_kw=dict(wspace=.3))
-
-# channel_numbers = [3, 6, 7, 8, 9]
-# sted_pol_angles = np.arange(0, 181, 45)
-# sted_power_axis = 0.1 * np.linspace(.055, 1.25, 13)
-
-# for i in range(len(channel_numbers)):
-#     im = msrc[f'640_conf_apd2 {{{channel_numbers[i]}}}']
-#     profile = im.sum(axis=(1,2))
-#     ax[0].plot(sted_power_axis[1:], profile[1:]/profile[1:].max(), label=f'{sted_pol_angles[i]}°')
-
-# ax[0].set_xlabel('Depletion power (W)')
-# ax[0].set_ylabel('Remaining intensity on APD2 (au)')
-# ax[0].set_title('Circular excitation')
-
-# channel_numbers = np.arange(11,16)
-# sted_pol_angles = np.arange(0, 181, 45)
-# sted_power_axis = 0.01 * np.linspace(.055, 1.25, 13)
-
-# for i in range(len(channel_numbers)):
-#     im = msrl[f'640_conf_apd2 {{{channel_numbers[i]}}}']
-#     profile = im.sum(axis=(1,2))
-#     ax[1].plot(sted_power_axis[1:], profile[1:]/profile.max(), label=sted_pol_angles[i])
-# ax[0 ].legend(title='Depletion\npolarisation')
-# ax[1].set_xlabel('Depletion power (W) \n TODO: correct for power nonlinearity')
-# # ax[1].set_ylabel('Remaining intensity (normalised)')
-# ax[1].set_title('Linear excitation')
-# ax[1].set_ylabel('Remaining intensity on APD2 (au)')
-
-# fig.savefig('../figures_generated/psted_beads.pdf', bbox_inches='tight')
-# fig.savefig('../figures_generated/psted_beads.svg', bbox_inches='tight')
-
-# %%
+# %% data ingestion
+power_axis = 0.1 * np.linspace(.055, 1.25, 10)
+pol_angles_LE = np.arange(0, 161, 20)
 msrLE = [
-    utils.read_msr(rf"G:\New_OutLab\JonasSted\D-disken\User data\Wouter\2021-04-20 psfs and psted bead controls\3a psted bead controls {i+1}.msr")
+    utils.read_msr(f"../data/21-04-20 - 3a psted bead controls {i+1}.msr")
     for i in range(5)
 ]
 
-power_axis = 0.1 * np.linspace(.055, 1.25, 10)
-qwp_angles = np.arange(128.5, 220, 10)
-pol_angles = ((38.5-qwp_angles)*2%360).astype(int)
-folder = r'G:\New_OutLab\JonasSted\D-disken\User data\Wouter\2021-04-21 psted beads and yersinia'
-files = [folder + f'/1 bead circular excitation hwp {t} r2.msr' for t in qwp_angles]
-msrsCE = [utils.read_msr(f) for f in files]
+# MSR CE #1
+hwp_angles1 = np.arange(128.5, 220, 10)
+pol_angles1 = ((38.5-hwp_angles1)*2%360).astype(int)
+files = [f'../data/21-04-21 - 1 bead circular excitation hwp {t} r2.msr' for t in hwp_angles1]
+msrsCE1 = [utils.read_msr(f) for f in files]
 
-dataCE = pd.concat([pd.DataFrame(dict(
-        qwp_angle = [qwp_angles[i]]*10,
-        conf = msrsCE[i]['640_conf_apd2 {1}'].mean(axis=(1,2)),
-        psted = msrsCE[i]['640_psted_apd2 {1}'].mean(axis=(1,2)),
-        power = power_axis,
-    )) for i, m in enumerate(msrsCE)])
-
-# %% 
-matLE = np.array([m['640_psted_apd2 {1}'].sum(axis=(2,3)) for m in msrLE])
-
-fig, ax = plt.subplots(1, 2, figsize=(linewidth, figheight), dpi=200, gridspec_kw=dict(wspace=-.4), sharey=True)
-ax = ax[::-1]
-
-im1 = ax[1].imshow((matLE).mean(axis=0)/matLE.mean(axis=0).max(), cmap='bwr', vmax=1)
-
-
-ax[1].set(
-    xlabel='Excitation polarisation (deg)',
-    ylabel='Depletion power (W)',
-    xticks=np.arange(9),
-    xticklabels=np.linspace(0, 160, 9, dtype=int),
-    yticks=np.arange(10),
-    yticklabels=power_axis.round(3),
-    title='Linear excitation',
+# msrCE #2
+channels = np.arange(1,11)
+hwp2 = np.arange(218.5,138.4, -10)
+msrCE2 = utils.read_msr(
+    '../data/21-04-30 - repeat1.msr'
 )
 
-matCE = dataCE.psted.values.reshape([10,10])[9:0:-1, :]
+# %% data analysis
 
-im0 = ax[0].imshow(matCE.T/matCE.max(), cmap='bwr', vmax=1)
+matLE = np.array([m['640_psted_apd2 {1}'].sum(axis=(2,3)) for m in msrLE])
+matLE = matLE.mean(axis=0)
+
+dataCE1 = pd.concat([pd.DataFrame(dict(
+        qwp_angle = [hwp_angles1[i]]*10,
+        conf = msrsCE1[i]['640_conf_apd2 {1}'].mean(axis=(1,2)),
+        psted = msrsCE1[i]['640_psted_apd2 {1}'].mean(axis=(1,2)),
+        power = power_axis,
+    )) for i, m in enumerate(msrsCE1)])
+matCE1 = dataCE1.psted.values.reshape([10,10])[9:0:-1, :].T
+
+matCE1 = np.zeros((len(power_axis), len(hwp_angles1)-1))
+for i in range(1, len(hwp_angles1)): # Don't take the first data point (pol at 180 deg), since the other data don't have this
+    conf = msrsCE1[i]['640_conf_apd2 {1}'].mean(axis=(1,2))
+    psted = msrsCE1[i]['640_psted_apd2 {1}'].mean(axis=(1,2))
+    matCE1[:, i-1] = psted
+matCE1 = matCE1[:, ::-1]  # Reverse pol axis
+
+matCE2 = np.zeros((len(power_axis), len(hwp2)))
+for i, c in enumerate(channels):
+    conf = msrCE2[f'640_conf_apd2 {{{c}}}'].mean(axis=(1,2))
+    psted = msrCE2[f'640_psted_apd2 {{{c}}}'].mean(axis=(1,2))
+    matCE2[i, :] = psted
+    
+
+# %% data vis
+
+norm = lambda x: x/x.max()
+vmin=.3
+
+fig, ax = plt.subplots(1, 3, figsize=(utils.linewidth, 0.8*utils.figheight), 
+    gridspec_kw=dict(wspace=-.3), sharey=True, dpi=200)
+
+im0 = ax[0].imshow(norm(matLE), cmap='bwr', vmax=1, vmin=vmin)
+
+xticks = np.arange(0,9,2)
+xticklabels = np.linspace(0, 160, 5, dtype=int)
 
 ax[0].set(
-    title='Circular excitation',
-    xlabel='Depletion polarisation (deg)',
-    xticks=np.arange(9),
-    xticklabels=pol_angles[-1::-1],
+    xlabel='Excitation pol (deg)',
+    ylabel='Depletion power (W)',
+    xticks=xticks,
+    xticklabels=xticklabels,
+    yticks=np.arange(10),
+    yticklabels=power_axis.round(3),
+    title='Linear',
+)
+
+
+im1 = ax[1].imshow(norm(matCE1), cmap='bwr', vmax=1, vmin=vmin)
+
+ax[1].set(
+    title='Circular 1',
+    xlabel='Depletion pol (deg)',
+    xticks=np.arange(0,9,2),
+    xticklabels=pol_angles1[-1::-2],
     yticks=np.arange(10),
     yticklabels=power_axis.round(3),
 )
 
-# plt.colorbar(im0, ax=ax[0])
-plt.colorbar(im1, ax=ax[0], label='Fluorescence intensity (au)')
+im2 = ax[2].imshow(norm(matCE2), cmap='bwr', vmax=1, vmin=vmin)
+
+ax[2].set(
+    title='Circular 2',
+    xlabel='Depletion pol (deg)',
+    xticks=np.arange(0,9,2),
+    xticklabels=pol_angles1[-1::-2],
+    yticks=np.arange(10),
+    yticklabels=power_axis.round(3),
+)
+
+# plt.colorbar(mappable=im0, ax=ax[0])
+# plt.colorbar(mappable=im1, ax=ax[1])
+plt.colorbar(mappable=im2, ax=ax[2], label='Fraction of remaining\nfluorescence intensity')
 
 fig.savefig('../figures_generated/psted_beads.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/psted_beads.svg', bbox_inches='tight')
