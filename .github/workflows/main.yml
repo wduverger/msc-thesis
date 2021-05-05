@@ -23,13 +23,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build Docker container
-        run: echo test #docker build -t wduverger/msc-thesis .
-
       - name: Compile report
         run: |
+          who
           ls -la
-          docker pull wduverger/msc-thesis
-          sudo docker run --rm -v ${{ github.workspace }}:/workspace wduverger/msc-thesis make figures
+          # docker pull wduverger/msc-thesis
+          # sudo docker run --rm -v ${{ github.workspace }}:/workspace wduverger/msc-thesis make figures
           # docker run --rm -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make report"
           # ls -la
