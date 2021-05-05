@@ -5,15 +5,15 @@ thesis.pdf: thesis.tex text/*.tex
 	xelatex -interaction=errorstopmode thesis.tex
 
 clean:
-	rm -f latex/text/*.aux
-	rm -f latex/*.aux
-	rm -f latex/*.fdb_latexmk
-	rm -f latex/*.fls
-	rm -f latex/*.log
-	rm -f latex/*.out
-	rm -f latex/*.toc
-	rm -f latex/*.run.xml
-	rm -f latex/*-blx.bib
-	rm -f latex/*.blg
-	rm -f latex/*.bbl
-	rm -f latex/*.synctex.gz
+	rm -f text/*.aux
+	rm -f *.aux
+	rm -f *.fdb_latexmk
+	rm -f *.fls
+	rm -f *.log
+	rm -f *.out
+	rm -f *.toc
+	rm -f *.run.xml
+	rm -f *-blx.bib
+	rm -f *.blg
+	rm -f *.bbl
+	rm -f *.synctex.gz
