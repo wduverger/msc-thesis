@@ -29,8 +29,9 @@ thesis-print:
 		$(TEX_CHAIN) && \
 		cp -p thesis.pdf "../MSc thesis Wouter Duverger (print).pdf"
 	
-# Clean project dir
+# Clean compiled files
 clean:
+	rm -f *.pdf
 	rm figures_generated/*
 	rm -f latex/text/*.aux
 	rm -f latex/*.aux
