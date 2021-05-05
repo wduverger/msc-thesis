@@ -42,7 +42,8 @@ jobs:
       - name: Compile thesis
         run: docker run -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make thesis-web"
 
-      - name: Show files in figfolder
-        run: |
-          ls -la figures_generated
-          ls -la 
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: thesis-report
+          path: *.pdf
