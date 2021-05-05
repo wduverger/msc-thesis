@@ -40,7 +40,7 @@ jobs:
         run: docker pull texlive/texlive
 
       - name: Compile thesis
-        run: docker run -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make thesis-web.pdf"
+        run: docker run -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make thesis-web"
 
       - name: Show files in figfolder
         run: |
