@@ -23,15 +23,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Compile report
+      - name: Generate files in figfolder
         run: |
           ls -la figures_generated/
           sudo touch figures_generated/testsudo
           touch figures_generated/test
           ls -la figures_generated/
 
-          docker pull wduverger/msc-thesis
-          sudo docker run --rm -v ${PWD}:/workspace wduverger/msc-thesis touch figures_generated/testdocker
-          ls -la figures_generated/
-          # docker run --rm -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make report"
-          # ls -la
+      - name: Run container
+        uses: docker://wduverger/msc-thesis
+        with: 
+          entrypoint: /bin/bash
+          options: -c "cd figures_generated && touch dockertest"
+
+      - name: Generate files in figfolder
+        run: ls -la figures_generated
