@@ -26,7 +26,11 @@ jobs:
       - name: Compile report
         run: |
           who
-          ls -la
+          ls -la figures_other/
+          sudo touch figures_other/testsudo
+          touch figures_other/test
+          ls -la figures_other/
+
           # docker pull wduverger/msc-thesis
           # sudo docker run --rm -v ${{ github.workspace }}:/workspace wduverger/msc-thesis make figures
           # docker run --rm -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make report"
