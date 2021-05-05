@@ -24,10 +24,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Docker container
-        run: docker build -t wduverger/msc-thesis .
+        run: echo skip #docker build -t wduverger/msc-thesis .
 
       - name: Compile report
         run: |
-          docker run --rm -itv $GITHUB_WORKSPACE:/workspace wduverger/msc-thesis make figures
-          docker run --rm -itv ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make report"
+          docker pull wduverger/msc-thesis
+          docker run --rm -v $GITHUB_WORKSPACE:/workspace wduverger/msc-thesis make figures
+          docker run --rm -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make report"
           ls -la
