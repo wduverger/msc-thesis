@@ -1,3 +1,7 @@
+# Compiled files
+figures_generated/*
+*.pdf
+
 # VS Code settings
 *.code-workspace
 .vscode

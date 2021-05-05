@@ -242,7 +242,7 @@ Now, we need to include the effect of the polarised depletion field, which amoun
 \end{equation}
 In essence, we should then multiply the kernel $ h_\exc $ with the function $ \eta $
 \begin{equation}
-	h_\mathit{pSTED}(\vb{y}) = h_\exc(\vb{y}) \eta(\vb{y}) = \sigma_\exc I_\exc(\vb{x}) \cos^2(\theta) \exp(-\sigma_\dep I(\vb{x}) \sin^2 \theta),
+	h_\mathit{pSTED}(\vb{y}) = h_\exc(\vb{y}) \eta(\vb{y}) = \sigma_\exc I_\exc(\vb{x}) \cos^2(\theta) \exp(-\sigma_\dep I_\dep(\vb{x}) \sin^2 \theta),
 \end{equation}
 which assumes both electric fields are orthogonally polarised and confined to the $ xy $ plane.
 
@@ -259,7 +259,7 @@ This model can easily be extended to account for depolarising effects such as ro
 \begin{equation}
 	d_\theta = 2\arccos\sqrt\frac{\mathcal{W}(k e^{k}/2)}{k},
 \end{equation}
-where $ k = \sigma_dI_d $ and $ \mathcal{W}(\cdot) $ denotes the Lambert W-function, the inverse of the function $ f(x) = xe^x $. As expected, $ d_\theta=\ang{90} $ for $ I_d=0 $. For other values of $ I_d $, the resolution is plotted in \autoref{fig:pol psf width}.
+where $ k = \sigma_\dep I_\dep $ and $ \mathcal{W}(\cdot) $ denotes the Lambert W-function, the inverse of the function $ f(x) = xe^x $. As expected, $ d_\theta=\ang{90} $ for $ I_d=0 $. For other values of $ I_d $, the resolution is plotted in \autoref{fig:pol psf width}.
 
 
 \subsection{Implementation}

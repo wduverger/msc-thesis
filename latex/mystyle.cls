@@ -1,4 +1,4 @@
-% !TeX root = ./Wouter Duverger MSc thesis.tex
+% !TeX root = ./thesis.tex
 
 % This class provides an unofficial alternative to the original TU Delft
 % template for reports. It features a redesigned cover page and a
@@ -11,15 +11,28 @@
 % see https://creativecommons.org/licenses/by-nc/4.0/. No attribution
 % is required in reports created using this template.
 
-%% Class is based on the default book class and options will be passed
+%%%%% 0. "Preamble" %%%%%
+
+% Declare existence of package
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{mystyle}[06-02-2021 v1.3.1 TU Delft Report Class]
 
+% Declares a toggle called \ifprint. Turn it on with option print, off
+% with option web. If none give, it defaults to false (ie web).
+\newif\ifprint
+\DeclareOption{web}{\printfalse}
+\DeclareOption{print}{\printtrue}
+
+% Load base class
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{book}}
 \ProcessOptions\relax
-\LoadClass[10pt, oneside]{book}
+\ifprint
+	\LoadClass[10pt, twoside]{book}
+\else
+	\LoadClass[10pt, oneside]{book}
+\fi
 
-%% Main packages in the document
+% Main packages in the document
 \RequirePackage{amsmath}    % Mathematics
 \RequirePackage{amssymb}    % Symbols
 \RequirePackage{siunitx}    % Various functions, e.g. \num{}
@@ -38,7 +51,6 @@
 \RequirePackage[hidelinks]{hyperref} % Improved referencing/links
 \RequirePackage[numbers,sort&compress]{natbib}
 
-
 \RequirePackage{graphicx}   % Adding images
 \RequirePackage{float}      % Additional float parameters
 \RequirePackage[labelfont=bf,footnotesize]{caption} % Captions
@@ -52,8 +64,8 @@
 \RequirePackage{xspace}     % Ensures correct spacing after macros like \deg
 \RequirePackage{etoolbox}   % General toolbox (e.g. \ifdefvoid)
 
-% Extra packages
 \usepackage{physics, tabularx, mathtools, titling}
+
 
 %%%%% 1. General Definitions for the Document and Bibliography %%%%%
 
@@ -74,16 +86,18 @@
 \newcommand*\coverimage[1]{\def\@cover@image{#1}}
 \newcommand\subject[1]{\def\@subject{#1}}
 
-%% Scaling the margins to be slightly smaller than default (25mm)
-%\geometry{a4paper, margin=25mm}
-\geometry{
-	paperwidth=169mm, paperheight=239mm,
-	inner=25mm, outer=25mm, top=20mm, bottom=20mm
-}
-%\geometry{
-%	paperwidth=169mm, paperheight=239mm, 
-%	inner=30mm, outer=20mm, top=20mm, bottom=20mm
-%}
+%% Define paper size and margins
+\ifprint
+	\geometry{
+		paperwidth=169mm, paperheight=239mm,
+		inner=30mm, outer=20mm, top=20mm, bottom=20mm
+	}
+\else
+	\geometry{
+		paperwidth=169mm, paperheight=239mm, 
+		inner=25mm, outer=25mm, top=20mm, bottom=20mm
+	}
+\fi
 
 %% Reducing white space in lists slightly (both enumerate and itemize)
 \setlist{itemsep=-2pt}
@@ -94,26 +108,16 @@
 \let\subsectionautorefname\sectionautorefname
 \let\subsubsectionautorefname\sectionautorefname
 
-%% Bibliography settings
-%\RequirePackage[backend=bibtex]{biblatex}  % Manage bibliography
-%\setlength\bibitemsep{0.7\itemsep} % More spacing to improve readability
-%\setcounter{biburlnumpenalty}{7000} % Prevent urls running into margins in bibliography
-%\setcounter{biburllcpenalty}{7000}
-%\setcounter{biburlucpenalty}{7000}
-
-%%%%% 2. Loading all the Fonts (Supports pdfLaTeX, XeLaTeX and LuaLaTeX) %%%%%
+%%%%% 2. Loading all the Fonts  %%%%%
 \RequirePackage{fontspec} % Custom fonts
 
 %% Adding the various fonts
-%\setmainfont{Latin Modern Roman} % Xetex sets these fonts by default!
-%\setmathsf{Latin Modern Roman}
-\setmathtt[Path=layout/]{TUDelft-UltraLight.ttf}
 
+\setmathtt[Path=layout/]{TUDelft-UltraLight.ttf}
 \newfontfamily\tudtitlefamily[Path=layout/]{TUDelft-UltraLight.ttf}
 \newfontfamily\garamondfont[Path=layout/]{Adobe Garamond Pro Semibold.otf}
 \newfontfamily\frutigerfont[Path=layout/]{FrutigerLTStd-Roman.otf}
 \newfontfamily\frutigerbold[Path=layout/]{FrutigerLTStd-Bold.otf}
-%\newfontfamily\quotefont{Georgia}
 
 %% Defining commands to be used in layout
 \def\largetitlestyle{\tudtitlefamily}
@@ -161,6 +165,7 @@
 \dottedcontents{section}[3.8em]{\titlestyle}{2.3em}{8pt}
 \dottedcontents{subsection}[7em]{\titlestyle}{3.2em}{8pt}
 
+
 %%%%% 4. Adjusting the Header and Footer %%%%%
 
 %% Adding a head rule to pages
@@ -175,7 +180,7 @@
     \fancyfoot[C]{\thepage}}
 
 %% Fancy style for the main matter, depends on oneside/twoside option
-\if@twoside%
+\ifprint%
     \fancyhf{}
     \fancyhead[LE,RO]{\titlestyle\thepage}
     \fancyhead[RE]{\titlestyle\nouppercase{\leftmark}}
@@ -184,14 +189,25 @@
 \else%
     \fancyhf{}
     \fancyhead[R]{\titlestyle\thepage}
-    \fancyhead[L]{\titlestyle\nouppercase{\rightmark}}
+    \fancyhead[L]{\titlestyle\nouppercase{\leftmark}}
 \fi
 
 \pagestyle{fancy} % Setting it to default
 
+
 %%%%% 5. My own extra commands %%%%%
 
-% Commands for inline comments
+% Define cover page that will only be printed for web version
+\newcommand{\printcover}[1]{
+	\unless\ifprint
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[inner sep=0pt] at (current page.center) {\includegraphics[page=1]{coverpage_g5.pdf}};
+	\end{tikzpicture}
+	\cleardoublepage
+	\fi
+}
+
+% Inline comments
 \definecolor{green}{rgb}{0.17,0.68,0.11}
 \definecolor{orange}{rgb}{0.8,0.4,0.1}
 \newcommand{\question}[1]{\textcolor{green}{(#1)}}
