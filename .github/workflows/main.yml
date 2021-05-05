@@ -30,11 +30,19 @@ jobs:
           touch figures_generated/test
           ls -la figures_generated/
 
-      # - name: Build container
-      #   run: docker build -t dockerimg .
+      - name: Build container
+        run: docker pull wduverger/msc-thesis
 
-      - name: Touch file from docker
-        run: docker run -v ${PWD}:/workspace wduverger/msc-thesis touch figures_generated/dockertest
+      - name: Compile figures
+        run: docker run -v ${PWD}:/workspace wduverger/msc-thesis make -j8 figures
+
+      - name: Pull latex container
+        run: docker pull texlive/texlive
+
+      - name: Compile thesis
+        run: docker run -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make thesis-web.pdf"
 
       - name: Show files in figfolder
-        run: ls -la figures_generated
+        run: |
+          ls -la figures_generated
+          ls -la 
