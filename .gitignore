@@ -1,5 +1,7 @@
 # Compiled files
-figures_generated/*
+figures_generated/*.pdf
+figures_generated/*.svg
+figures_generated/*.png
 *.pdf
 
 # VS Code settings
