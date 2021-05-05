@@ -30,11 +30,11 @@ jobs:
           touch figures_generated/test
           ls -la figures_generated/
 
-      - name: Build container
-        run: docker build -t dockerimg .
+      # - name: Build container
+      #   run: docker build -t dockerimg .
 
       - name: Touch file from docker
-        run: docker run -v ${PWD}:/workspace dockerimg touch dockertest
+        run: docker run -v ${PWD}:/workspace wduverger/msc-thesis touch figures_generated/dockertest
 
       - name: Show files in figfolder
         run: ls -la figures_generated
