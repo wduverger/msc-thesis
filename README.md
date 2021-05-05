@@ -9,7 +9,7 @@ To run everything the code, you need a python environment with the packages list
 ```bash
 docker pull wduverger/msc-thesis        # Download container from DockerHub,
 docker build -t wduverger/msc-thesis .  # ... or build it yourself.
-docker run --rm -itv ${PWD}:/workspace wduverger/msc-thesis make figures
+docker run --rm -itv ${PWD}:/workspace wduverger/msc-thesis make -j8 figures
 
 make figures  # Generate all figures from raw data
 docker run --rm -itv ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make report"
