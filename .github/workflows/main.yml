@@ -31,7 +31,7 @@ jobs:
           ls -la figures_generated/
 
           docker pull wduverger/msc-thesis
-          docker run --rm -v ${PWD}:/workspace wduverger/msc-thesis touch figures_generated/testdocker
+          sudo docker run --rm -v ${PWD}:/workspace wduverger/msc-thesis touch figures_generated/testdocker
           ls -la figures_generated/
           # docker run --rm -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make report"
           # ls -la
