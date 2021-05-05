@@ -34,7 +34,7 @@ jobs:
         run: docker build -t dockerimg .
 
       - name: Touch file from docker
-        run: docker run -v ${PWD}:/workspace touch dockertest
+        run: docker run -v ${PWD}:/workspace dockerimg touch dockertest
 
       - name: Show files in figfolder
         run: ls -la figures_generated
