@@ -34,7 +34,7 @@ jobs:
         uses: docker://wduverger/msc-thesis
         with: 
           entrypoint: /bin/bash
-          args: -c "cd figures_generated && touch dockertest"
+          args: -c "touch dockertest"
 
       - name: Generate files in figfolder
         run: ls -la figures_generated
