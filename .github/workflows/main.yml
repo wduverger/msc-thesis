@@ -29,6 +29,6 @@ jobs:
       - name: Compile report
         run: |
           docker pull wduverger/msc-thesis
-          docker run --rm -v $GITHUB_WORKSPACE:/workspace wduverger/msc-thesis make figures
-          docker run --rm -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make report"
-          ls -la
+          docker run --rm -v ${{ github.workspace }}:/workspace wduverger/msc-thesis make figures
+          # docker run --rm -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make report"
+          # ls -la
