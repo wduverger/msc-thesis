@@ -24,7 +24,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Define docker tag
-        id:docker-tag
+        id: docker-tag
         run: echo "::set-output name=tag::wduverger/msc-thesis:${{ github.sha }}-$(date +%s)"
 
       - name: Build python container
