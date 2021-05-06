@@ -27,22 +27,27 @@ jobs:
 
       - name: Define docker tag
         id: docker-tag
-        run: echo "::set-output name=tag::wduverger/msc-thesis:${{ github.sha }}-$(date +%s)"
+        run: |
+          echo "image_name=wduverger/msc-thesis" >> $GITHUB_ENV
+          echo "image_tag=${{ github.sha }}-$(date +%s)" >> $GITHUB_ENV
 
       - name: Build python container
-        run: docker build -t ${{ steps.docker-tag.outputs.tag }} .
+        run: docker build -t ${{ env.image_name }} .
 
       - name: Pull latex container
         run: docker pull texlive/texlive
 
       - name: Compile figures
         run: |
-          docker run -v ${{ github.workspace }}:/workspace ${{ steps.docker-tag.outputs.tag }} \
+          docker run \
+            -v ${{ github.workspace }}:/workspace \
+            ${{ env.image_name }} \
             make -j8 figures
 
       - name: Compile thesis
         run: |
-          docker run -v ${{ github.workspace }}:/workspace \
+          docker run \
+            -v ${{ github.workspace }}:/workspace \
             texlive/texlive \
             bash -c "cd workspace && make thesis"
 
@@ -55,12 +60,15 @@ jobs:
       # If running on master branch, publish container to Docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v1
-        if: ${{ github.ref == 'refs/heads/master' }}
+        if: ${{ github.ref == 'refs/heads/dev' }}
         with:
           username: ${{ secrets.DOCKER_HUB_USERNAME }}
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
       - name: Publish docker image
-        if: ${{ github.ref == 'refs/heads/master' }}
-        run: docker push ${{ steps.docker-tag.outputs.tag }}
+        if: ${{ github.ref == 'refs/heads/dev' }}
+        run: |
+          docker push ${{ env.image_name }}
+          docker tag ${{ env.image_name }} ${{ env.image_name }}:${{env.image_tag}}
+          docker push ${{ env.image_name }}:${{env.image_tag}}
           
