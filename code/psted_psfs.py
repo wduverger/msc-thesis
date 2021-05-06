@@ -40,7 +40,7 @@ fig.savefig('../figures_generated/psted_psfs.svg', bbox_inches='tight')
 
 # %% read PSF data
 
-# This data was generated using `psted_psfs.ijm`
+# This data was generated using the code in `psted_psfs.ijm`
 fiji = pd.read_csv('../data/psted_psfs.csv')
 
 # Manipulate dataframe

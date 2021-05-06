@@ -1,3 +1,9 @@
+# Compiled files
+figures_generated/*.pdf
+figures_generated/*.svg
+figures_generated/*.png
+*.pdf
+
 # VS Code settings
 *.code-workspace
 .vscode
@@ -25,3 +31,4 @@ __pycache__
 **.bcf
 **.run.xml
 **-blx.bib
+**.texe

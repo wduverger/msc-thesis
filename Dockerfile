@@ -42,7 +42,7 @@ FROM openjdk:17-slim
 COPY --from=python:3.6 / /
 
 # Create a non-root user named jovyan (expected by Jupyter)
-RUN adduser --system --group jovyan
+# RUN adduser --system --group jovyan
 
 # Set proper time zone
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime
@@ -56,9 +56,9 @@ RUN pip install -r requirements.txt
 
 # Ensure jovyan owns all files in their home folder. Matplotlib won't run if
 # that is not the case
-RUN chown -R jovyan /home/jovyan
+# RUN chown -R jovyan /home/jovyan
 
 # On startup, run Jupyter Lab as the non-root user
-USER jovyan
+# USER jovyan
 WORKDIR /workspace
-CMD jupyter lab --ip=0.0.0.0
+CMD make figures

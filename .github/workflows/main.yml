@@ -1,0 +1,74 @@
+name: CI
+
+on: 
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 12 * * *'  # Run at 12:30 pm every day
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:      
+    
+      # - name: Initialise Docker cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: /var/lib/docker
+      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-buildx-
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Define docker tag
+        id: docker-tag
+        run: |
+          echo "image_name=wduverger/msc-thesis" >> $GITHUB_ENV
+          echo "image_tag=${{ github.sha }}-$(date +%Y-%m-%d_%H:%M)" >> $GITHUB_ENV
+
+      - name: Build python container
+        run: docker build -t ${{ env.image_name }} .
+
+      - name: Pull latex container
+        run: docker pull texlive/texlive
+
+      - name: Compile figures
+        run: |
+          docker run \
+            -v ${{ github.workspace }}:/workspace \
+            ${{ env.image_name }} \
+            make -j8 figures
+
+      - name: Compile thesis
+        run: |
+          docker run \
+            -v ${{ github.workspace }}:/workspace \
+            texlive/texlive \
+            bash -c "cd workspace && make thesis"
+
+      - name: Save thesis
+        uses: actions/upload-artifact@v2
+        with:
+          name: thesis-web
+          path: ./*.pdf      
+
+      # If running on master branch, publish container to Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        if: ${{ github.ref == 'refs/heads/master' }}
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Publish docker image
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: |
+          docker push ${{ env.image_name }}
+          docker tag ${{ env.image_name }} ${{ env.image_name }}:${{env.image_tag}}
+          docker push ${{ env.image_name }}:${{env.image_tag}}
+          
