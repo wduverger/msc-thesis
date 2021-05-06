@@ -1,11 +1,7 @@
 # %%
 import numpy as np
 import matplotlib.pyplot as plt
-
-# %%
-linewidth = (210-50)*.03937
-figwidth  = .5 * linewidth
-figheight = 4.8 / 6.4 * figwidth
+import utils
 
 # %%
 ca = 1.41
@@ -32,18 +28,17 @@ h_mpe = np.where(
     )
 )
 
-plt.rcParams['font.size'] = '6'
-fig, ax = plt.subplots(1,1, figsize=(figwidth, figheight))
+fig, ax = plt.subplots(figsize=(utils.figwidth, utils.figheight))
 
 ax.plot(t, h_mpe, label='MPE')
-ax.plot(t, h_actual, label='Exposure at 100%')
-ax.plot(t, h_actual*.0005/100, label='Exposure at .0005%')
+ax.plot(t, h_actual, label='Exposure at 100% power')
+ax.plot(t, h_actual*.0005/100, label='Exposure at .0005% power')
 ax.legend()
 ax.set(
     xscale='log',
     yscale='log',
-    xlabel='Exposure time ( $s$ )',
-    ylabel='Dose received ( $J/m^2$ )'
+    xlabel='Exposure time (s)',
+    ylabel='Dose received (J/m²)'
 )
 
 # %%

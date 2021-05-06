@@ -16,6 +16,7 @@ msr_old = utils.read_msr(
     '../data/21-03-22 - 5b detector waveplates old abberior calibration.msr')
 msr_new = utils.read_msr(
     '../data/21-03-22 - 5a detector waveplates my calibration - rerun.msr')
+utils.shutdown_jvm()
 
 # %%
 calib_old_axis = np.arange(0, 176, 5)
@@ -37,7 +38,7 @@ ax[0, 0].plot(calib_old_axis, φ2)
 ax[0, 0].plot(calib_old_axis, φ4)
 ax[0, 0].set(
     title='Default calibration',
-    ylabel='Waveplate angle',
+    ylabel='Waveplate angle (deg)',
     yticks=np.arange(0, 230, 45),
     ylim=[-20, 245]
 )
@@ -57,13 +58,13 @@ for i in range(4):
         axis=(1, 2)), '.-', label=f'{i*45:d}°')
 
 ax[1, 0].set(
-    xlabel='Control angle',
+    xlabel='Control angle (deg)',
     xticks=np.arange(0, 181, 45),
     ylabel='Intensity after P2 (au)'
 )
 ax[1, 1].legend(title='P2 angle', loc='upper right')
 ax[1, 1].set(
-    xlabel='Control angle'
+    xlabel='Control angle (deg)'
 )
 
 fig.savefig('../figures_generated/detection_waveplate_calibrations.pdf',
@@ -72,4 +73,3 @@ fig.savefig('../figures_generated/detection_waveplate_calibrations.svg',
             bbox_inches='tight')
 
 # %%
-utils.shutdown_jvm()

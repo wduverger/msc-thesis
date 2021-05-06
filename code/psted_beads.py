@@ -24,6 +24,7 @@ hwp2 = np.arange(218.5,138.4, -10)
 msrCE2 = utils.read_msr(
     '../data/21-04-30 - repeat1.msr'
 )
+utils.shutdown_jvm()
 
 # %% data analysis
 
@@ -57,8 +58,8 @@ for i, c in enumerate(channels):
 norm = lambda x: x/x.max()
 vmin=.3
 
-fig, ax = plt.subplots(1, 3, figsize=(utils.linewidth, 0.8*utils.figheight), 
-    gridspec_kw=dict(wspace=-.3), sharey=True, dpi=200)
+fig, ax = plt.subplots(1, 2, figsize=(utils.linewidth, utils.figheight), 
+    gridspec_kw=dict(wspace=-.4), sharey=True, dpi=200)
 
 im0 = ax[0].imshow(norm(matLE), cmap='bwr', vmax=1, vmin=vmin)
 
@@ -76,7 +77,7 @@ ax[0].set(
 )
 
 
-im1 = ax[1].imshow(norm(matCE1), cmap='bwr', vmax=1, vmin=vmin)
+im1 = ax[1].imshow((norm(matCE1)+norm(matCE2))/2, cmap='bwr', vmax=1, vmin=vmin)
 
 ax[1].set(
     title='Circular 1',
@@ -87,22 +88,8 @@ ax[1].set(
     yticklabels=power_axis.round(3),
 )
 
-im2 = ax[2].imshow(norm(matCE2), cmap='bwr', vmax=1, vmin=vmin)
-
-ax[2].set(
-    title='Circular 2',
-    xlabel='Depletion pol (deg)',
-    xticks=np.arange(0,9,2),
-    xticklabels=pol_angles1[-1::-2],
-    yticks=np.arange(10),
-    yticklabels=power_axis.round(3),
-)
-
-# plt.colorbar(mappable=im0, ax=ax[0])
-# plt.colorbar(mappable=im1, ax=ax[1])
-plt.colorbar(mappable=im2, ax=ax[2], label='Fraction of remaining\nfluorescence intensity')
+plt.colorbar(mappable=im1, ax=ax[1], label='Fraction of remaining\nfluorescence intensity')
 
 fig.savefig('../figures_generated/psted_beads.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/psted_beads.svg', bbox_inches='tight')
 # %%
-utils.shutdown_jvm()

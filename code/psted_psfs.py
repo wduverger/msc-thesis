@@ -7,6 +7,7 @@ import pandas as pd
 import utils
 
 msr = utils.read_msr('../data/21-04-20 - 2b sted psfs.msr')
+utils.shutdown_jvm()
 
 # %% plot PSFs
 
@@ -32,7 +33,7 @@ for i in range(10):
     di = 20
     ax[i].imshow(im[peakj-di:peakj+di, peaki-di:peaki+di])
     ax[i].axis('off')
-    ax[i].set_title(hwp_angles[i*2])
+    ax[i].set_title(f'{hwp_angles[i*2]}°')
     utils.add_scalebar(ax[i], 100e-9/im.pixel_size_xy, size_vertical=.5)
 
 fig.savefig('../figures_generated/psted_psfs.pdf', bbox_inches='tight')
@@ -75,12 +76,12 @@ ax[0].set(
 print('PSTED POWER')
 print(f775pol.IntDen.mean())
 
-ax[1].errorbar(x=angle_mean.index, y=f775pol.IntDen.mean(), yerr=f775pol.IntDen.std(),
+ax[1].errorbar(x=angle_mean.index, y=f775pol.IntDen.mean()/1000, yerr=f775pol.IntDen.std()/1000,
             capsize=3)
 ax[1].set(
     title='pSTED power',
     xlabel=ax[0].get_xlabel(),
-    ylabel='Total intensity of PSF'
+    ylabel='Total intensity of PSF (au)'
 )
 
 fig.savefig('../figures_generated/psted_psfs_orientation_and_power.pdf', bbox_inches='tight')
@@ -178,4 +179,3 @@ fig.savefig('../figures_generated/psted_psfs_displacement.pdf', bbox_inches='tig
 fig.savefig('../figures_generated/psted_psfs_displacement.svg', bbox_inches='tight')
 
 # %%
-utils.shutdown_jvm()

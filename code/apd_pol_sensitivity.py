@@ -21,6 +21,7 @@ files_apd2 = [
 
 images_apd1 = [utils.read_msr('../data/' + file) for file in files_apd1]
 images_apd2 = [utils.read_msr('../data/' + file) for file in files_apd2]
+utils.shutdown_jvm()
 
 # %%
 
@@ -65,14 +66,14 @@ ax[1].plot(np.linspace(0, 180), cos(np.linspace(0, 180), *popt2),
 
 ax[0].set(
     title='APD1 (n=3)',
-    xlabel='Polarisation angle',
+    xlabel='Polarisation angle (deg)',
     ylabel='APD signal (au) (mean ± std)',
     xticks=np.arange(0, 181, 45),
     xlim=[-10, 190]
 )
 ax[1].set(
     title='APD2 (n=4)',
-    xlabel='Polarisation angle',
+    xlabel='Polarisation angle (deg)',
     ylabel='APD signal (au) (mean ± std)',
     xticks=np.arange(0, 181, 45),
     xlim=[-10, 190]
@@ -85,4 +86,3 @@ fig.savefig('../figures_generated/apd_pol_sensitivity.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/apd_pol_sensitivity.svg', bbox_inches='tight')
 
 # %%
-utils.shutdown_jvm()

@@ -25,7 +25,7 @@ ax[0].plot([-fwhm(2)/2, fwhm(2)/2], [.5, .5], '.', color='C1')
 ax[0].legend()
 ax[0].set(
     xlabel='Excitation angle (deg)',
-    ylabel='Emission intensity',
+    ylabel='Emission intensity (I₀)',
     xticks=np.arange(-90, 91, 30)
 )
 
@@ -41,3 +41,4 @@ ax[1].set(
 # %%
 fig.savefig('../figures_generated/pol_psf_width.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/pol_psf_width.svg', bbox_inches='tight')
+# %%

@@ -51,7 +51,7 @@ print(f'chi_E = {np.arctan2(np.sqrt(mmin), np.sqrt(mmax)) * 180 / np.pi} deg')
 ax.set(
     xlim=[-10,190],
     xticks=np.arange(0,181,30),
-    xlabel='Polarisation angle',
+    xlabel='Polarisation angle (deg)',
     ylabel='Power after polariser (au)',
     ylim=[0,1.1]
 )
@@ -62,7 +62,7 @@ ax2.set(
     xlim=ax.get_xlim(),
     xticks=np.arange(0,181,30),
     xticklabels=np.arange(0,91,15),
-    xlabel='HWP angle'
+    xlabel='HWP angle (deg)'
 )
 
 fig.savefig('../figures_generated/psted_hwp_offset.pdf', bbox_inches='tight')

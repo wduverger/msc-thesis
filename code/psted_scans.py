@@ -22,6 +22,8 @@ msr5 = utils.read_msr('../data/21-04-23 - 1 fov5.msr')
 conf5 = msr5['640_conf_apd2 {2}']
 sted5 = msr5['640_psted_apd2 {2}']
 
+utils.shutdown_jvm()
+
 # %%
 
 profile_multiplier = 1e4
@@ -29,8 +31,11 @@ profile = lambda im, x0, y0, d: im[:, y0:y0+d, x0:x0+d].mean(axis=(1,2)) * profi
 pol = lambda hwp: ((218.5-hwp)*2)
 norm = lambda p: (p-p.min())/(p.max()-p.min())
 
-fig, ax = plt.subplots(2, 3, dpi=150)
-ax = ax.T
+fig, ax = plt.subplots(
+    3, 2, dpi=150, 
+    figsize=(utils.linewidth, 3*utils.figheight),
+    gridspec_kw=dict(wspace=.3)
+)
 
 x1,y1,d1 = 212, 122, 30
 hwp = np.arange(128.5, 158.6, 2.5)
@@ -85,14 +90,11 @@ for i, m in enumerate([conf2, conf3, conf5]):
     utils.add_scalebar(ax[i, 0], 2e-6/m.pixel_size_xy)
     
     ax[i, 1].set(
-        xlabel='Depletion polarisation (deg)',
-        ylabel='Intensity (norm)' if i==0 else ''
+        xlabel='Depletion polarisation (deg)' if i==2 else '',
+        ylabel='Intensity (norm)'
     )
-    if i != 0:
-        ax[i, 1].set_yticklabels([])
 
 fig.savefig('../figures_generated/psted_scans.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/psted_scans.svg', bbox_inches='tight')
 
 # %%
-utils.shutdown_jvm()

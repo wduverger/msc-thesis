@@ -12,15 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    steps:      
-    
-      # - name: Initialise Docker cache
-      #   uses: actions/cache@v2
-      #   with:
-      #     path: /var/lib/docker
-      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
-      #     restore-keys: |
-      #       ${{ runner.os }}-buildx-
+    steps:
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -29,13 +21,11 @@ jobs:
         id: docker-tag
         run: |
           echo "image_name=wduverger/msc-thesis" >> $GITHUB_ENV
-          echo "image_tag=${{ github.sha }}-$(date +%Y-%m-%d_%H:%M)" >> $GITHUB_ENV
+          echo "image_tagged=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)" >> $GITHUB_ENV
+          echo "image_tagged=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)"
 
       - name: Build python container
         run: docker build -t ${{ env.image_name }} .
-
-      - name: Pull latex container
-        run: docker pull texlive/texlive
 
       - name: Compile figures
         run: |
@@ -46,6 +36,7 @@ jobs:
 
       - name: Compile thesis
         run: |
+          docker pull texlive/texlive
           docker run \
             -v ${{ github.workspace }}:/workspace \
             texlive/texlive \
@@ -54,7 +45,7 @@ jobs:
       - name: Save thesis
         uses: actions/upload-artifact@v2
         with:
-          name: thesis-web
+          name: thesis
           path: ./*.pdf      
 
       # If running on master branch, publish container to Docker Hub
@@ -68,7 +59,7 @@ jobs:
       - name: Publish docker image
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
-          docker push ${{ env.image_name }}
-          docker tag ${{ env.image_name }} ${{ env.image_name }}:${{env.image_tag}}
-          docker push ${{ env.image_name }}:${{env.image_tag}}
+          docker push ${{ env.image_name   }}
+          docker tag  ${{ env.image_name   }} ${{ env.image_tagged }}
+          docker push ${{ env.image_tagged }}
           
