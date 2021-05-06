@@ -35,7 +35,7 @@ jobs:
 
       - name: Compile figures
         run: |
-          docker run -v ${{ github.workspace }}:/workspace $TAG \
+          docker run -v ${{ github.workspace }}:/workspace ${{ steps.docker-tag.outputs.tag }} \
             make -j8 figures
 
       # - name: Compile thesis
