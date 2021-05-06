@@ -9,32 +9,31 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    env:
-      TEXLIVE_DIGEST: 27d45ccba7a4d49dd3397f914f06218cb7aeffe8b2d1f78e8ccd2ebdee1adfd2
 
     steps:      
     
-      - name: Initialise Docker cache
-        uses: actions/cache@v2
-        with:
-          path: /var/lib/docker
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
+      # - name: Initialise Docker cache
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: /var/lib/docker
+      #     key: ${{ runner.os }}-buildx-${{ github.sha }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-buildx-
 
       - name: Checkout code
         uses: actions/checkout@v2
 
       - name: Build python container
-        run: docker build -t wduverger/msc-thesis:${{ github.sha }} .
+        run: |
+          export TAG="wduverger/msc-thesis:${{ github.sha }}-$(date +%s)"
+          docker build -t $TAG .
 
       - name: Pull latex container
         run: docker pull texlive/texlive
 
       - name: Compile figures
         run: |
-          docker run -v ${{ github.workspace }}:/workspace \
-            wduverger/msc-thesis:${{ github.sha }} \
+          docker run -v ${{ github.workspace }}:/workspace $TAG \
             make -j8 figures
 
       - name: Compile thesis
@@ -48,5 +47,15 @@ jobs:
         with:
           name: thesis-web
           path: ./*.pdf      
-          
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
       # If running on master branch, publish container to Docker Hub
+      - name: Publish docker image
+        if: ${{ github.ref == 'refs/heads/master' }}
+        run: docker push $TAG
+          
