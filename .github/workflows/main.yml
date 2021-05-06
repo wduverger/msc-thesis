@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      TEXLIVE_DIGEST = 27d45ccba7a4d49dd3397f914f06218cb7aeffe8b2d1f78e8ccd2ebdee1adfd2
+      TEXLIVE_DIGEST: 27d45ccba7a4d49dd3397f914f06218cb7aeffe8b2d1f78e8ccd2ebdee1adfd2
 
     steps:      
     
