@@ -29,7 +29,7 @@ jobs:
         run: docker build -t wduverger/msc-thesis:${{ github.sha }} .
 
       - name: Pull latex container
-        run: docker pull texlive/texlive
+        run: docker pull texlive/texlive:
 
       - name: Compile figures
         run: |
@@ -40,9 +40,9 @@ jobs:
       - name: Compile thesis
         run: |
           docker run -v ${{ github.workspace }}:/workspace \
-            texlive/texlive:$TEXLIVE_DIGEST \
+            texlive/texlive \
             bash -c "cd workspace && make thesis"
-            
+
       - name: Save thesis
         uses: actions/upload-artifact@v2
         with:
