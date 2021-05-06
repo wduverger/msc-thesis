@@ -35,6 +35,9 @@ jobs:
           username: wduverger
           password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 
+      - name: Find docker cache location
+        run: docker info
+
       - name: Build python container
         id: docker_build
         uses: docker/build-push-action@v2
