@@ -55,16 +55,16 @@ jobs:
         with:
           image: wduverger/msc-thesis:${{ github.sha }}
           options: -v ${{ github.workspace }}:/workspace
-        run: make -j8 figures
+          run: make -j8 figures
 
       - name: Compile thesis
         uses: addnab/docker-run-action@v3
         with:
           image: texlive/texlive:$TEXLIVE_DIGEST
           options: -v ${{ github.workspace }}:/workspace
-        run: |
-          cd workspace
-          make thesis
+          run: |
+            cd workspace
+            make thesis
 
       - name: Save thesis
         uses: actions/upload-artifact@v2
