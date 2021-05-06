@@ -51,10 +51,20 @@ jobs:
         run: docker pull texlive/texlive
 
       - name: Compile figures
-        run: docker run -v ${PWD}:/workspace wduverger/msc-thesis:${{ github.sha }} make -j8 figures
+        uses: addnab/docker-run-action@v3
+        with:
+          image: wduverger/msc-thesis:${{ github.sha }}
+          options: -v ${{ github.workspace }}:/workspace
+        run: make -j8 figures
 
       - name: Compile thesis
-        run: docker run -v ${PWD}:/workspace texlive/texlive:$TEXLIVE_DIGEST bash -c "cd workspace && make thesis"
+        uses: addnab/docker-run-action@v3
+        with:
+          image: texlive/texlive:$TEXLIVE_DIGEST
+          options: -v ${{ github.workspace }}:/workspace
+        run: |
+          cd workspace
+          make thesis
 
       - name: Save thesis
         uses: actions/upload-artifact@v2
