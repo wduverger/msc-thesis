@@ -9,6 +9,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      TEXLIVE_DIGEST = 27d45ccba7a4d49dd3397f914f06218cb7aeffe8b2d1f78e8ccd2ebdee1adfd2
 
     steps:      
     
@@ -42,25 +44,28 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-          tags:  wduverger/msc-thesis:latest
+          tags:  wduverger/msc-thesis:${{ github.sha }}
           push: false
 
       - name: Pull latex container
         run: docker pull texlive/texlive
 
       - name: Compile figures
-        run: docker run -v ${PWD}:/workspace wduverger/msc-thesis make -j8 figures
+        run: docker run -v ${PWD}:/workspace wduverger/msc-thesis:${{ github.sha }} make -j8 figures
 
       - name: Compile thesis
-        run: docker run -v ${PWD}:/workspace texlive/texlive bash -c "cd workspace && make thesis"
+        run: docker run -v ${PWD}:/workspace texlive/texlive:$TEXLIVE_DIGEST bash -c "cd workspace && make thesis"
 
-      # - name: Push container to DockerHub
-      #   run: push wduverger/msc-thesis
-      #   env: 
-      #     DOCKER_SECRETS
-
+      - name: Save thesis
+        uses: actions/upload-artifact@v2
+        with:
+          name: thesis-web
+          path: ./*.pdf      
+          
+      # If running on master branch, publish container to Docker Hub    
       - name: Publish python container
         id: docker_publish
+        if: ${{ github.ref == refs/heads/master }}
         uses: docker/build-push-action@v2
         with:
           context: ./
@@ -68,11 +73,5 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-          tags:  wduverger/msc-thesis:latest
-          push: false
-
-      - name: Save thesis
-        uses: actions/upload-artifact@v2
-        with:
-          name: thesis-web
-          path: ./*.pdf
+          tags:  wduverger/msc-thesis:${{ github.sha }}
+          push: true
