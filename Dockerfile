@@ -41,7 +41,7 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Brussels /etc/loca
 # installed after numpy, otherwise the build will fail
 RUN apt-get update && apt-get install -y python3-opencv
 RUN pip install numpy==1.19.3
-COPY requirements.txt requirements.txt
+COPY ./code/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
 # If no arguments are supplied, run `make figures`
