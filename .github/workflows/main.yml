@@ -5,7 +5,7 @@ on:
   pull_request:
   workflow_dispatch:
   schedule:
-    - cron: '30 12 * * *'  # Run at 12:30 pm every day
+    - cron: '30 12 * * 5'  # Run at 12:30 pm every Friday
 
 jobs:
 
