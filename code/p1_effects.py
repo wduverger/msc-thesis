@@ -12,7 +12,7 @@ utils.shutdown_jvm()
 # %% plot data
 
 colour = [f'C{i}' for i in range(4)]
-ls = [':', '-.', '--', '-']
+ls = [(0,(1,2)),(0, (1,1)),'--','-']
 deg = lambda x: f'{x}°'
 
 im = lambda p1, p2: msr[f'p1{p1}p2{p2}'].sum(axis=(1,2))
@@ -26,10 +26,10 @@ fig, ax = plt.subplots(
 
 pp = [0,45,90,135]
 for i, p in enumerate(pp):
-    ax[0, 0].plot(x_axis, im(p1=p,   p2=0), color=colour[0], ls=ls[i])
-    ax[0, 1].plot(x_axis, im(p1=p,  p2=45), color=colour[1], ls=ls[i])
-    ax[0, 2].plot(x_axis, im(p1=p,  p2=90), color=colour[2], ls=ls[i])
-    ax[0, 3].plot(x_axis, im(p1=p, p2=135), color=colour[3], ls=ls[i], label=deg(p))
+    l = ax[0, 0].plot(x_axis, im(p1=p,   p2=0), color=colour[0], ls=ls[i])
+    l = ax[0, 1].plot(x_axis, im(p1=p,  p2=45), color=colour[1], ls=ls[i])
+    l = ax[0, 2].plot(x_axis, im(p1=p,  p2=90), color=colour[2], ls=ls[i])
+    l = ax[0, 3].plot(x_axis, im(p1=p, p2=135), color=colour[3], label=deg(p), ls=ls[i])
 
     ax[1, 0].plot(x_axis, im(p1=0,   p2=p), color=colour[i], ls=ls[0])
     ax[1, 1].plot(x_axis, im(p1=45,  p2=p), color=colour[i], ls=ls[1])

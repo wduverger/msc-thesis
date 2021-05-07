@@ -3,9 +3,9 @@
 
 This section introduces concepts and techniques essential to this thesis. First, I will explain how fluorescence arises from discrete molecular energy states. Then, I will explain how the wave nature of light limits the resolution of a microscope by limiting the size of the focal spot to roughly half the wavelength of the light used, and two methods to get around it. The first method, STED microscopy, uses targeted quenching of fluorescent molecules (also called dyes or fluorophores) at the edge of the focal spot to effectively narrow down the spot size. The second method exploits the polarisation state of excitation or emission light to measure the orientation of certain structures in a sample, even if their size is below the resolution limit.
 
-\section{Diffraction-limited fluorescence microscopy}
+\section{Fluorescence microscopy}
 
-In short, fluorescence is a phenomenon in which a molecule absorbs a photon of one wavelength, spends a short amount of time (a couple of nanoseconds) in an excited energy state, and then emits a photon of a wavelength longer than the first one. The difference in wavelength is essential to perform microscopy, and the fact that molecules have discrete energy states is key  to generate that difference.
+In short, fluorescence is a phenomenon in which a molecule absorbs a photon of one wavelength, spends a short amount of time (a couple of nanoseconds) in an excited energy state, and then emits a photon of a wavelength longer than the first one. The difference in wavelength, called the Stokes shift, is essential to perform microscopy, and the fact that molecules have discrete energy states is key  to generate that difference.
 
 \begin{figure}
 	\centering
@@ -16,23 +16,25 @@ In short, fluorescence is a phenomenon in which a molecule absorbs a photon of o
 	\label{fig:jablonski}
 \end{figure}
 
-Let us consider a molecule with two electronic energy states, each of which has a number of vibrational energy levels as in \autoref{fig:jablonski}. When the molecule is in its ground state (the lowest available energy level, $ S_0 $), it can absorb photons only if the energy they carry matches the difference between the ground state and another energy level. From an excited state ($ S_1 $), the system can relax into lower vibrational levels without emitting radiation, after which it emits a photon, relaxing back to the ground state. Two possible paths are shown in the figure. Because some energy is lost in a non-radiative way, the emitted photons will carry less energy than the absorbed photon, resulting in the wavelength difference mentioned before. This is called the Stokes shift. 
+Let us consider a molecule with two electronic energy states, each of which has a number of vibrational energy levels as in \autoref{fig:jablonski}. When the molecule is in its ground state (the lowest available energy level, $ S_0 $), it can absorb photons only if the energy they carry matches the difference between the ground state and another energy level. From an excited state ($ S_1 $), the system can relax into lower vibrational levels without emitting radiation, after which it emits a photon and relaxes back to the ground state. Two possible paths are shown in the figure. Because some energy is lost in a non-radiative way, the emitted photons will carry less energy than the absorbed photon, resulting in the wavelength difference mentioned before. This is called the Stokes shift. 
 
-We can make that a little more rigorous by considering what happens to a simple, two-level quantum system such as a hydrogen atom subject to a Hamiltonian $ H_0 $. Denote the energy states of the electron with $ \ket{1} $ and $ \ket{2} $ (we are not taking into account vibrational levels here). These are eigenstates of the Hamiltonian with energy $ \epsilon_i $. When exposed to an electric field $ \vb{E} = \vb{E}_0 \cos\omega t$, the Hamiltonian is perturbed: $ H' = H_0 + \vb*{\mu} \cdot \vb{E}(t) $, where $ \vb*{\mu} = -e\vb{r}$. If the system is in the ground state at time $ t=0 $, the probability to find the system in the excited state at time $ t $ is given by
+We can make that a little more rigorous by considering what happens to a simplified two-level quantum system such as a hydrogen atom subject to a Hamiltonian $ H_0 $. Denote the energy states of the electron with $ \ket{1} $ and $ \ket{2} $. These are eigenstates of the Hamiltonian with energy $ \epsilon_i $. When exposed to an electric field $ \vb{E} = \vb{E}_0 \cos\omega t$, the Hamiltonian is perturbed: $ H' = H_0 + \vb*{\mu} \cdot \vb{E}(t) $, where $ \vb*{\mu} = -e\vb{r}$. If the system is in the ground state at time $ t=0 $, the probability to find it in the excited state at time $ t $ is given by
 \begin{equation}
 	\abs{c_2(t)}^2 = \abs{\mel{2}{e^{-iHt/\hbar}}{1}}^2.
 \end{equation}
-For weak fields, the first-order approximation is
+For weak fields, a first-order approximation is
 \begin{equation}
 	\abs{c_2(t)}^2 = \abs{ \frac{\vb*{\mu}_{21}\cdot\vb{E}_0}{\hbar}  \frac{\sin((\omega_0-\omega)t/2)}{\omega_0-\omega}}^2,
 	\label{eq:transition moment}
 \end{equation}
-where $ \vb*{\mu}_{21} = \mel{2}{\vb*{\mu}}{1} $ and $ \omega_0 = (\epsilon_2-\epsilon_1)/\hbar $. More detail can be found in C.J.~Foot \cite{Foot}. From this equation, we can conclude that there are two conditions for a transition. Firstly, the frequency of the electric field must match the energy difference between the states. (Note that we have not made any statement about the sign of $ \omega_0 $. This process can represent absorption as well as stimulated emission.) Secondly, the electric field is most effective at driving the transition when it is polarised along the transition dipole moment $ \vb*{\mu}_{21} $. For example, if an electron is confined to a chemical bond, it will not interact with electric fields polarised orthogonal to that bond.The precise energy levels available depend on the molecule and its environment. Therefore, every fluorescent molecule has a unique absorption and emission spectrum, which needs to be considered when planning a fluorescence experiment.
+where $ \vb*{\mu}_{21} = \mel{2}{\vb*{\mu}}{1} $ and $ \omega_0 = (\epsilon_2-\epsilon_1)/\hbar $. More detail can be found in C.J.~Foot \cite{Foot}. From this equation, we can conclude that there are two conditions for a transition. Firstly, the frequency of the electric field $ \omega $ must match the energy difference between the states $ \omega_0 $. (Note that we have not made any statement about the sign of $ \omega_0 $. This process can represent absorption as well as stimulated emission.) Secondly, the electric field is most effective at driving the transition when it is polarised along the transition dipole moment $ \vb*{\mu}_{21} $. For example, if an electron is confined to a chemical bond, it will not interact with electric fields polarised orthogonal to that bond. The precise energy levels available depend on the molecule and its environment. Therefore, every fluorescent molecule has a unique absorption and emission spectrum, which needs to be considered when planning a fluorescence experiment.
 
-The resolution of fluorescence microscopy used to be limited by light diffraction. Consider the diffraction limit in one of the simplest possible setups: an epifluorescence microscope. Epifluorescence microscopy is fairly similar to bright field microscopy; it is just using excitation light of a well-defined wavelength instead of white light. The sample, which is stained with a fluorescent dye, is illuminated at a wavelength that dye can absorb. The dye molecules will then emit photons of longer wavelengths in their emission spectrum, which are collected by the microscope objective. Before imaging by a CCD camera, the scattered laser light can be filtered away using a dichroic mirror that passes emission light and reflects excitation light. 
+\section{The diffraction limit}
+
+The resolution of fluorescence microscopy used to be limited by light diffraction. Consider the diffraction limit in one of the simplest possible setups: an epifluorescence microscope. Epifluorescence microscopy is fairly similar to bright field microscopy; it just uses excitation light of a well-defined wavelength instead of white light. The sample, which is stained with a fluorescent dye, is illuminated at a wavelength that dye can absorb. The dye molecules will then emit photons of longer wavelengths in their emission spectrum, which are collected by the microscope objective. Before imaging by a CCD camera, scattered laser light can be filtered away using a dichroic mirror that passes emission light and reflects excitation light. 
 
 
-It used to be the case that microscopes were limited in resolution by the quality of their lenses and the pixel density of the CCD, but there is a much more fundamental limit, first described by Ernst Abbe. This limit is caused by the presence of an aperture. When a beam of light goes through an aperture of finite size, such as a lens, it cannot be focused onto an infinitesimal point. Instead, it will generate a spot with a radius approximately equal to $ \lambda/2\na $, where $ \lambda $ is the wavelength of the light and $ \na= n\sin\theta $ is the numerical aperture, the product of the index of refraction and the sine of the half-cone angle of the acceptance cone.
+It used to be the case that microscopes were limited in resolution by the quality of their lenses and the pixel density of the CCD, but there is a much more fundamental limit, first described by Ernst Abbe. This limit is caused by the presence of an aperture. When a beam of light goes through an aperture of finite size, such as a lens, it cannot be focused onto an infinitesimally small point. Instead, it will generate a spot with a radius approximately equal to $ \lambda/2\na $, where $ \lambda $ is the wavelength of the light and $ \na= n\sin\theta $ is the numerical aperture, the product of the index of refraction and the sine of the half-cone angle of the acceptance cone.
 
 \begin{figure}[!t]
 	\centering
@@ -41,7 +43,7 @@ It used to be the case that microscopes were limited in resolution by the qualit
 		& Criterion                                                                            & Definition                            \\ \midrule
 		Rayleigh & The first minimum of one point's Airy function coincides with the maximum of another & $ d_{xy} = .61\lambda/\na $           \\
 		FWHM     & The width of the Airy function at half of the peak height                            & $ d_{xy} = .51\lambda/\na $           \\
-		Abbe     & Resolving all groups of the 19-group Norbert plate \cite{Abbe1873, Norbert}                                  & $ d_{xy} = \phantom{1}.5\lambda/\na $ \\
+		Abbe     & Resolving all groups of the 19-group Nobert plate \cite{Abbe1873, Norbert}                                  & $ d_{xy} = \phantom{1}.5\lambda/\na $ \\
 		Sparrow  & The distance between fluorophores at which the central maximum splits                & $ d_{xy} = .47 \lambda/\na $          \\ \bottomrule
 	\end{tabularx}
 	\captionof{table}{Some common definitions of the resolution limit $ d_{xy} $.}
@@ -77,7 +79,7 @@ For a long time, physicists thought this limit was practically unavoidable \cite
 	\label{fig:sted principle}
 \end{figure}
 
-There are several ways to increase image resolution, many of which use the photophysics of individual dyes to turn off a subset of them during imaging. Some methods do this stochastically, such as STORM (stochastic optical reconstruction microscopy) and PALM (photoactivated localisation microscopy) \cite{Mock2009, Betzig2006}. These methods activate a random subset of fluorophores, such that the average distance between them is above the resolution limit. Then they are imaged with a camera and the centres of their PSFs are estimated. The precision of that estimate scales with $ 1/\sqrt{N} $ where $ N $ is the numbers of photons collected.
+There are several ways to increase image resolution directly, many of which use the photophysics of individual dyes to turn off a subset of them during imaging. Some methods do this stochastically, such as STORM (stochastic optical reconstruction microscopy) and PALM (photoactivated localisation microscopy) \cite{Mock2009, Betzig2006}. These localisation-based methods activate a random subset of fluorophores, such that the average distance between them is above the resolution limit. Then they are imaged with a camera and the centres of their PSFs are estimated. The precision of that estimate scales with $ 1/\sqrt{N} $ where $ N $ is the numbers of photons collected.
 
 On the other hand, there are targeted techniques such as STED (stimulated emission depletion), GSD (ground state depletion), RESOLFT (Reversible saturable optical fluorescence transitions), and more \cite{Klar2000, Folling2008, Hofmann2005}. Generally, they work by turning off fluorophores on the outer edge of the focal spot (depletion). The resolution achieved is dependent on the intensity of the depletion laser. This is a case of targeted instead of stochastic photoswitching. The Tegenfeldt group own a STED microscope, so that is what I will focus on in this section. 
 
@@ -90,7 +92,7 @@ where the most important characteristic of $ h_\mathit{det}(\vb{x}) $ is that it
 Even though both of these PSFs are diffraction-limited, a STED microscope can reach an arbitrarily small resolution \cite{Wildanger2012}. It does so by illuminating the sample with a donut-shaped laser at a wavelength longer than the emission wavelength. Referring back to \autoref{fig:jablonski}, the blue laser excites the fluorophores that emit in green, but a red transition is also allowed. Under illumination with a red laser, this transition is made more favourable by the process of stimulated emission, first postulated by Einstein in 1926 \cite{Einstein1926}. This way, fluorophores at the edge of the excitation PSF can be prevented from emitting green light, while fluorophores at the centre do not experience stimulated emission, which reduces the width of the effective point spread function. An illustration of this effect is given in \autoref{fig:sted principle}.
 
 
-More rigorously, the STED beam depletes fluorescence according to
+Mathematically, the STED beam depletes fluorescence according to
 \begin{equation}
 	\eta(\vb{x}) = \exp(-\sigma_\dep h_\dep(\vb{x})),
 \end{equation}
@@ -119,11 +121,11 @@ There are several reasons the resolution of STED in biological samples has not b
 
 \section{Polarisation microscopy}
 
-Polarisation microscopy uses the vectorial nature of light -- the fact that light consists of electromagnetic waves that with a certain polarisation -- to get orientational information of fluorophores below the resolution limit. Other methods to get information on distances below the resolution limit  include fluorescence resonance energy transfer (FRET) \cite{Lerner2021}, for example, which is great for measuring distances between two fluorophores on the order of nanometres.
+Polarisation microscopy uses the vectorial nature of light -- the fact that light consists of electromagnetic waves that with a certain polarisation -- to get orientational information of fluorophores below the resolution limit. Other methods to get information on distances below the resolution limit  include fluorescence resonance energy transfer (FRET), for example, which is great for measuring distances between two fluorophores on the order of nanometres \cite{Lerner2021}.
 
 Among others, light polarisation microscopy has been used to measure how the structure of DNA changes when it is subject to a strong stretching force, how integrin proteins respond to an applied force and the order of molecules embedded in the cell membrane \cite{Backer2019, Nordenfelt2017, Swaminathan2017, Brasselet2013}. In this section, I will first introduce the concept of light polarisation, then discuss how it can be used in a microscope, and finally mention some optical components that affect the light polarisation, which are crucial to conducting a polarisation microscopy experiment. For a more exhaustive introduction to polarisation microscopy, there are several good resources available \cite{Goldstein2011, Collett2005, Lakowicz2006}.
 
-\subsection{The polarisation ellipse.} Light is a transverse electromagnetic wave, meaning that there are oscillations of the electric and magnetic fields along the path of a light ray, and that these oscillations are orthogonal to the propagation direction. In other words, if the light propagates along $\vb{k}$, the electric and magnetic fields $\vb{E}$ and $\vb{B}$ must satisfy $ \vb{E} \cdot \vb{k} = \vb{B} \cdot \vb{k} = 0$. (The fields themselves are also orthogonal to each other, so we can neglect $ \vb{B} $ without compromising our analysis.)
+\subsection{The polarisation ellipse.} Light is a transverse electromagnetic wave, meaning that there are oscillations of the electric and magnetic field along the path of a light ray, and that these oscillations are orthogonal to the propagation direction. In other words, if the light propagates along $\vb{k}$, the electric and magnetic fields $\vb{E}$ and $\vb{B}$ must satisfy $ \vb{E} \cdot \vb{k} = \vb{B} \cdot \vb{k} = 0$. (The fields themselves are also orthogonal to each other, so we can neglect $ \vb{B} $ without compromising our analysis.)
 
 For the sake of simplicity, let us consider a ray propagating in the $ z $ direction. The electric field at any point in space and time can be written as
 \begin{align}
@@ -172,7 +174,7 @@ To distinguish between them, I will be using $ \chi_E $ and $ \chi_I $ from now 
 	\label{fig:pol ellipse}
 \end{figure}
 
-\subsection{Microscopy.} Why is polarisation relevant to microscopy? Well, the probability of excitation is dependent on the polarisation of incoming light. Since a fluorophore can be considered a small dipole moment, it will not interact with radiation that is orthogonal to the transition dipole moment of the fluorophore (see discussion around \autoref{eq:transition moment}). If the excitation laser is polarised along an angle $ \psi $ and the dipole is oriented along $ \theta $, the intensity of light emitted by that fluorophore will satisfy 
+\subsection{Microscopy.} Why is polarisation relevant to microscopy? Well, the probability of excitation is dependent on the polarisation of incoming light. Since a fluorophore can be considered a small dipole moment, it will not interact with radiation that is orthogonal to the transition dipole moment of the fluorophore (see discussion surrounding \autoref{eq:transition moment}). If the excitation laser is polarised along an angle $ \psi $ and the dipole is oriented along $ \theta $, the intensity of light emitted by that fluorophore will satisfy 
 \begin{equation}
 	\label{eq:malus}
 	I(\psi, \theta) \propto \cos^2(\psi-\theta).
@@ -190,18 +192,20 @@ In the following analysis, we will treat $ \vb{E} $ as a two-dimensional vector 
 \begin{equation}
 	\vb{E}_0 = \mqty(\Eox \\ \Eoy e^{i\delta} ).
 \end{equation}
-The Jones vectors for some special polarisation states are listed in \autoref{tab:polarisation states}.
+Therefore, $ \vb{E}_0 $, the Jones vector, contains all information about the polarisation state of a beam. The Jones vectors for some special polarisation states are listed in \autoref{tab:polarisation states}.
 
 The usefulness of Jones calculus lies in its ability to represent optical components as matrices acting on this vector. For example, a polariser that transmits $ x $-polarised light has the following matrix form:
 \begin{equation}
 	S_p = \mqty(1 & 0 \\ 0 & 0).
 \end{equation}
-It is easy to verify that $ S_p \vb{E}_0 = \Eox $. We also need to take into account how mirrors affect polarisation. In this case, it is useful to define a new coordinate system. Let $ k $ be the propagation direction, $ p $ the direction that is orthogonal to $ k $, but in the plane of incidence: the plane formed by $ k $ and the normal to the mirror surface (i.e. $ p $ is parallel to the plane of incidence). Finally, let $ s $ be orthogonal to $ k $ and $ p $ ($ s $ stands for the German word senkrecht). A mirror flips the $ s $ component of the field polarisation, while keeping $ p $ unchanged. So, a mirror whose surface is parallel to the $ x $-axis has a Jones matrix of the form
+It is easy to verify that $ S_p \vb{E}_0 = \Eox $. 
+
+We also need to take into account how mirrors affect polarisation. In this case, it is useful to define a new coordinate system. Let $ k $ be the propagation direction, $ p $ the direction that is orthogonal to $ k $, but in the plane of incidence (the plane formed by $ k $ and the normal to the mirror surface, i.e. $ p $ is parallel to the plane of incidence). Finally, let $ s $ be orthogonal to $ k $ and $ p $ ($ s $ stands for the German word senkrecht). Mirrors flip the $ s $ component of the field polarisation, while keeping $ p $ unchanged. So, a mirror whose surface is parallel to the $ x $-axis has a Jones matrix of the form
 \begin{equation}
 	S_{mx} = \mqty(1 & 0 \\ 0 & -1).
 \end{equation}
 
-Another important type of optical component in our setup is a waveplate. Waveplates or phase retarders are made out of birefringent crystals such as quartz, meaning the index of refraction a ray of light experiences is dependent on its polarisation. This happens when a crystal structure lacks cubic symmetry. When the coordinate system is aligned with the crystal axes, we might find that $ k_x = k_z = k_o $ (the ordinary axes), while $ k_y = k_e $ (the extraordinary axis). $ k_e $ may both be greater or less than $ k_o $. In these crystals, \autoref{eq:propagator} is no longer valid and should be replaced by
+Another important type of optical component in our setup is a waveplate. Waveplates or phase retarders are made out of birefringent crystals such as quartz, in which the index of refraction a ray of light experiences is dependent on its polarisation. This happens when a crystal structure lacks cubic symmetry. When the coordinate system is aligned with the crystal axes, we might find that $ k_x = k_z = k_o $ (the ordinary axes), while $ k_y = k_e $ (the extraordinary axis). $ k_e $ may both be greater or less than $ k_o $. In these crystals, \autoref{eq:propagator} is no longer valid and should be replaced by
 \begin{equation}
 	\vb{E}(z, t) = \mqty(\Eox e^{i(k_o z-\omega t)} \\ \Eoy e^{i(k_e z-\omega t + \delta)} ).
 \end{equation}
@@ -221,7 +225,7 @@ Generally, waveplates are characterised by the relative delay they impart on pol
 \begin{equation}
 	S_\qwp = \mqty(1 & 0 \\ 0 & e^{i\pi/2}) = \mqty(1 & 0 \\ 0 & i).
 \end{equation}
-Let's consider what happens to some specific cases. If vertically or horizontally polarised light passes through a quarter-wave plate, its polarisation will not change. But light polarised along $ +\ang{45} $ ($ -\ang{45} $) will be turned into left-handed (right-handed) light, and vice versa. Therefore, a quarter-wave plate allows us to convert between linearly and circularly polarised light, as shown in \autoref{fig:waveplates}.
+Let's consider what happens to some specific cases. If $ x $ or $ y $ polarised light passes through a quarter-wave plate, its polarisation will not change. But light polarised along $ +\ang{45} $ ($ -\ang{45} $) will be turned into left-handed (right-handed) light, and vice versa. Therefore, a quarter-wave plate allows us to convert between linearly and circularly polarised light, as shown in \autoref{fig:waveplates}.
 
 \begin{figure}
 	\centering
@@ -236,7 +240,7 @@ The second type of waveplate we should treat is a half-wave plate. It features a
 \begin{equation}
 	S_\hwp = \mqty(1 & 0 \\ 0 & e^{i\pi}) = \mqty(1 & 0 \\ 0 & -1),
 \end{equation}
-which corresponds to mirroring the polarisation state along the $ x $-axis. Another way to think about it is that a ray polarised along an angle $ \psi $ will be rotated by an angle $ -2\psi $, and the handedness of circularly polarised light will be reversed, see \autoref{fig:waveplates}.
+which corresponds to mirroring the polarisation state about the $ x $-axis. Another way to think about it is that a ray polarised along an angle $ \psi $ will be rotated by an angle $ -2\psi $, and the handedness of circularly polarised light will be reversed, see \autoref{fig:waveplates}.
 
 The power of Jones calculus lies in its ability to model the behaviour of a sequence of optical elements at arbitrary rotations. First, we need to define the Jones matrix for a rotated component. This is simply
 \begin{equation}
@@ -253,4 +257,4 @@ That is Malus's law, as we had defined before. We can also recover the same beha
 	I(\theta) \propto \abs{S_p(0) \cdot S_\hwp(\theta/2) \cdot \mqty(\admat{1 \\ 0})}^2 = \cos^2\theta.
 \end{equation}
 
-Jones calculus has its limitations, the main one being that it cannot represent unpolarised light (an incoherent sum of different polarisations). Müller calculus, based on real-valued 4D Stokes vectors instead of the complex 2D Jones vectors, can handle it. As such, Müller calculus can also quantify depolarisation induced by non-ideal microscope optics. In this thesis, I mainly used Jones calculus to develop a theoretical understanding of the optical elements in the STED microscope, so using Müller matrices was not necessary. In the next sections, I will use the theory presented here to implement polarisation microscopy on the Tegenfeldt STED microscope. I will even develop the theory further to extend the concept of the optical point spread function into polarisation space.
+Jones calculus has its limitations, the main one being that it cannot represent unpolarised light (an incoherent sum of different polarisations). Müller calculus, based on real-valued 4D Stokes vectors instead of the complex 2D Jones vectors, can handle it. As such, Müller calculus can also quantify depolarisation induced by non-ideal microscope optics. In this thesis, I mainly used Jones calculus to develop a theoretical understanding of the optical elements in the STED microscope, for which Müller matrices are not necessary. In the next sections, I will use the theory presented here to implement polarisation microscopy on the Tegenfeldt STED microscope. I will even develop the theory further to extend the concept of the optical point spread function into polarisation space.

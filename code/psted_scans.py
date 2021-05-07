@@ -91,7 +91,7 @@ for i, m in enumerate([conf2, conf3, conf5]):
     
     ax[i, 1].set(
         xlabel='Depletion polarisation (deg)' if i==2 else '',
-        ylabel='Intensity (norm)'
+        ylabel='Intensity (au)'
     )
 
 fig.savefig('../figures_generated/psted_scans.pdf', bbox_inches='tight')

@@ -28,6 +28,8 @@ h_mpe = np.where(
     )
 )
 
+print(f'Safe levels: {14.1/f_pulse/H_pulse * 100}%')
+
 fig, ax = plt.subplots(figsize=(utils.figwidth, utils.figheight))
 
 ax.plot(t, h_mpe, label='MPE')

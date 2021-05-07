@@ -16,13 +16,13 @@ ii = np.linspace(1e-6,10)  # 0 doesn't work in the lambertw function
 fig, ax = plt.subplots(1, 2, figsize=(utils.linewidth, utils.figheight),
 gridspec_kw=dict(wspace=.4))
 
-ax[0].plot(xx, psf(xx * np.pi/180, i=0), label='no pSTED')
+ax[0].plot(xx, psf(xx * np.pi/180, i=0), label='conventional')
 ax[0].plot(xx, psf(xx * np.pi/180, i=2), label='pSTED')
 ax[0].hlines(.5, xx[0], xx[-1], alpha=.3, ls=':')
 ax[0].plot([-45, 45], [.5, .5], '.', color='C0')
 ax[0].plot([-fwhm(2)/2, fwhm(2)/2], [.5, .5], '.', color='C1')
 
-ax[0].legend()
+ax[0].legend(loc='lower right')
 ax[0].set(
     xlabel='Excitation angle (deg)',
     ylabel='Emission intensity (I₀)',
