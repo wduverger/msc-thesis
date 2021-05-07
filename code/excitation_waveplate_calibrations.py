@@ -16,7 +16,7 @@ with open('../data/beampol_calib.json', 'r') as file:
 
 calib_old_axis = np.arange(0, 176, 5)
 
-fig, (ax0, ax1) = plt.subplots(1,2, sharey=True)
+fig, (ax0, ax1) = plt.subplots(1,2, sharey=True, sharex=True)
 
 φ2 = np.array(calib_json['calibrations']
               ['Polarizer_561']['linear']['l2'])
@@ -39,7 +39,11 @@ ax0.legend()
 ax0.set(
     title='561 nm',
     ylabel='Waveplate position (deg)',
-    xlabel='Polarisation in sample plane (deg'
+    xlabel='Polarisation in sample plane (deg)',
+    xticks=np.arange(0,181,45),
+    xlim=[-10,190],
+    yticks=np.arange(0,181,45),
+    ylim=[-10,190],
 )
 
 ax1.set(
@@ -51,3 +55,4 @@ fig.savefig('../figures_generated/excitation_waveplate_calibrations.pdf',
             bbox_inches='tight')
 fig.savefig('../figures_generated/excitation_waveplate_calibrations.svg',
             bbox_inches='tight')
+# %%

@@ -20,6 +20,7 @@ msrs_donut = [
     utils.read_msr('../data/21-03-26 - 1 without psted optics - r4.msr'),
     utils.read_msr('../data/21-03-26 - 1 without psted optics - r5.msr'),
 ]
+utils.shutdown_jvm()
 
 # %% 
 def rgb_combine(r=None, g=None, b=None):
@@ -62,4 +63,3 @@ fig.savefig('../figures_generated/laser_psfs.pdf')
 fig.savefig('../figures_generated/laser_psfs.svg')
 
 # %%
-utils.shutdown_jvm()

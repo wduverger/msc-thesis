@@ -1,5 +1,5 @@
 #
-#   Image with a jupyter environment, bioformats, and opencv
+#   Image with a python environment with bioformats, and opencv
 #
 #   Building the image: 
 #
@@ -12,10 +12,6 @@
 #       -  The period `.` represents the current directory
 #
 #   Running the container: 
-#       
-#       To run jupyter:
-#           `docker run --rm -itv ${PWD}:/workspace -p 8888:8888 wduverger/msc-thesis` (Powershell / bash?)
-#           `docker run --rm -itv "%cd%":/workspace -p 8888:8888 wduverger/msc-thesis` (Windows cmd.exe)
 #
 #       To open a terminal inside the container
 #           `docker run --rm -itv ${PWD}:/workspace  wduverger/msc-thesis bash`
@@ -26,10 +22,7 @@
 #
 #       Explanation:
 #       -  `--rm` destroys the container on exit
-#       -  `-d` detaches the container from this terminal, logs can be followed in
-#           the Docker GUI
-#       -  `-p 8888:8888` binds network ports 8888 on the host and container. This
-#           is necessary to open Jupyter in your browser
+#       -  `-it` opens an interactive terminal
 #       -  `-v "{PWD}:/workspace` binds the host directory in which the command
 #           is ran to the container directory in which Jupyter is running.
 #
@@ -41,9 +34,6 @@
 FROM openjdk:17-slim
 COPY --from=python:3.6 / /
 
-# Create a non-root user named jovyan (expected by Jupyter)
-# RUN adduser --system --group jovyan
-
 # Set proper time zone
 RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Brussels /etc/localtime
 
@@ -51,14 +41,9 @@ RUN rm -rf /etc/localtime && ln -s /usr/share/zoneinfo/Europe/Brussels /etc/loca
 # installed after numpy, otherwise the build will fail
 RUN apt-get update && apt-get install -y python3-opencv
 RUN pip install numpy==1.19.3
-COPY requirements.txt requirements.txt
+COPY ./code/requirements.txt requirements.txt
 RUN pip install -r requirements.txt
 
-# Ensure jovyan owns all files in their home folder. Matplotlib won't run if
-# that is not the case
-# RUN chown -R jovyan /home/jovyan
-
-# On startup, run Jupyter Lab as the non-root user
-# USER jovyan
+# If no arguments are supplied, run `make figures`
 WORKDIR /workspace
 CMD make figures

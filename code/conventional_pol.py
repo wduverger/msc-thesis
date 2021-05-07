@@ -11,6 +11,7 @@ files = [
 ]
 
 msrs = [utils.read_msr(f) for f in files]
+utils.shutdown_jvm()
 ims = [utils.align_stack(m['640_conf_apd2 {1}']) for m in msrs]
 
 # %%
@@ -75,4 +76,3 @@ fig.savefig('../figures_generated/conventional_pol.svg', bbox_inches='tight')
 
 
 # %%
-utils.shutdown_jvm()

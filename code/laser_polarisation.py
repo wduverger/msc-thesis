@@ -29,8 +29,8 @@ avg_p = lambda x: x.p.rolling(100).mean()
 micro = 1e-6
 
 fig, ax = plt.subplots(
-    3, 2, figsize=(utils.linewidth, 3*utils.figheight),
-    gridspec_kw=dict(hspace=.7)
+    3, 2, figsize=(utils.linewidth, 3.5*utils.figheight),
+    gridspec_kw=dict(hspace=.5, wspace=.3)
 )
 
 ax[0, 0].plot(c561.t, c561.p/micro, alpha=.3)

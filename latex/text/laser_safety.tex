@@ -2,7 +2,7 @@
 
 \chapter{A note on laser safety}
 
-The \SI{775}{nm} line is a class 4 laser source. Under normal operation, the user is protected from it. However, when calibrating the STED beam or placing new components in the beam path, it is theoretically possible for the collimated laser beam to be reflected into the user's eyes. A high-powered laser beam can do permanent damage to the skin and retina, so we have to make sure we stay below the limits imposed by the Work Environment Agency's (Arbetsmiljöverkets) limits \cite{AFS2009:7}. These regulations set forth three main conditions to calculate the Maximum Permissible Exposure (MPE) of a pulsed laser, see table 2.6 of the regulations. Important values and formulas about our setup, as well as the limits provided by the Work Environment Agency are provided in \autoref{tab:laser-safety} and in the text below.
+The \SI{775}{nm} line is a class 4 laser source. Under normal operation, the user is protected from it. However, when calibrating the STED beam or placing new components in the beam path, it is theoretically possible for the collimated laser beam to be reflected into the user's eyes. A high-powered laser beam can do permanent damage to the skin and retina, so we have to make sure we stay below the limits imposed by the Work Environment Agency's (Arbetsmiljöverkets) limits \cite{AFS2009:7}. These regulations set forth three main conditions to calculate the Maximum Permissible Exposure (MPE) of a pulsed laser, see Table 2.6 of the regulations. Important values and formulas about our setup, as well as the limits provided by the Work Environment Agency are provided in \autoref{tab:laser-safety} and in the text below.
 
 \begin{table}[h]
 	\centering
@@ -16,12 +16,12 @@ The \SI{775}{nm} line is a class 4 laser source. Under normal operation, the use
 		Pulse repetition frequency & $ f $                & 40 MHz                \\
 		Pulse energy               & $ E_\mathit{pulse} $ & 31 nJ                 \\
 		Average power              & $P_\mathit{avg} $    & 1.25 W                \\
-		                           &  \\
+		                           &                      &  \\
 		\multicolumn{3}{l}{\textbf{Safety parameters}}                            \\
 		Thermal correction time    & $ T_\mathit{min} $   & 18 \si{\micro\second} \\
-		Ca                         & $ C_a $              & 1.41                  \\
-		Cc                         & $ C_c $              & 1                     \\
-		Ce                         & $ C_e $              & 1                     \\ \bottomrule
+		Correction factor a        & $ C_a $              & 1.41                  \\
+		Correction factor c        & $ C_c $              & 1                     \\
+		Correction factor e        & $ C_e $              & 1                     \\ \bottomrule
 	\end{tabular}	
 	\caption{Operating characteristics of the 775 laser line and relevant safety parameters. }
 	\label{tab:laser-safety}
@@ -55,7 +55,11 @@ The actual dose, on the other hand, is
 \begin{equation}
 	H_\mathit{tot}(t) = \lfloor ft \rfloor H_\mathit{pulse},
 \end{equation}
-where $ \lfloor \cdot \rfloor$ is the flooring function. This function is plotted in \autoref{fig:laser-safety-mpe}, from which it can be seen that the laser is only safe to use at 0.0005\% capacity. Since the minimum laser power offered by the software is .05\%, OD2 goggles should be worn to guarantee safe operation of the 775~nm laser.
+where $ \lfloor \cdot \rfloor$ is the flooring function. This function is plotted in \autoref{fig:laser-safety-mpe}, from which it can be seen that the laser is only safe to use at 0.0009\% capacity:
+\begin{equation}
+	P_\mathit{safe} = \frac{10C_aC_c}{fH_\mathit{pulse}} \approx 0.0009\%.
+\end{equation} 
+Since the minimum laser power offered by the software is .05\%, OD2 goggles should be worn to guarantee safe operation of the 775~nm laser.
 
 \begin{figure}
 	\centering

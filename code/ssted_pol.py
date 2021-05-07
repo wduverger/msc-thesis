@@ -9,6 +9,7 @@ import utils
 
 filename = '../data/20-12-01 - 02_conf-640-12_conf-561-5_sted-640-17-10_sted-561-10-10_083au_linac-10_scan-640-0-175-5.msr'
 msr = utils.read_msr(filename)
+utils.shutdown_jvm()
 
 # %%
 
@@ -18,7 +19,7 @@ roi_1 = [(348,  525), 120, 120]
 roi_2 = [(430, 1210), 120, 120]
 
 fig = plt.figure(figsize=(utils.linewidth, utils.figheight))
-gs = plt.GridSpec(2, 2, figure=fig, hspace=.5, wspace=.4)
+gs = plt.GridSpec(2, 2, figure=fig, hspace=.6, wspace=.4)
 
 # Plot image
 show_img = im_act_stack[0]/im_act_stack[0].max() * 2
@@ -62,13 +63,13 @@ ax0.plot(x_axis, p2-np.exp(x_axis * opt_rate), '.-', color='C2')
 # - figure markup
 ax0.set(
     title='Bleaching subtracted',
-    ylabel='Intensity',
+    ylabel='Intensity (au)',
     xlabel='Excitation polarisation (deg)',
     xticks=x_axis
 )
 ax1.set(
     title='Original',
-    ylabel='Intensity',
+    ylabel='Intensity (au)',
     xticks=x_axis,
     xticklabels=[],
 )
@@ -77,6 +78,5 @@ fig.savefig('../figures_generated/ssted_pol.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/ssted_pol.svg', bbox_inches='tight')
 
 # %%
-utils.shutdown_jvm()
 
 
