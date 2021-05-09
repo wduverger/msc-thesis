@@ -19,11 +19,9 @@ jobs:
 
       - name: Compile thesis
         run: |
-          echo "image_tag=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)" >> $GITHUB_ENV
-          echo "image_tag=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)"
-
           docker build -t wduverger/msc-thesis -f ./Dockerfile.python .
           docker run -v ${{ github.workspace }}:/workspace wduverger/msc-thesis
+
           docker build -t wduverger/latex -f ./Dockerfile.latex .
           docker run -v ${{ github.workspace }}:/workspace wduverger/latex
 
@@ -44,6 +42,7 @@ jobs:
       - name: Publish docker image
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
+          TAG="${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)"
           docker push wduverger/msc-thesis
-          docker tag  wduverger/msc-thesis wduvegrer/msc-thesis:${{ env.image_tagged }}
-          docker push wduvegrer/msc-thesis:${{ env.image_tagged }}
+          docker tag  wduverger/msc-thesis wduverger/msc-thesis:$TAG
+          docker push wduverger/msc-thesis:$TAG
