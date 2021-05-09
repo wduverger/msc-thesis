@@ -49,7 +49,7 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-          tags:  wduverger/msc-thesis
+          tags: wduverger/msc-thesis:latest
           push: false
 
       - name: Build latex container
@@ -61,20 +61,20 @@ jobs:
           builder: ${{ steps.buildx.outputs.name }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
-          tags:  texcontainer
+          tags:  texcontainer:latest
           push: false
 
       - name: Compile figures
         uses: addnab/docker-run-action@v3
         with:
           options: -v ${{ github.workspace }}:/workspace
-          image: wduverger/msc-thesis
+          image: wduverger/msc-thesis:latest
 
       - name: Compile thesis
         uses: addnab/docker-run-action@v3
         with:
           options: -v ${{ github.workspace }}:/workspace
-          image: texcontainer
+          image: texcontainer:latest
 
       - name: Save thesis
         uses: actions/upload-artifact@v2
