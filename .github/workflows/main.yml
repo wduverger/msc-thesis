@@ -51,6 +51,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags: wduverger/msc-thesis:latest
           push: false
+          load: true
 
       - name: Build latex container
         id: docker_build_latex
@@ -63,6 +64,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache
           tags:  texcontainer:latest
           push: false
+          load: true
 
       - name: Compile figures
         uses: addnab/docker-run-action@v3
