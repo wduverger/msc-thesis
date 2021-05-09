@@ -45,7 +45,7 @@ ax[0, 0].set(
 
 # New calib
 ax[0, 1].plot(fine_axis, fine_axis/2, label='HWP')
-ax[0, 1].plot(fine_axis, fine_axis*0+50, label='QWP')
+ax[0, 1].plot(fine_axis, fine_axis*0+110, label='QWP')
 ax[0, 1].legend()
 ax[0, 1].set_title('New calibration')
 
