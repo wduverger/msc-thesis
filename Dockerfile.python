@@ -46,4 +46,4 @@ RUN pip install -r requirements.txt
 
 # If no arguments are supplied, run `make figures`
 WORKDIR /workspace
-CMD make figures
+CMD make -j8 figures

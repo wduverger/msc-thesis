@@ -1,11 +1,11 @@
 name: Automated build
 
+# Run this job on pushes to Github, on manual dispatch, and on schedule
 on: 
   push:
-  pull_request:
   workflow_dispatch:
   schedule:
-    - cron: '30 12 * * 5'  # Run at 12:30 pm every Friday
+    - cron: '30 12 * * 5'  # 12:30 pm every Friday
 
 jobs:
 
@@ -14,32 +14,67 @@ jobs:
 
     steps:
 
-      - name: Checkout code
+      - name: Check out code
         uses: actions/checkout@v2
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: wduverger
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
+      - name: Initialise Docker cache
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+
+      - name: Initialise Docker builder
+        id: buildx
+        uses: docker/setup-buildx-action@v1
 
       - name: Define docker tag
         run: |
-          echo "image_name=wduverger/msc-thesis" >> $GITHUB_ENV
-          echo "image_tagged=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)" >> $GITHUB_ENV
-          echo "image_tagged=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)"
+          echo "image_tag=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)" >> $GITHUB_ENV
+          echo "image_tag=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)"
 
       - name: Build python container
-        run: docker build -t ${{ env.image_name }} .
+        id: docker_build
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile.python
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags:  wduverger/msc-thesis
+          push: false
+
+      - name: Build latex container
+        id: docker_build_latex
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile.latex
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags:  texcontainer
+          push: false
 
       - name: Compile figures
-        run: |
-          docker run \
-            -v ${{ github.workspace }}:/workspace \
-            ${{ env.image_name }} \
-            make -j8 figures
+        uses: addnab/docker-run-action@v3
+        with:
+          options: -v ${{ github.workspace }}:/workspace
+          image: wduverger/msc-thesis
 
       - name: Compile thesis
-        run: |
-          docker pull texlive/texlive
-          docker run \
-            -v ${{ github.workspace }}:/workspace \
-            texlive/texlive \
-            bash -c "cd workspace && make thesis"
+        uses: addnab/docker-run-action@v3
+        with:
+          options: -v ${{ github.workspace }}:/workspace
+          image: texcontainer
 
       - name: Save thesis
         uses: actions/upload-artifact@v2
@@ -48,18 +83,16 @@ jobs:
           path: ./*.pdf
 
       # If running on master branch, publish container image to Docker Hub
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v1
-        if: ${{ github.ref == 'refs/heads/master' }}
-        with:
-          username: wduverger
-          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
-
       - name: Publish docker image
         if: ${{ github.ref == 'refs/heads/master' }}
-        run: |
-          docker push ${{ env.image_name   }}
-          docker tag  ${{ env.image_name   }} ${{ env.image_tagged }}
-          docker push ${{ env.image_tagged }}
+
+        uses: docker/build-push-action@v2
+        with:
+          context: ./
+          file: ./Dockerfile.python
+          builder: ${{ steps.buildx.outputs.name }}
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache
+          tags: wduverger/msc-thesis:${{ env.image_tag}}
+          push: false
           
