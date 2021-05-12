@@ -1,11 +1,11 @@
 name: Automated build
 
+# Run this job on pushes to Github, on manual dispatch, and on schedule
 on: 
   push:
-  pull_request:
   workflow_dispatch:
   schedule:
-    - cron: '30 12 * * 5'  # Run at 12:30 pm every Friday
+    - cron: '30 12 * * 5'  # 12:30 pm every Friday
 
 jobs:
 
@@ -14,32 +14,16 @@ jobs:
 
     steps:
 
-      - name: Checkout code
+      - name: Check out code
         uses: actions/checkout@v2
-
-      - name: Define docker tag
-        run: |
-          echo "image_name=wduverger/msc-thesis" >> $GITHUB_ENV
-          echo "image_tagged=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)" >> $GITHUB_ENV
-          echo "image_tagged=wduverger/msc-thesis:${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)"
-
-      - name: Build python container
-        run: docker build -t ${{ env.image_name }} .
-
-      - name: Compile figures
-        run: |
-          docker run \
-            -v ${{ github.workspace }}:/workspace \
-            ${{ env.image_name }} \
-            make -j8 figures
 
       - name: Compile thesis
         run: |
-          docker pull texlive/texlive
-          docker run \
-            -v ${{ github.workspace }}:/workspace \
-            texlive/texlive \
-            bash -c "cd workspace && make thesis"
+          docker build -t wduverger/msc-thesis -f ./Dockerfile.python .
+          docker run -v ${{ github.workspace }}:/workspace wduverger/msc-thesis
+
+          docker build -t wduverger/latex -f ./Dockerfile.latex .
+          docker run -v ${{ github.workspace }}:/workspace wduverger/latex
 
       - name: Save thesis
         uses: actions/upload-artifact@v2
@@ -48,7 +32,6 @@ jobs:
           path: ./*.pdf
 
       # If running on master branch, publish container image to Docker Hub
-
       - name: Login to Docker Hub
         uses: docker/login-action@v1
         if: ${{ github.ref == 'refs/heads/master' }}
@@ -59,7 +42,7 @@ jobs:
       - name: Publish docker image
         if: ${{ github.ref == 'refs/heads/master' }}
         run: |
-          docker push ${{ env.image_name   }}
-          docker tag  ${{ env.image_name   }} ${{ env.image_tagged }}
-          docker push ${{ env.image_tagged }}
-          
+          TAG="${{ github.sha }}-$(date +%Y.%m.%d-%H.%M)"
+          docker push wduverger/msc-thesis
+          docker tag  wduverger/msc-thesis wduverger/msc-thesis:$TAG
+          docker push wduverger/msc-thesis:$TAG
