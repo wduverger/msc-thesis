@@ -197,6 +197,9 @@
 
 %%%%% 5. My own extra commands %%%%%
 
+% Don't show subsections in the table of contents
+\setcounter{tocdepth}{1}
+
 % Define cover page that will only be printed for web version
 \newcommand{\printcover}[1]{
 	\unless\ifprint

@@ -33,7 +33,7 @@ def scalebar_in_place(im, pad, height, width, label=''):
     drawer.text(
         (Y-pad-width, pad+2*height),
         label,
-        font=ImageFont.truetype(font='calibri.ttf', size=19)
+        font=ImageFont.truetype(font='./utils/SourceSansPro-Regular.ttf', size=19)
     )
     np_img = np.array(pil_img, dtype=float)/255
 

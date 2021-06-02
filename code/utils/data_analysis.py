@@ -60,19 +60,11 @@ def align_stack(original_image, return_warp_matrices=False):
             eps
         )
 
-        # Needs two implementations, depending on the opencv versian used
         warp_matrix = np.eye(2, 3, dtype=np.float32)
-        # try:
         (_, warp_matrix) = cv2.findTransformECC(
             reference, new_frame, warp_matrix,
             cv2.MOTION_TRANSLATION, criteria,
         )
-        # except TypeError:
-        #     (_, warp_matrix) = cv2.findTransformECC(
-        #         reference, new_frame, warp_matrix,
-        #         cv2.MOTION_TRANSLATION, criteria,
-        #         inputMask=None, gaussFiltSize=1
-        #     )
 
         corrected_image[i+1] = cv2.warpAffine(
             new_frame, warp_matrix, opencv_size,
@@ -86,31 +78,6 @@ def align_stack(original_image, return_warp_matrices=False):
     else:
         return corrected_image
 
-def align_multiple_stacks(list_of_stacks):
-    stack0_aligned, warp_matrices = align_stack(
-        list_of_stacks[0], 
-        return_warp_matrices=True
-    )
-
-    stacks_aligned = [stack0_aligned]
-    
-    Z, Y, X = stack0_aligned.shape
-    opencv_size = (X, Y)
-
-    for i in range(0, len(list_of_stacks)):
-        stack = list_of_stacks[i]
-        stack_aligned = np.zeros_like(stack)
-        stack_aligned[0] = stack[0]
-
-        for j in range(Z-1):
-            stack_aligned[j+1] = cv2.warpAffine(
-                stack[j+1], warp_matrix[j], opencv_size,
-                flags=cv2.INTER_LINEAR + cv2.WARP_INVERSE_MAP
-            )
-    
-        stacks_aligned += [stack_aligned]
-
-    return stacks_aligned
 
 def compensate_bleaching(stack):
     i = np.arange(len(stack))

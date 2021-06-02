@@ -34,7 +34,12 @@ for i in range(10):
     ax[i].imshow(im[peakj-di:peakj+di, peaki-di:peaki+di])
     ax[i].axis('off')
     ax[i].set_title(f'{hwp_angles[i*2]}°')
-    utils.add_scalebar(ax[i], 100e-9/im.pixel_size_xy, size_vertical=.5)
+    utils.add_scalebar(
+        ax[i], 
+        500e-9/im.pixel_size_xy, 
+        '500 nm' if i == 4 else '',
+        size_vertical=.5
+    )
 
 fig.savefig('../figures_generated/psted_psfs.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/psted_psfs.svg', bbox_inches='tight')

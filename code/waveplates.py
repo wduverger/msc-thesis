@@ -21,10 +21,10 @@ def plot_pol_ellipse(ax, jvec):
     t = np.linspace(0, 2*np.pi)
     x = np.real(ex * np.exp(1j * t))
     y = np.real(ey * np.exp(1j * t))
-    d = np.angle(ey) - np.angle(ex)
-    
+    d = np.angle(ey/ex)
+
     lefthanded = d > 0
-    circular = d % np.pi > .1 and np.abs(ex) > .2 and np.abs(ey) > .2
+    circular = d % np.pi > .5 and np.abs(ex) > .2 and np.abs(ey) > .2
     color = 'C0' if not circular else (
         'C1' if lefthanded else 'C2'
     )
@@ -46,20 +46,22 @@ s2 = np.array([[1, 0], [0, -1]])
 s4 = np.array([[1, 0], [0, 1j]])
 
 # Visualise action of waveplates
-fig, ax = plt.subplots(3, len(jvec), figsize=(utils.linewidth, utils.figheight))
+fig, ax = plt.subplots(3, len(jvec), 
+    figsize=(utils.linewidth, utils.figheight),
+    gridspec_kw=dict(hspace=1))
 
 for i, j in enumerate(jvec):
     plot_empty(ax[0, i])
     plot_empty(ax[1, i])
     plot_empty(ax[2, i])
 
-    plot_pol_ellipse(ax[0, i],      j)
-    plot_pol_ellipse(ax[1, i], s4 @ j)
-    plot_pol_ellipse(ax[2, i], s2 @ j)
+    plot_pol_ellipse(ax[0, i],           j)
+    plot_pol_ellipse(ax[1, i],      s2 @ j)
+    plot_pol_ellipse(ax[2, i], s4 @ s2 @ j)
 
-ax[0, 0].set(title='Initial')
-ax[1, 0].set(title='After QWP')
-ax[2, 0].set(title='After HWP')
+ax[0, 0].set_title('1. Initial', loc='left')
+ax[1, 0].set_title('2. After QWP', loc='left')
+ax[2, 0].set_title('3. After QWP and HWP', loc='left')
 
 fig.savefig('../figures_generated/waveplates.pdf')#, bbox_inches='tight')
 fig.savefig('../figures_generated/waveplates.svg')#, bbox_inches='tight')

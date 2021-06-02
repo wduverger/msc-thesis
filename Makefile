@@ -28,6 +28,14 @@ thesis-print:
 		sed -ie "s/\\documentclass\[.*\]{mystyle}/\\documentclass[print]{mystyle}/" thesis.tex && \
 		$(TEX_CHAIN) && \
 		cp -p thesis.pdf "../MSc thesis Wouter Duverger (print).pdf"
+
+docker-python:
+	docker build -t wduverger/msc-thesis -f ./Dockerfile.python .
+	docker run --rm -itv "%cd%":/workspace wduverger/msc-thesis
+
+docker-latex:
+	docker build -t wduverger/latex -f ./Dockerfile.latex .
+	docker run --rm -itv "%cd%":/workspace wduverger/latex
 	
 # Clean compiled files
 clean:
