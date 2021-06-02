@@ -14,7 +14,7 @@ figures_generated/%.pdf: code/%.py
 # Compile latex
 thesis: thesis-web thesis-print
 
-TEX_COMPILE = xelatex -halt-on-error thesis.tex > /dev/null
+TEX_COMPILE = xelatex -halt-on-error thesis.tex
 TEX_CHAIN = $(TEX_COMPILE) && bibtex thesis && $(TEX_COMPILE) && $(TEX_COMPILE)
 
 thesis-web:
