@@ -96,18 +96,18 @@ The excitation beam is described by the electric field amplitude $ \vb{E}_\exc $
 	\begin{aligned}
 		I_\emm 
 			&= A \int 
-				\sigma_\exc \abs{\unit{n}_{\theta'\phi'} \cdot \vb{E}_\exc(\vb{x}-\vb{x}')}^2 
+				\sigma_\exc \abs{\unitvec{n}_{\theta'\phi'} \cdot \vb{E}_\exc(\vb{x}-\vb{x}')}^2 
 				\rho(\vb{y}') 
 				\dd{\vb{y}'} \\
 			&= \int 
-				\sigma_\exc I_\exc(\vb{x}'-\vb{x}) \abs{\unit{n}_{\theta'\phi'}\unit{n}_{\theta\phi}}^2
+				\sigma_\exc I_\exc(\vb{x}'-\vb{x}) \abs{\unitvec{n}_{\theta'\phi'}\unitvec{n}_{\theta\phi}}^2
 				\rho(\vb{y}') 
 				\dd{\vb{y}'}
 	\end{aligned}
 \end{equation}
-where $ \unit{n}_{\theta\phi} $ is a unit vector pointing in the direction of $ (\theta, \phi) $ and $ A = \epsilon_0c/2 $. $ \epsilon_0 $ is a constant denoting the vacuum permittivity. The dot product can be expressed as
+where $ \unitvec{n}_{\theta\phi} $ is a unit vector pointing in the direction of $ (\theta, \phi) $ and $ A = \epsilon_0c/2 $. $ \epsilon_0 $ is a constant denoting the vacuum permittivity. The dot product can be expressed as
 \begin{equation}
-	\abs{\unit{n}_{\theta'\phi'}\unit{n}_{\theta\phi}}^2 = \cos^2(\theta-\theta') \cos^2(\phi-\phi'),
+	\abs{\unitvec{n}_{\theta'\phi'}\unitvec{n}_{\theta\phi}}^2 = \cos^2(\theta-\theta') \cos^2(\phi-\phi'),
 \end{equation}
 so we can express the emission intensity as a convolution product like
 \begin{gather}
@@ -123,8 +123,8 @@ for the distribution $ \rho_0 $. $ I_\emm $ is maximal when the excitation polar
 Now, we need to include the effect of the polarised depletion field, which amounts to adding an exponential factor under the integral
 \begin{multline}
 	I_\emm = A \int
-		\sigma_\exc \abs{\unit{n}_{\theta'\phi'} \cdot \vb{E}_\exc(\vb{x}-\vb{x}')}^2 
-		\exp(-\sigma_\dep \abs{\unit{n}_{\theta'\phi'} \cdot \vb{E}_\dep(\vb{x}-\vb{x}')}^2)
+		\sigma_\exc \abs{\unitvec{n}_{\theta'\phi'} \cdot \vb{E}_\exc(\vb{x}-\vb{x}')}^2 
+		\exp(-\sigma_\dep \abs{\unitvec{n}_{\theta'\phi'} \cdot \vb{E}_\dep(\vb{x}-\vb{x}')}^2)
 		\rho(\vb{y}') 
 		\dd{\vb{y}'}.
 	\label{eq:psted integral}
