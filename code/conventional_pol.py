@@ -2,6 +2,8 @@
 import utils
 import matplotlib.pyplot as plt
 import cv2
+from PIL import ImageDraw, Image, ImageFont
+import numpy as np
 
 # %%
 files = [
@@ -16,11 +18,27 @@ ims = [utils.align_stack(m['640_conf_apd2 {1}']) for m in msrs]
 
 # %%
 
-def scalebar_in_place(im, pad, height, width):
+def scalebar_in_place(im, pad, height, width, label=''):
+
+    Y, X, C = im.shape
+
+    # Draw scale bar
     width = int(width)
     im = im.copy()
     im[pad:pad+height, -pad-width:-pad, :] = [1, 1, 1]
-    return im
+
+    # Draw text
+    pil_img = Image.fromarray(np.uint8(im*255))
+    drawer = ImageDraw.Draw(pil_img)
+    drawer.text(
+        (Y-pad-width, pad+2*height),
+        label,
+        font=ImageFont.truetype(font='calibri.ttf', size=19)
+    )
+    np_img = np.array(pil_img, dtype=float)/255
+
+    return np_img
+
 
 def add_wheel(im, pad, resolution):
     wheel_im = utils.generate_wheel(resolution=resolution)
@@ -34,7 +52,10 @@ def add_wheel(im, pad, resolution):
 
 for i in range(len(files)):
     im = utils.stack_to_rgb(ims[i])
-    im = scalebar_in_place(im, pad=20, height=5, width=10e-6/ims[0].pixel_size_xy)
+    im = scalebar_in_place(
+        im, pad=20, height=5, width=10e-6/ims[0].pixel_size_xy, 
+        label='10 μm' if i == 0 else ''
+    )
     im = add_wheel(im, pad=20, resolution=40)
     im *= 255
     
@@ -52,7 +73,7 @@ sat_exp = 1
 for i in range(len(val_exp)):
     ax[0, i].imshow(utils.stack_to_rgb(ims[0], brightness=val_exp[i], saturation=sat_exp))
     ax[0, i].axis('off')
-    utils.add_scalebar(ax[0, i], 10e-6/ims[i].pixel_size_xy)
+    utils.add_scalebar(ax[0, i], 10e-6/ims[i].pixel_size_xy, '10 μm' if i==2 else '')
     # utils.add_colourwheel(ax[0, i])
     ax[0, i].set(
         title=f'$\\alpha_v$ = {val_exp[i]} ($\\alpha_s$ = {sat_exp})'
