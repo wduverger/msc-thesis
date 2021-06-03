@@ -14,7 +14,7 @@ figures_generated/%.pdf: code/%.py
 # Compile latex
 thesis: thesis-web thesis-print
 
-TEX_COMPILE = xelatex -halt-on-error thesis.tex > /dev/null
+TEX_COMPILE = xelatex -halt-on-error thesis.tex
 TEX_CHAIN = $(TEX_COMPILE) && bibtex thesis && $(TEX_COMPILE) && $(TEX_COMPILE)
 
 thesis-web:
@@ -28,6 +28,14 @@ thesis-print:
 		sed -ie "s/\\documentclass\[.*\]{mystyle}/\\documentclass[print]{mystyle}/" thesis.tex && \
 		$(TEX_CHAIN) && \
 		cp -p thesis.pdf "../MSc thesis Wouter Duverger (print).pdf"
+
+docker-python:
+	docker build -t wduverger/msc-thesis -f ./Dockerfile.python .
+	docker run --rm -itv "%cd%":/workspace wduverger/msc-thesis
+
+docker-latex:
+	docker build -t wduverger/latex -f ./Dockerfile.latex .
+	docker run --rm -itv "%cd%":/workspace wduverger/latex
 	
 # Clean compiled files
 clean:

@@ -23,7 +23,7 @@
 #       Explanation:
 #       -  `--rm` destroys the container on exit
 #       -  `-it` opens an interactive terminal
-#       -  `-v "{PWD}:/workspace` binds the host directory in which the command
+#       -  `-v ${PWD}:/workspace` binds the host directory in which the command
 #           is ran to the container directory in which Jupyter is running.
 #
 #   Compiled by Wouter Duverger (2021)

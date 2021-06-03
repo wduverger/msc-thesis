@@ -43,9 +43,9 @@ def generate_wheel(alpha=1, sat=1, val=.9, resolution=100):
 
     disc = rr < 1  # Image that is 0 if pixel outside unit circle, 1 otherwise
 
-    im_hsv[..., 0] = (disc*tt / np.pi + 1)%1    # Hue
-    im_hsv[..., 1] = disc*rr * sat              # Saturation
-    im_hsv[..., 2] = disc * val                 # Brightness
+    im_hsv[..., 0] = 1 - (disc*tt / np.pi + 1)%1  # Hue
+    im_hsv[..., 1] = disc*rr * sat                # Saturation
+    im_hsv[..., 2] = disc * val                   # Brightness
 
     # Convert to RGB
     im_hsv = matplotlib.colors.hsv_to_rgb(im_hsv)

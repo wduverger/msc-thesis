@@ -80,7 +80,7 @@ ax[0].set(
 im1 = ax[1].imshow((norm(matCE1)+norm(matCE2))/2, cmap='bwr', vmax=1, vmin=vmin)
 
 ax[1].set(
-    title='Circular 1',
+    title='Circular',
     xlabel='Depletion pol (deg)',
     xticks=np.arange(0,9,2),
     xticklabels=pol_angles1[-1::-2],

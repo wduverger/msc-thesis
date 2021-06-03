@@ -97,3 +97,20 @@ for i in range(5):
 
 fig.savefig('../figures_generated/psted_simulation.pdf', bbox_inches='tight')
 fig.savefig('../figures_generated/psted_simulation.svg', bbox_inches='tight')
+
+# %%
+
+fig, ax = plt.subplots(1, 1, figsize=(0.5*utils.linewidth, utils.figheight))
+
+t = np.linspace(-90, 90, 500)
+tr = t * np.pi / 180
+ax.plot(t, (psf_lin(tr-angle) + psf_lin(tr+angle))/2, label='no pSTED')
+ax.plot(t, psf_psted(tr-angle) + psf_psted(tr+angle), label='pSTED')
+ax.set(
+    xlabel='Excitation polarisation (deg)',
+    ylabel='Intensity (norm)',
+    xticks=np.arange(-90, 91, 45)
+)
+ax.legend(loc='upper right')
+
+fig.savefig('../figures_generated/psted_simulation_profile.svg', bbox_inches='tight')

@@ -1,6 +1,6 @@
 % !TeX spellcheck = en_GB
 
-\chapter{A note on laser safety}
+\section{A note on laser safety}
 
 The \SI{775}{nm} line is a class 4 laser source. Under normal operation, the user is protected from it. However, when calibrating the STED beam or placing new components in the beam path, it is theoretically possible for the collimated laser beam to be reflected into the user's eyes. A high-powered laser beam can do permanent damage to the skin and retina, so we have to make sure we stay below the limits imposed by the Work Environment Agency's (Arbetsmiljöverkets) limits \cite{AFS2009:7}. These regulations set forth three main conditions to calculate the Maximum Permissible Exposure (MPE) of a pulsed laser, see Table 2.6 of the regulations. Important values and formulas about our setup, as well as the limits provided by the Work Environment Agency are provided in \autoref{tab:laser-safety} and in the text below.
 
@@ -37,7 +37,7 @@ whereas the MPE equals
 \end{equation}
 This formula is found in table 2.2 of the regulations.
 
-\paragraph{Rule 2: The dose of a single pulse may not exceed the thermally-corrected MPE.} This weighs the pulse MPE with the amount of pulses in an interval $ T_\mathit{min} $. The number of pulses in such an interval is $ n = f\cdot T_\mathit{min} $, so
+\paragraph{Rule 2: The dose of a single pulse may not exceed the thermally-corrected MPE.} This weighs the pulse MPE with the number of pulses in an interval $ T_\mathit{min} $. The number of pulses in such an interval is $ n = f\cdot T_\mathit{min} $, so
 \begin{equation}
 	H_\mathit{thermal}^\mathit{MPE} =  n^{-1/4} H_\mathit{pulse}^\mathit{MPE} = \SI{1.3}{mJ/m^2}.
 \end{equation}

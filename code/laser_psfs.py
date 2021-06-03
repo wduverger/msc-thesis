@@ -45,10 +45,15 @@ def plot_row(msrs, row):
     ax[row, 2].imshow(rgb_combine(r=avgsted))
     ax[row, 3].imshow(rgb_combine(r=avgsted, g=avg640, b=avg561))
 
-    for a in ax[row, :]: 
+    for i, a in enumerate(ax[row, :]): 
         a.axis('off')
+        add_label = i == 3 and row==0
         utils.add_scalebar(
-            a, 200e-9/c561(msrs[0]).pixel_size_xy, size_vertical=1)
+            a, 
+            500e-9/c561(msrs[0]).pixel_size_xy, 
+            '500 nm' if add_label else '', 
+            size_vertical=1
+        )
 
 fig, ax = plt.subplots(2, 4,figsize=(utils.linewidth, 1.3*utils.figheight))
 plot_row(msrs_donut, 0)
