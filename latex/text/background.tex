@@ -35,7 +35,7 @@ where $ \vb*{\mu}_{21} = \mel{2}{\vb*{\mu}}{1} $ and $ \omega_0 = (\epsilon_2-\e
 The resolution of fluorescence microscopy used to be limited by light diffraction. Consider the diffraction limit in one of the simplest possible setups: an epifluorescence microscope. Epifluorescence microscopy is fairly similar to bright field microscopy; it just uses excitation light of a well-defined wavelength instead of white light. The sample, which is stained with a fluorescent dye, is illuminated at a wavelength that dye can absorb. The dye molecules will then emit photons of longer wavelengths in their emission spectrum, which are collected by the microscope objective. Before imaging by a CCD camera, scattered laser light can be filtered away using a dichroic mirror that passes emission light and reflects excitation light. 
 
 
-It used to be the case that microscopes were limited in resolution by the quality of their lenses and the pixel density of the CCD, but there is a much more fundamental limit, first described by Ernst Abbe. This limit is caused by the presence of an aperture. When a beam of light goes through an aperture of finite size, such as a lens, it cannot be focused onto an infinitesimally small point. Instead, it will generate a spot with a radius approximately equal to $ \lambda/2\na $, where $ \lambda $ is the wavelength of the light and $ \na= n\sin\theta $ is the numerical aperture, the product of the index of refraction and the sine of the half-cone angle $ \theta $ of the acceptance cone.
+It used to be the case that microscopes were limited in resolution by the quality of their lenses and the pixel density of the CCD, but there is a much more fundamental limit, first described by Ernst Abbe. This limit is caused by the presence of an aperture. When a beam of light goes through an aperture of finite size, such as a lens, it cannot be focused onto an infinitesimally small point. Instead, it will generate a spot with a radius approximately equal to $ \lambda/2\na $, where $ \lambda $ is the wavelength of the light and $ \na= n\sin\theta $ is the numerical aperture, the product of the index of refraction $ n $ and the sine of the half-cone angle $ \theta $ of the acceptance cone.
 
 \begin{figure}[!t]
 	\centering
@@ -63,7 +63,7 @@ In particular, a circular aperture will convert point sources in the sample plan
 	I(\vb{x}) = (h_\mathit{det} * \rho)(\vb{x}) \coloneqq \int\dd{\vb{x}'} h_\mathit{det}(\vb{x}-\vb{x}')\rho(\vb{x}'),
 	\label{eq:convolution}
 \end{equation}
-where the triple integration over the three components of $ \vb{x}' $ is implied, resulting in an image $ I(\vb{x}) $. When two fluorophores are close enough together that their PSFs overlap, they appear as a single object instead of two separate ones. This happens when the distance between them is approximately $ \lambda/2\na $, and that is what determines the resolution of a microscope. The exact resolution depends on your definition of this minimum resolvable distance. There are several definitions, but they are all proportional to $ \lambda/\na $. Some of them are listed in \autoref{tab:resolution limits} and visualised in \autoref{fig:diffraction limit}.
+where the triple integration over the three components of $ \vb{x}' $ is implied, resulting in an image $ I(\vb{x}) $. When two fluorophores are close enough together that their PSFs overlap, they appear as a single object instead of two separate ones. This happens when the distance between them is approximately $ \lambda/2\na $, and that is what determines the resolution of a microscope. The exact resolution depends on your definition of this minimum resolvable distance. There are several definitions, but they are all proportional to $ \lambda/\na $. Some of them are listed in Table \ref{tab:resolution limits} and visualised in \autoref{fig:diffraction limit}.
 
 
 
@@ -209,7 +209,7 @@ Mirrors also affect the polarisation of incident light. In this case, it is usef
 	S_{mx} = \mqty(1 & 0 \\ 0 & -1).
 \end{equation}
 
-Another important type of optical component in the setup is a waveplate. Waveplates or phase retarders are made out of birefringent crystals such as quartz, in which the index of refraction a ray of light experiences is dependent on its polarisation. This happens when a crystal structure lacks cubic symmetry. When the coordinate system is aligned with the crystal axes, it could be the case that $ k_x = k_z = k_o $ (the ordinary axes), while $ k_y = k_e $ (the extraordinary axis). $ k_e $ may both be greater or less than $ k_o $. In these crystals, \autoref{eq:propagator} is no longer valid and should be replaced by
+Another important type of optical component in the setup is a waveplate. Waveplates, or phase retarders, are made out of birefringent crystals such as quartz, in which the index of refraction a ray of light experiences is dependent on its polarisation. This happens when a crystal structure lacks cubic symmetry. When the coordinate system is aligned with the crystal axes, it could be the case that $ k_x = k_z = k_o $ (the ordinary axes), while $ k_y = k_e $ (the extraordinary axis). $ k_e $ may both be greater or less than $ k_o $. In these crystals, \autoref{eq:propagator} is no longer valid and should be replaced by
 \begin{equation}
 	\vb{E}(z, t) = \mqty(\Eox e^{i(k_o z-\omega t)} \\ \Eoy e^{i(k_e z-\omega t + \delta)} ).
 \end{equation}
@@ -229,7 +229,7 @@ Generally, waveplates are characterised by the relative delay they impart on pol
 \begin{equation}
 	S_\qwp = \mqty(1 & 0 \\ 0 & e^{i\pi/2}) = \mqty(1 & 0 \\ 0 & i).
 \end{equation}
-Let's consider what happens to some specific cases. If $ x $ or $ y $ polarised light passes through a quarter-wave plate, its polarisation will not change. But light polarised along $ +\ang{45} $ ($ -\ang{45} $) will be turned into left-handed (right-handed) light, and vice versa. Therefore, a quarter-wave plate can convert between linearly and circularly polarised light, as shown in \autoref{fig:waveplates}.
+Let's consider what happens to some specific cases. If $ x $ or $ y $ polarised light passes through a quarter-wave plate, its polarisation will not change. But light polarised along $ +\ang{45} $ ($ -\ang{45} $) will be turned into left-handed (right-handed) circularly polarised light, and vice versa. Therefore, a quarter-wave plate can convert between linearly and circularly polarised light, as shown in \autoref{fig:waveplates}.
 
 \begin{figure}
 	\centering
