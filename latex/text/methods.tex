@@ -23,16 +23,16 @@ This section discusses the optical setup, describes a number of ways in which on
 	\label{fig:microscope photo}
 \end{figure}
 
-In short, the Tegenfeldt STED microscope is a scanning confocal fluorescence microscope constructed by Abberior Instruments GmbH (Germany). It features two excitation lasers (at 561~nm and 640~nm) and one depletion laser at 775~nm for two-channel confocal or STED microscopy. It also contains a time-correlated single photon counter (TCSPC) for fluorescence lifetime imaging microscopy (FLIM) and a highly sensitive photomultiplier tube (PMT). Refer to Figures \ref{fig:layout} and \ref{fig:microscope photo} for the layout of these optical elements. Samples are located inside an inverted Nikon microscope body (Ti-E, not shown in the figure) equipped with a piezo stage (M-687 PILine XY-stage system and P-736 PInano (Physik Instrumente) Z Microscope Scanner), a 60x, 1.4~NA oil immersion objective (Nikon Plan Apo) and a QUADScan beam scanner (Cambridge Technology).
+In short, the Tegenfeldt STED microscope is a scanning confocal fluorescence microscope constructed by Abberior Instruments GmbH (Germany). It features two excitation lasers (at 561~nm and 640~nm) and one depletion laser at 775~nm for two-channel confocal or STED microscopy. It also contains a time-correlated single-photon counter (TCSPC) for fluorescence lifetime imaging microscopy (FLIM) and a highly sensitive photomultiplier tube (PMT). Refer to Figures \ref{fig:layout} and \ref{fig:microscope photo} for the layout of these optical elements. Samples are located inside an inverted Nikon microscope body (Ti-E, not shown in the figure) equipped with a piezo stage (M-687 PILine XY-stage system and P-736 PInano (Physik Instrumente) Z Microscope Scanner), a 60x, 1.4~NA oil immersion objective (Nikon Plan Apo) and a QUADScan beam scanner (Cambridge Technology).
 
-The microscope has a number of waveplates that are responsible for manipulating the polarisation of laser light and fluorescence light (highlighted in red in \autoref{fig:layout}). In normal operation, all lasers are circularly polarised at the sample plane, but the waveplates in the excitation modules (640 and 561~nm) can be controlled through software to excite the sample with linearly polarised light. The waveplates in the STED module cannot, and therefore the depletion beam is always circularly polarised. Part of this project involved working with a linearly polarised depletion beam, so two waveplates were added in the STED module to achieve that result. Finally, a polarising beam splitter can be inserted into one of the filter cube housings in front of the APDs to measure the polarisation of photons emitted by fluorescence in the sample. In order for this measurement to make any sense, the waveplates in the detection module had to be set up correctly. More information about the laser and detection modules can be found in \autoref{chap:characterisation}.
+The microscope has a number of waveplates that are responsible for manipulating the polarisation of laser light and fluorescence light (highlighted in red in \autoref{fig:layout}). In normal operation, all lasers are circularly polarised at the sample plane, but the waveplates in the excitation modules (640 and 561~nm) can be controlled through software to excite the sample with linearly polarised light. The waveplates in the STED module cannot be rotated and therefore the depletion beam is always circularly polarised. Part of this project involved working with a linearly polarised depletion beam, so two waveplates were added to the STED module to achieve that result. Finally, a polarising beam splitter can be inserted into one of the filter cube housings in front of the APDs to measure the polarisation of photons emitted by fluorescence in the sample. For this measurement to make any sense, the waveplates in the detection module had to be set up correctly. More information about the laser and detection modules can be found in \autoref{chap:characterisation}.
 
 \section{Conventional polarisation microscopy: acquisition and analysis}
 \label{sec:pol analysis}
  
 Because the current setup offers so much control over the light polarisation on both the excitation and detection ends, one can perform polarisation microscopy in several different ways:
 \begin{enumerate}
-	\item Measuring the intensity of emission components parallel and orthogonal to linearly polarised excitation ($ I_\parallel $ and $ I_\perp $). This is a very established method of polarisation microscopy, and allows for making anisotropy images, where every pixel is calculated according to
+	\item Measuring the intensity of emission components parallel and orthogonal to linearly polarised excitation ($ I_\parallel $ and $ I_\perp $). This is a very established method of polarisation microscopy and allows for making anisotropy images, where every pixel is calculated according to
 	\begin{equation}
 		r=\frac{I_\parallel - I_\perp}{I_\parallel + 2I_\perp}.
 	\end{equation}
@@ -58,19 +58,18 @@ The last method is not subject to those constraints, and is already achievable o
 
 For more information, refer to \autoref{sec:polarisation microsocpy protocol}. The results of this method are presented in \autoref{sec:conventional pol}
 
-\section{Polarisation-dependent STED microscopy (pSTED)}
+\section{Theoretical description of pSTED}
 \label{sec:psted theory}
 
 Since polarisation is important to both excitation and emission of a fluorophore, it stands to reason that stimulated emission should also be polarisation dependent. In fact, that is what the calculation in Dyba et al.'s calculation of STED resolution is based on \cite{Harke2008, Dyba2005}. Moreover, excitation and stimulated emission are described by the same quantum mechanical process \cite{Foot}.
-
-Would it then be possible to adapt the principle of conventional STED microscopy to increase the polarisation resolution of a microscope, instead of its spatial resolution? In this section, I will introduce a definition of polarisation resolution, a mathematical description of how this might be improved using pSTED, and describe how I adapted the microscope setup to perform pSTED. 
+Would it then be possible to adapt the principle of conventional STED microscopy to increase the polarisation resolution of a microscope, instead of its spatial resolution? In this section, the concept of polarisation resolution will be defined and it will be discussed how that might be improved using pSTED, a new method developed during this thesis.
 
 The general idea is that one can define a vectorial PSF (although a better term is photon fluence) that takes light polarisation into account. In a conventional polarisation microscopy setup, the probability of excitation of a fluorophore is proportional to $ \cos^2 \Delta $, where $ \Delta $ is the angle between the excitation polarisation and the transition dipole moment. This results in a FWHM resolution for conventional polarisation microscopy of 
 \begin{equation}
 	d_\theta = \ang{90}.
 \end{equation}
 
-By illuminating the sample with a depletion beam that is orthogonally polarised to the excitation laser, we can suppress fluorescence of fluorophores on the edge of this PSF, just like in conventional STED. This is illustrated in \autoref{fig:psted principle}.
+By illuminating the sample with a depletion beam that is orthogonally polarised to the excitation laser, fluorescence of fluorophores on the edge of this PSF can be suppressed, just like in conventional STED. This is illustrated in \autoref{fig:psted principle}.
 
 \begin{figure}
 	\centering
@@ -91,7 +90,7 @@ Let the fluorophore population be described by the density $ \rho(\vb{y}) $. Thi
 	\int f(\vb{y})\delta(\vb{y}-\vb{y}_0) \dd{\vb{y}} = f(\vb{y}_0).
 \end{gather}
 
-The excitation beam is described by the electric field amplitude $ \vb{E}_\exc $, polarised along $ \theta_\exc $, and analogous for the depletion beam. Like \autoref{eq:convolution}, the emission intensity measured when the laser is focused on $ \vb{x} $ and polarised along $ \theta $, $ \phi$ is now a convolution integral where we also have to integrate over the angles $ \theta $ and $ \phi $ like
+The excitation beam is described by the electric field amplitude $ \vb{E}_\exc $, polarised along $ \theta_\exc $, and analogous for the depletion beam. Like \autoref{eq:convolution}, the emission intensity measured when the laser is focused on $ \vb{x} $ and polarised along $ (\theta, \phi)$ is now a convolution integral where we also have to integrate over the angles $ \theta $ and $ \phi $ like
 \begin{equation}
 	\begin{aligned}
 		I_\emm 
@@ -112,7 +111,7 @@ where $ \unitvec{n}_{\theta\phi} $ is a unit vector pointing in the direction of
 so we can express the emission intensity as a convolution product like
 \begin{gather}
 	I_\emm = (\rho*h_\exc)(\vb{y}), \\
-	\qq{where} h_\exc(\vb{y}) = \sigma_\exc I_\exc(\vb{x}) \cos^2\theta\cos^2\phi.
+	\qq{where} h_\exc(\vb{y}) = \sigma_\exc I_\exc(\vb{x}) \cos^2\theta_\exc\cos^2\phi_\exc.
 \end{gather}
 If we have a constant laser intensity $ I_\exc $ that is polarised along $ \theta_\exc $ without any out-of-plane polarisation, this reduces to
 \begin{equation}
@@ -120,7 +119,7 @@ If we have a constant laser intensity $ I_\exc $ that is polarised along $ \thet
 \end{equation}
 for the distribution $ \rho_0 $. $ I_\emm $ is maximal when the excitation polarisation is in the $ x $ direction, as expected. From this equation, we can derive the same angular resolution as before, but with more rigour.
 
-Now, we need to include the effect of the polarised depletion field, which amounts to adding an exponential factor under the integral
+Now, we need to include the effect of the polarised depletion field, which amounts to adding an exponential factor to the integrand:
 \begin{multline}
 	I_\emm = A \int
 		\sigma_\exc \abs{\unitvec{n}_{\theta'\phi'} \cdot \vb{E}_\exc(\vb{x}-\vb{x}')}^2 
@@ -132,9 +131,9 @@ Now, we need to include the effect of the polarised depletion field, which amoun
 In essence, this is equivalent to multiplying the kernel $ h_\exc $ with the function $ \eta $
 \begin{gather}
 	h(\vb{y}) = h_\exc(\vb{y}) \cdot \eta(\vb{y})  \qq{, where} \\
-	\eta(\vb{y}) = \exp(-\sigma_\dep I_\dep(\vb{x}) \sin^2 \theta),
+	\eta(\vb{y}) = \exp(-\sigma_\dep I_\dep(\vb{x}) \sin^2 \theta_\exc),
 \end{gather}
-which assumes both electric fields are orthogonally polarised and confined to the $ xy $ plane.
+which assumes the lasers are orthogonally polarised and their polarisation is confined to the $ xy $ plane ($ \phi=0 $).
 
 \begin{figure}
 	\centering

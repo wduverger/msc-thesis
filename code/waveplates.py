@@ -60,7 +60,7 @@ for i, j in enumerate(jvec):
     plot_pol_ellipse(ax[2, i], s4 @ s2 @ j)
 
 ax[0, 0].set_title('1. Initial', loc='left')
-ax[1, 0].set_title('2. After QWP', loc='left')
+ax[1, 0].set_title('2. After HWP', loc='left')
 ax[2, 0].set_title('3. After QWP and HWP', loc='left')
 
 fig.savefig('../figures_generated/waveplates.pdf')#, bbox_inches='tight')
