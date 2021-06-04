@@ -204,7 +204,7 @@
 \newcommand{\printcover}[1]{
 %	\unless\ifprint
 	\begin{tikzpicture}[remember picture,overlay]
-		\node[inner sep=0pt] at (current page.center) {\includegraphics[page=1]{coverpage_g5.pdf}};
+		\node[inner sep=0pt] at (current page.center) {\includegraphics[page=1]{#1}};
 	\end{tikzpicture}
 	\cleardoublepage
 %	\fi
