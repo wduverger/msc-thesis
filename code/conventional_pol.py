@@ -54,12 +54,20 @@ for i in range(len(files)):
     im = utils.stack_to_rgb(ims[i])
     im = scalebar_in_place(
         im, pad=20, height=5, width=10e-6/ims[0].pixel_size_xy, 
-        label='10 μm' if i == 0 else ''
+        label=''
     )
     im = add_wheel(im, pad=20, resolution=40)
     im *= 255
-    
     cv2.imwrite(f'../figures_generated/conventional_pol_{i}.png', im)
+
+    im = utils.stack_to_rgb(ims[i])
+    im = scalebar_in_place(
+        im, pad=20, height=5, width=10e-6/ims[0].pixel_size_xy, 
+        label='10 μm'
+    )
+    im = add_wheel(im, pad=20, resolution=40)
+    im *= 255
+    cv2.imwrite(f'../figures_generated/conventional_pol_{i}_scalebar.png', im)
 
 # %%
 
