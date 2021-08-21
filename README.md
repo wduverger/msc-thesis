@@ -13,7 +13,7 @@ To run everything the code, you need a python environment with the packages list
 ```bash  
 # Compile figures
 docker pull wduverger/msc-thesis # Download container from Docker Hub,
-docker build -t wduverger/msc-thesis -f ./Dockerfile.python .  # ... or build it yourself.   
+docker build -t wduverger/msc-thesis -f ./Dockerfile.python .  # ... or build it yourself   
 docker run --rm -itv ${PWD}:/workspace wduverger/msc-thesis
 
 # Compile report
