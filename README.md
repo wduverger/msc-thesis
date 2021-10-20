@@ -21,4 +21,4 @@ docker build -t latex -f ./Dockerfile.latex .
 docker run --rm -itv ${PWD}:/workspace latex
 ```
 
-(C) Wouter Duverger, 2021
+(C) Wouter Duverger, 2021.
